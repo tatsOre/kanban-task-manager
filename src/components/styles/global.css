@@ -1,16 +1,41 @@
+@import url('./button.css');
+@import url('./forms.css');
+@import url('./typography.css');
+
 :root {
   --color-black: #000112;
   --color-very-dark-grey: #20212c;
   --color-dark-grey: #2b2c37;
   --color-lines-dark: #3e3f4e;
   --color-medium-grey: #828fa3;
+  --x: rgba(130, 143, 163, 0.25);
   --color-lines-light: #e4ebfa;
   --color-light-grey: #f4f7fd;
   --color-white: #ffffff;
   --color-main-purple: #635fc7;
   --color-main-purple-hover: #a8a4ff;
+  --color-purple-secondary: rgba(99, 95, 199, 0.1);
   --color-red: #ea5555;
   --color-red-hover: #ff9898;
+}
 
-  --font-family: 'Arial'
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
 }

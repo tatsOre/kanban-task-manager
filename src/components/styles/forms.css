@@ -1,0 +1,80 @@
+form,
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  color: var(--color-medium-grey);
+}
+
+form input[type='text'],
+form textarea {
+  background: #ffffff;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  border-radius: 4px;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+}
+
+form textarea {
+    padding-block: 0.5rem;
+}
+
+form input[type='text']:hover,
+form textarea:hover {
+  border: 1px solid var(--color-main-purple);
+  cursor: pointer;
+}
+
+form input[type='text'].invalid,
+form textarea.invalid {
+  border-color: var(--color-red);
+}
+
+form input[type='text']::placeholder,
+form textarea::placeholder {
+  color: var(--color-black);
+  opacity: 0.25;
+  line-height: 1.438rem; /* 23px */
+}
+
+.input-container,
+.form-input-list li {
+  position: relative;
+}
+
+.form-input-list li {
+  display: flex;
+}
+
+.form-input-list li input[type='text'] {
+  flex: 1;
+}
+
+.form-input-list li button {
+  margin-left: 0.5rem;
+}
+
+form input ~ strong,
+form textarea ~ strong {
+  color: var(--color-red);
+  position: absolute;
+  font-weight: 500;
+  font-size: 0.813rem; /* 13px */
+}
+
+form .input-container input[type='text'] ~ strong {
+  top: 1.8rem;
+  right: 1.35rem;
+}
+
+form textarea ~ strong {
+  bottom: 0.5rem;
+  right: 1.35rem;
+}
+
+.form-input-list li input[type='text'] ~ strong {
+  top: 0.85rem;
+  right: 3.25rem;
+}

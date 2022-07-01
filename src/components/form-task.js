@@ -4,7 +4,7 @@ import { useTheme } from './context/theme'
 
 import { useFormSubmission } from './hooks/use-form-submission'
 
-import { Button } from './button'
+import { Button, CloseButton } from './button'
 
 import { POST_TASK, PUT_TASK } from '../utils/routes'
 
@@ -32,8 +32,6 @@ function TaskSubmission({ initialValues, edit }) {
   )
 }
 
-
-
 function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues || {})
   const [errors, setErrors] = useState({})
@@ -49,7 +47,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
     setValues((s) => ({ ...s, [target.name]: target.value }))
   }
 
-  const onChangeSubtask = (e, idx) => {
+  const onChangeArrayItem = (e, idx) => {
     if (errors.subtasks && errors.subtasks[idx]) {
       errors.subtasks[idx] = ''
     }
@@ -62,12 +60,11 @@ function TaskForm({ initialValues, edit, onSubmit }) {
     })
     setValues((s) => ({ ...s, subtasks: edited }))
   }
-
-  const appendSubtask = () => {
+  const appendArrayItem = () => {
     setValues((s) => ({ ...s, subtasks: [...s.subtasks, { title: '', isCompleted: false }] }))
   }
 
-  const removeSubtask = (idx) => {
+  const removeArrayItem = (idx) => {
     const filtered = values.subtasks.filter((s, index) => index !== idx)
     setValues((s) => ({ ...s, subtasks: filtered }))
   }
@@ -102,47 +99,57 @@ function TaskForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2>{edit ? 'Edit Task' : 'Add New Task'}</h2>
+      <h2 className="heading-l">{edit ? 'Edit Task' : 'Add New Task'}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-container">
           <label htmlFor="title">Title</label>
-          <input id="title" name="title" type="text" value={values.title} onChange={onChange} />
+          <input
+            id="title"
+            name="title"
+            type="text"
+            value={values.title}
+            placeholder="e.g. Take coffee break"
+            onChange={onChange}
+            className={errors.title ? 'invalid' : undefined}
+          />
           {errors.title ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <div>
+        <div className="input-container">
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
             value={values.description}
+            placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
             onChange={onChange}
+            rows="6"
+            className={errors.description ? 'invalid' : undefined}
           />
           {errors.description ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <p>Subtasks</p>
-        <ul>
+        <label>Subtasks</label>
+        <ul className="form-input-list">
           {values.subtasks.map((subtask, index) => (
             <li key={`subtask-${index}`}>
               <input
                 aria-label=""
                 value={subtask.title}
-                placeholder={placeholders[index] || "e.g. Beautiful Subtask"}
+                placeholder={placeholders[index] || 'e.g. Beautiful Subtask'}
                 type="text"
-                onChange={(e) => onChangeSubtask(e, index)}
+                onChange={(e) => onChangeArrayItem(e, index)}
+                className={errors.subtasks && errors.subtasks[index] ? 'invalid' : undefined}
               />
-              <button type="button" onClick={() => removeSubtask(index)}>
-                X
-              </button>
+              <CloseButton onClick={() => removeArrayItem(index)} />
               {errors.subtasks && errors.subtasks[index] ? <strong>Can't be empty</strong> : null}
             </li>
           ))}
         </ul>
 
-        <button type="button" onClick={appendSubtask}>
+        <Button type="button" onClick={appendArrayItem} variant="secondary">
           + Add New Subtask
-        </button>
+        </Button>
 
         <label>Status</label>
         <select name="status" value={values.status} onChange={onChange}>

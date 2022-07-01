@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
+
+:root {
+  --font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 16px;
+}
+
+button,
+textarea,
+input[type='text'] {
+  font-family: var(--font-family);
+}
+
+.heading-xl {
+  font-weight: bold;
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.875rem; /* 30px */
+}
+
+.heading-l {
+  font-weight: bold;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.438rem; /* 23px */
+}
+
+.heading-m {
+  font-weight: bold;
+  font-size: 0.938rem; /* 15px */
+  line-height: 1.188rem; /* 19px */
+}
+
+.heading-s {
+  font-weight: bold;
+  font-size: 0.688rem; /* 11px */
+  line-height: 0.938rem; /* 15px */
+  letter-spacing: 2.4px;
+  color: var(--color-medium-grey);
+}
+
+.body-l {
+  font-weight: medium;
+  font-size: 0.813rem; /* 13px */
+  line-height: 1.438rem; /* 23px */
+}
+
+form label,
+.body-m {
+  font-weight: bold;
+  font-size: 0.75rem; /* 12px */
+  line-height: 0.938rem; /* 15px */
+}

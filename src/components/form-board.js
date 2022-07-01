@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useTheme } from './context/theme'
 
-import { Button } from './button'
+import { Button, CloseButton } from './button'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues || {})
@@ -36,8 +36,8 @@ function BoardForm({ initialValues, edit, onSubmit }) {
   }
 
   const removeArrayItem = (idx) => {
-    const filtered = values.subtasks.filter((s, index) => index !== idx)
-    setValues((s) => ({ ...s, subtasks: filtered }))
+    const filtered = values.columns.filter((s, index) => index !== idx)
+    setValues((s) => ({ ...s, columns: filtered }))
   }
 
   const handleSubmit = (event) => {
@@ -65,16 +65,23 @@ function BoardForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2>{edit ? 'Edit Board' : 'Add New Board'}</h2>
+      <h2 className="heading-l">{edit ? 'Edit Board' : 'Add New Board'}</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-container">
           <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" value={values.name} onChange={onChange} />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            value={values.name}
+            onChange={onChange}
+            className={errors.name ? 'invalid' : undefined}
+          />
           {errors.name ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <p>Columns</p>
-        <ul>
+        <label>Columns</label>
+        <ul className="form-input-list">
           {values.columns.map((column, index) => (
             <li key={`column-${index}`}>
               <input
@@ -82,18 +89,17 @@ function BoardForm({ initialValues, edit, onSubmit }) {
                 value={column.name}
                 type="text"
                 onChange={(e) => onChangeArrayItem(e, index)}
+                className={errors.columns && errors.columns[index] ? 'invalid' : undefined}
               />
-              <button type="button" onClick={() => removeArrayItem(index)}>
-                X
-              </button>
+              <CloseButton onClick={() => removeArrayItem(index)} />
               {errors.columns && errors.columns[index] ? <strong>Can't be empty</strong> : null}
             </li>
           ))}
         </ul>
 
-        <button type="button" onClick={appendArrayItem}>
+        <Button type="button" onClick={appendArrayItem} variant="secondary">
           + Add New Column
-        </button>
+        </Button>
 
         <Button type="submit">{edit ? 'Save Changes' : 'Create New Board'}</Button>
       </form>
