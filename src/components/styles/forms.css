@@ -1,24 +1,29 @@
+/*** STYLES FOR CREATE/EDIT TASK/BOARD FORMS ***/
+
 form,
 .input-container {
   display: flex;
   flex-direction: column;
 }
 
+.input-container {
+  margin-block-start: 1.5rem;
+}
+
 form label {
-  color: var(--color-medium-grey);
+  margin-block-end: 0.5rem;
 }
 
 form input[type='text'],
 form textarea {
-  background: #ffffff;
-  border: 1px solid rgba(130, 143, 163, 0.25);
   border-radius: 4px;
   padding-block: 0.75rem;
-  padding-inline: 1rem;
+  padding-inline: 0.9rem;
+  border: 1px solid rgba(130, 143, 163, 0.25);
 }
 
 form textarea {
-    padding-block: 0.5rem;
+  padding-block: 0.5rem;
 }
 
 form input[type='text']:hover,
@@ -34,7 +39,6 @@ form textarea.invalid {
 
 form input[type='text']::placeholder,
 form textarea::placeholder {
-  color: var(--color-black);
   opacity: 0.25;
   line-height: 1.438rem; /* 23px */
 }
@@ -46,6 +50,7 @@ form textarea::placeholder {
 
 .form-input-list li {
   display: flex;
+  margin-block-end: 0.75rem;
 }
 
 .form-input-list li input[type='text'] {
@@ -77,4 +82,20 @@ form textarea ~ strong {
 .form-input-list li input[type='text'] ~ strong {
   top: 0.85rem;
   right: 3.25rem;
+}
+
+form button[type='submit'] {
+  margin-block-start: 1.5rem;
+}
+
+/* Theming
+============================ */
+
+form label {
+  color: var(--color-medium-grey);
+}
+
+form input[type='text']::placeholder,
+form textarea::placeholder {
+  color: var(--color-black);
 }

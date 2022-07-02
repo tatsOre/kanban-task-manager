@@ -9,11 +9,11 @@
 
 .secondary {
   color: var(--color-main-purple);
-  background-color: var(--color-purple-secondary);
+  background-color: var(--color-secondary-purple);
 }
 
 .secondary:hover {
-  background-color: var(--color-purple-secondary);
+  background-color: var(--color-secondary-purple);
 }
 
 .danger {

@@ -8,9 +8,8 @@ function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues || {})
   const [errors, setErrors] = useState({})
 
-  const [theme] = useTheme()
-
   const onChange = ({ target }) => {
+    console.log('Changing', target.value)
     if (errors[target.name]) {
       errors[target.name] = ''
     }
@@ -53,7 +52,10 @@ function BoardForm({ initialValues, edit, onSubmit }) {
       values.columns.forEach((s, idx) => {
         if (!s.name) {
           valid = false
-          setErrors((s) => ({ ...s, columns: { ...s.columns, [idx]: "Can't be empty" } }))
+          setErrors((s) => ({
+            ...s,
+            columns: { ...s.columns, [idx]: "Can't be empty" }
+          }))
         }
       })
     }
@@ -65,7 +67,9 @@ function BoardForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2 className="heading-l">{edit ? 'Edit Board' : 'Add New Board'}</h2>
+      <h2 id="board-dialog-title" className="heading-l">
+        {edit ? 'Edit Board' : 'Add New Board'}
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label htmlFor="name">Name</label>
@@ -74,34 +78,45 @@ function BoardForm({ initialValues, edit, onSubmit }) {
             name="name"
             type="text"
             value={values.name}
+            placeholder="e.g. Web Design"
             onChange={onChange}
             className={errors.name ? 'invalid' : undefined}
           />
           {errors.name ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <label>Columns</label>
-        <ul className="form-input-list">
-          {values.columns.map((column, index) => (
-            <li key={`column-${index}`}>
-              <input
-                aria-label=""
-                value={column.name}
-                type="text"
-                onChange={(e) => onChangeArrayItem(e, index)}
-                className={errors.columns && errors.columns[index] ? 'invalid' : undefined}
-              />
-              <CloseButton onClick={() => removeArrayItem(index)} />
-              {errors.columns && errors.columns[index] ? <strong>Can't be empty</strong> : null}
-            </li>
-          ))}
-        </ul>
+        <div className="input-container">
+          <label id="columns-list">Columns</label>
+          <ul aria-labelledby="columns-list" className="form-input-list">
+            {values.columns.map((column, index) => (
+              <li key={`column-${index}`}>
+                <input
+                  aria-label=""
+                  value={column.name}
+                  type="text"
+                  onChange={(e) => onChangeArrayItem(e, index)}
+                  className={
+                    errors.columns && errors.columns[index]
+                      ? 'invalid'
+                      : undefined
+                  }
+                />
+                <CloseButton onClick={() => removeArrayItem(index)} />
+                {errors.columns && errors.columns[index] ? (
+                  <strong>Can't be empty</strong>
+                ) : null}
+              </li>
+            ))}
+          </ul>
 
-        <Button type="button" onClick={appendArrayItem} variant="secondary">
-          + Add New Column
+          <Button type="button" onClick={appendArrayItem} variant="secondary">
+            + Add New Column
+          </Button>
+        </div>
+
+        <Button type="submit">
+          {edit ? 'Save Changes' : 'Create New Board'}
         </Button>
-
-        <Button type="submit">{edit ? 'Save Changes' : 'Create New Board'}</Button>
       </form>
     </>
   )
