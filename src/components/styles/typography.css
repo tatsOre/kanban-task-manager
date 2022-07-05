@@ -45,6 +45,14 @@ input[type='text'] {
   color: var(--color-medium-grey);
 }
 
+.subtitle-s {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.75rem; /* 12px */
+  line-height: 0.938rem; /* 15px */
+  color: var(--color-medium-grey);
+}
+
 .body-l {
   font-weight: medium;
   font-size: 0.813rem; /* 13px */

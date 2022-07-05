@@ -14,7 +14,10 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
   const initialSelectedItemIndex = items.findIndex(
     (obj) => obj.value === initialSelected
   )
-  const [selectedIndex, setSelectedIndex] = useState(initialSelectedItemIndex)
+
+  const [selectedIndex, setSelectedIndex] = useState(
+    initialSelectedItemIndex === -1 ? 0 : initialSelectedItemIndex
+  )
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -131,8 +134,11 @@ const DropdownSelect = (props) => {
       <label {...getLabelProps()} className={disabled ? 'disabled' : undefined}>
         {label}
       </label>
-      <button {...getButtonProps({ disabled })}>
-        {options[selectedIndex]?.label}
+      <button
+        {...getButtonProps({
+          disabled: disabled || options.length === 0
+        })}>
+        {options[selectedIndex]?.label || 'None'}
       </button>
 
       <ul {...getMenuProps()}>

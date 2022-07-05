@@ -2,6 +2,7 @@
 @import url('./dialog.css');
 @import url('./forms.css');
 @import url('./typography.css');
+@import url('./view-task.css');
 
 /*** GLOBAL STYLES ***/
 
@@ -13,6 +14,7 @@
   --color-very-dark-grey: #20212c;
   --color-dark-grey: #2b2c37;
   --color-lines-dark: #3e3f4e;
+  --color-lines-medium:  rgba(130, 143, 163, 0.25);
   --color-medium-grey: #828fa3;
   --color-lines-light: #e4ebfa;
   --color-light-grey: #f4f7fd;
@@ -26,6 +28,7 @@
 
 /* Base
 ============================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -46,4 +49,9 @@ button:disabled {
 
 li {
   list-style: none;
+}
+
+label:hover,
+input:hover {
+  cursor: pointer;
 }
