@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { useTheme } from './context/theme'
-
 import { Button, CloseButton } from './button'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
@@ -70,9 +68,9 @@ function BoardForm({ initialValues, edit, onSubmit }) {
       <h2 id="board-dialog-title" className="heading-l">
         {edit ? 'Edit Board' : 'Add New Board'}
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label htmlFor="name">Name</label>
+      <form onSubmit={handleSubmit} className="task-form">
+        <div className="input-group">
+          <label htmlFor="name">{edit && 'Board'} Name</label>
           <input
             id="name"
             name="name"
@@ -85,8 +83,8 @@ function BoardForm({ initialValues, edit, onSubmit }) {
           {errors.name ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <div className="input-container">
-          <label id="columns-list">Columns</label>
+        <div className="input-group">
+          <label id="columns-list">{edit && 'Board'} Columns</label>
           <ul aria-labelledby="columns-list" className="form-input-list">
             {values.columns.map((column, index) => (
               <li key={`column-${index}`}>

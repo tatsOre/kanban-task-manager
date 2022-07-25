@@ -77,8 +77,8 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       <h2 id="task-dialog-title" className="heading-l">
         {edit ? 'Edit Task' : 'Add New Task'}
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
+      <form onSubmit={handleSubmit} className="task-form">
+        <div className="input-group">
           <label htmlFor="title">Title</label>
           <input
             id="title"
@@ -92,13 +92,13 @@ function TaskForm({ initialValues, edit, onSubmit }) {
           {errors.title ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <div className="input-container">
+        <div className="input-group">
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
             value={values.description}
-            placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+            placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
             onChange={onChange}
             rows="6"
             className={errors.description ? 'invalid' : undefined}
@@ -106,7 +106,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
           {errors.description ? <strong>Can't be empty</strong> : null}
         </div>
 
-        <div className="input-container">
+        <div className="input-group">
           <label id="subtasks-list">Subtasks</label>
           <ul aria-labelledby="subtasks-list" className="form-input-list">
             {values.subtasks.map((subtask, index) => (
@@ -136,7 +136,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
           </Button>
         </div>
 
-        <div className="input-container">
+        <div className="input-group">
           <label>Status</label>
           <select name="status" value={values.status} onChange={onChange}>
             <option value="todo">Todo</option>

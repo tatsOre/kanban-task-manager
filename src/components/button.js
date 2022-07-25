@@ -1,12 +1,11 @@
-import { useTheme } from './context/theme'
 import IconCross from './icons/icon-cross'
-import './styles/global.css'
 
 function Button({ children, style, size, variant, ...props }) {
-  const [theme] = useTheme()
-
   return (
-    <button className={`button ${variant} ${size}`} style={{ ...style }} {...props}>
+    <button
+      className={`button ${variant} ${size}`}
+      style={{ ...style }}
+      {...props}>
       {children}
     </button>
   )
@@ -19,10 +18,18 @@ Button.defaultProps = {
 
 function CloseButton(props) {
   return (
-    <button className='close-button' type="button" {...props}>
+    <button className="close-button" type="button" {...props}>
       <IconCross />
     </button>
   )
 }
 
-export { Button, CloseButton }
+function AddTaskButton(props) {
+  return (
+    <Button id="add-task-button" type="button" {...props}>
+      + <span>Add New Task</span>
+    </Button>
+  )
+}
+
+export { AddTaskButton, Button, CloseButton }

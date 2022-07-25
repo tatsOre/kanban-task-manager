@@ -3,14 +3,12 @@
 }
 
 .view-task-list li:hover {
-  background-color: var(--color-secondary-purple);
   cursor: pointer;
 }
 
 .view-task-list li {
   display: flex;
   align-items: center;
-  background-color: var(--color-light-grey);
   border-radius: 4px;
   padding: 0.75rem;
   margin-block-end: 0.5rem;
@@ -34,7 +32,6 @@
   flex-shrink: 0;
   height: 16px;
   width: 16px;
-  background-color: var(--color-white);
   border: 1px solid rgba(130, 143, 163, 0.25);
   border-radius: 2px;
 }
@@ -53,15 +50,67 @@
 
 .view-task-list input:checked ~ label {
   text-decoration: line-through;
-  color: var(--color-medium-grey);
 }
 
 .view-task-list label {
   margin-inline-start: 1rem;
-  color: var(--color-black);
+  letter-spacing: 0.25px;
 }
 
 .view-task-desc {
-  color: var(--color-medium-grey);
   margin-block: 1.5rem;
+  color: var(--color-medium-grey);
+}
+
+/* Theming
+============================ */
+
+.view-task.light .heading-l {
+  color: var(--color-black);
+}
+
+.dark .heading-l,
+.dark .subtitle-s {
+  color: var(--color-white);
+}
+
+.view-task.light .view-task-list li {
+  background-color: var(--color-light-grey);
+}
+
+.dark-theme  .view-task-list li {
+  background-color: var(--color-very-dark-grey);
+}
+
+.view-task.light .view-task-list li:hover {
+  background-color: var(--color-secondary-purple);
+}
+
+.view-task.dark .view-task-list li:hover {
+  background-color: var(--color-secondary-purple);
+}
+
+.view-task.light .view-task-list li .checkmark {
+  background-color: var(--color-white);
+}
+
+.view-task.dark .view-task-list li .checkmark {
+  background-color: var(--color-dark-grey);
+}
+
+.view-task.light .view-task-list label {
+  color: var(--color-black);
+}
+
+.view-task.dark .view-task-list label {
+  color: var(--color-white);
+}
+
+.view-task.light .subtitle-s,
+.view-task.light input:checked ~ label {
+  color: var(--color-medium-grey);
+}
+
+.view-task.dark input:checked ~ label {
+  color: var(--color-light-grey);
 }

@@ -1,4 +1,4 @@
-/*** STYLES FOR FORMS/DIALOG/ALERT MODAL ***/
+/*** STYLES FOR FORMS/DIALOG/ALERT MODAL CONTAINER ***/
 
 .dialog-container {
   display: flex;
@@ -51,6 +51,18 @@
 /* Theming
 ============================ */
 
-.dialog-content {
+[data-theme='light'] .dialog-content {
   background-color: var(--color-white);
+}
+
+[data-theme='dark'] .dialog-content {
+  background-color: var(--color-dark-grey);
+}
+
+[data-theme='light'] #board-dialog-title {
+  color: var(--color-black);
+}
+
+[data-theme='dark'] #board-dialog-title {
+  color: var(--color-white);
 }

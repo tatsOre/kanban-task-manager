@@ -40,3 +40,10 @@
 .close-button:hover svg {
   fill: var(--color-red);
 }
+
+/* Theming
+============================ */
+
+[data-theme='dark'] .secondary {
+  background-color: var(--color-white);
+}

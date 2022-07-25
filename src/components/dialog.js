@@ -14,7 +14,11 @@ function Dialog({ id, show, onClose, children }) {
       role="dialog"
       aria-hidden={!show}>
       <div className="dialog-overlay"></div>
-      <div ref={me} id="dialog" className="dialog-content" role="document">
+      <div
+        ref={me}
+        id="dialog"
+        role="document"
+        className="dialog-content">
         {children}
       </div>
     </div>

@@ -68,7 +68,9 @@ function FormSubmission({ method, endpoint, children, callback }) {
 
   return (
     <div>
-      {status === 'resolved' ? <pre>{JSON.stringify(response, undefined, 2)}</pre> : null}
+      {status === 'resolved' ? (
+        <pre>{JSON.stringify(response, undefined, 2)}</pre>
+      ) : null}
       {status === 'rejected' ? (
         <div role="alert" style={{ color: 'red' }}>
           {error}

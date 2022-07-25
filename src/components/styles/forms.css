@@ -1,12 +1,12 @@
 /*** STYLES FOR CREATE/EDIT TASK/BOARD FORMS ***/
 
 form,
-.input-container {
+.input-group {
   display: flex;
   flex-direction: column;
 }
 
-.input-container {
+.input-group {
   margin-block-start: 1.5rem;
 }
 
@@ -20,6 +20,7 @@ form textarea {
   padding-block: 0.75rem;
   padding-inline: 0.9rem;
   border: 1px solid var(--color-lines-medium);
+  background-color: transparent;
 }
 
 form textarea {
@@ -43,7 +44,7 @@ form textarea::placeholder {
   line-height: 1.438rem; /* 23px */
 }
 
-.input-container,
+.input-group,
 .form-input-list li {
   position: relative;
 }
@@ -69,7 +70,7 @@ form textarea ~ strong {
   font-size: 0.813rem; /* 13px */
 }
 
-form .input-container input[type='text'] ~ strong {
+form .input-group input[type='text'] ~ strong {
   top: 1.8rem;
   right: 1.35rem;
 }
@@ -167,11 +168,21 @@ button[id^='dropdown-task-status']:hover:not(:disable) {
 /* Theming
 ============================ */
 
-form label {
+[data-theme='light'] form label {
   color: var(--color-medium-grey);
 }
 
-form input[type='text']::placeholder,
-form textarea::placeholder {
+[data-theme='dark'] form label {
+  color: var(--color-white);
+}
+
+[data-theme='light'] form input[type='text']::placeholder,
+[data-theme='light'] form textarea::placeholder {
   color: var(--color-black);
+}
+
+[data-theme='dark'] form input[type='text'],
+[data-theme='dark'] form input[type='text']::placeholder,
+[data-theme='dark'] form textarea::placeholder {
+  color: var(--color-white);
 }

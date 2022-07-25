@@ -1,6 +1,9 @@
 @import url('./button.css');
 @import url('./dialog.css');
 @import url('./forms.css');
+@import url('./board.css');
+@import url('./sidebar.css');
+@import url('./theme-toggle.css');
 @import url('./typography.css');
 @import url('./view-task.css');
 
@@ -14,7 +17,7 @@
   --color-very-dark-grey: #20212c;
   --color-dark-grey: #2b2c37;
   --color-lines-dark: #3e3f4e;
-  --color-lines-medium:  rgba(130, 143, 163, 0.25);
+  --color-lines-medium: rgba(130, 143, 163, 0.25);
   --color-medium-grey: #828fa3;
   --color-lines-light: #e4ebfa;
   --color-light-grey: #f4f7fd;
@@ -24,6 +27,8 @@
   --color-secondary-purple: rgba(99, 95, 199, 0.1);
   --color-red: #ea5555;
   --color-red-hover: #ff9898;
+  --color-cyan-accent: #49c4e5;
+  --color-green-accent: #67e2ae;
 }
 
 /* Base
@@ -41,6 +46,7 @@ button {
   cursor: pointer;
   font-style: normal;
   font-weight: bold;
+  transition: background-color 0.5s;
 }
 
 button:disabled {
@@ -54,4 +60,33 @@ li {
 label:hover,
 input:hover {
   cursor: pointer;
+}
+
+/* Misc
+============================ */
+
+.kanban-logotype .logo-large {
+  display: none;
+}
+.kanban-logotype figcaption {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+@media screen and (min-width: 767px) {
+  .kanban-logotype .logo-mobile {
+    display: none;
+  }
+
+  .kanban-logotype .logo-large {
+    display: block;
+  }
+}
+
+/* Theming
+============================ */
+
+[data-theme] * {
+  transition: all 0.5s;
 }
