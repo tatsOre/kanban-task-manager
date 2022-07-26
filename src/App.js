@@ -14,7 +14,7 @@ import Layout from './components/layout'
 
 const BOARDS_SAMPLE = data.boards
 
-const TASK_SAMPLE = data.boards[0].columns[0].tasks[3]
+const TASK_SAMPLE = data.boards[0].columns[1].tasks[5]
 
 function App() {
   const [show, setShow] = useState(BOARDS_SAMPLE[0].name)

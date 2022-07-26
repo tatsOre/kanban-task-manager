@@ -8,9 +8,7 @@ function ViewTask({ data, board }) {
 
   const [open, setOpen] = useState(false)
 
-  const onChange = (e) => {
-    console.log(e.target.value)
-  }
+  const handleSubtaskChange = (value) => console.log(value)
 
   const dropdownProps = {
     id: 'dropdown-task-status',
@@ -27,7 +25,7 @@ function ViewTask({ data, board }) {
 
   return (
     <>
-      <h2 className="heading-l" style={{ display: 'inline-block' }}>
+      <h2 id="task-dialog-title" className="heading-l">
         {task.title}
       </h2>
       <button
@@ -40,40 +38,53 @@ function ViewTask({ data, board }) {
       </button>
 
       <div role="menu" hidden={!open}>
-        <button role="menuitem">
-          Edit Task
-        </button>
-        <button role="menuitem">
-          Delete Task
-        </button>
+        <button role="menuitem">Edit Task</button>
+        <button role="menuitem">Delete Task</button>
       </div>
 
       <p className="view-task-desc body-l">{task.description}</p>
+
       {task.subtasks.length ? (
-        <>
-          <h3 className="subtitle-s">Subtasks 2 of {task.subtasks?.length}</h3>
-          <ul className="view-task-list">
-            {task.subtasks.map((subtask, index) => (
-              <li key={`subtask-${index}`}>
-                <input
-                  id=""
-                  value={subtask.title}
-                  type="checkbox"
-                  onChange={(e) => onChange(e, index)}
-                  checked={subtask.isCompleted}
-                />
-                <span className="checkmark"></span>
-                <label htmlFor="" className="body-m">
-                  {subtask.title}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </>
+        <fieldset className="subtasks-group">
+          <legend className="subtitle-s">
+            Subtasks 2 of {task.subtasks?.length}
+          </legend>
+
+          {task.subtasks.map((subtask) => (
+            <Checkbox
+              key={`subtask-${subtask.title}`} // TODO: change to ID
+              subtask={subtask}
+              onChange={handleSubtaskChange}
+            />
+          ))}
+        </fieldset>
       ) : null}
 
       <DropdownSelect {...dropdownProps} />
     </>
+  )
+}
+
+function Checkbox({ subtask, onChange }) {
+  const [isChecked, setIsChecked] = useState(subtask.isCompleted)
+
+  const handleChange = (e) => {
+    onChange(e.target.value)
+    setIsChecked(!isChecked)
+  }
+  return (
+    <label className={`body-m ${isChecked ? 'label-checked' : ''}`}>
+      <input
+        type="checkbox"
+        value={subtask.title} // TODO: change to ID
+        onChange={handleChange}
+        checked={isChecked}
+      />
+      <span
+        className={`checkmark ${isChecked ? 'checkbox-active' : ''}`}
+        aria-hidden="true"></span>
+      {subtask.title}
+    </label>
   )
 }
 

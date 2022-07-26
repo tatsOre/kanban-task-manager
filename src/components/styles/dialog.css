@@ -59,10 +59,10 @@
   background-color: var(--color-dark-grey);
 }
 
-[data-theme='light'] #board-dialog-title {
+[data-theme='light'] [id*="dialog-title"] {
   color: var(--color-black);
 }
 
-[data-theme='dark'] #board-dialog-title {
+[data-theme='dark'] [id*="dialog-title"] {
   color: var(--color-white);
 }

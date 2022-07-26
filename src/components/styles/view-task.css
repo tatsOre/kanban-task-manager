@@ -1,116 +1,117 @@
-.view-task-list {
-  margin-block: 1rem;
+.view-task-desc {
+  margin-block: 1.5rem;
+  color: var(--color-medium-grey);
 }
 
-.view-task-list li:hover {
-  cursor: pointer;
+.subtasks-group {
+  border: none;
 }
 
-.view-task-list li {
+.subtasks-group legend {
+  margin-block-end: 1rem;
+}
+
+/* Custom Checkbox */
+
+.subtasks-group input[type='checkbox'] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.subtasks-group .checkmark {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  border-radius: 2px;
+  margin-inline-end: 1rem;
+  position: relative;
+}
+
+.subtasks-group input:checked ~ .checkmark {
+  background-color: var(--color-main-purple);
+  border: 1px solid var(--color-main-purple);
+}
+
+.subtasks-group input:checked ~ .checkmark:after {
+  position: absolute;
+  content: url('../../assets/icon-check.svg');
+  bottom: 0rem;
+  left: 0.1rem;
+}
+
+.subtasks-group label {
+  border-radius: 4px;
+  padding: 0.75rem 0.85rem;
   display: flex;
   align-items: center;
-  border-radius: 4px;
-  padding: 0.75rem;
+  letter-spacing: 0.25px;
   margin-block-end: 0.5rem;
-  position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-.view-task-list li input {
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Custom Checkbox */
-
-.view-task-list li .checkmark {
-  flex-shrink: 0;
-  height: 16px;
-  width: 16px;
-  border: 1px solid rgba(130, 143, 163, 0.25);
-  border-radius: 2px;
-}
-
-.view-task-list li input:checked ~ .checkmark {
-  background-color: var(--color-main-purple);
-  border: 1px solid var(--color-main-purple);
-}
-
-.view-task-list li input:checked ~ .checkmark:after {
-  position: relative;
-  content: url('../../assets/icon-check.svg');
-  left: 0.12rem;
-  bottom: 0.3rem;
-}
-
-.view-task-list input:checked ~ label {
+.subtasks-group .label-checked {
   text-decoration: line-through;
-}
-
-.view-task-list label {
-  margin-inline-start: 1rem;
-  letter-spacing: 0.25px;
-}
-
-.view-task-desc {
-  margin-block: 1.5rem;
-  color: var(--color-medium-grey);
 }
 
 /* Theming
 ============================ */
 
-.view-task.light .heading-l {
+[data-theme='light'] .view-task #task-dialog-title {
   color: var(--color-black);
 }
 
-.dark .heading-l,
-.dark .subtitle-s {
-  color: var(--color-white);
-}
-
-.view-task.light .view-task-list li {
-  background-color: var(--color-light-grey);
-}
-
-.dark-theme  .view-task-list li {
-  background-color: var(--color-very-dark-grey);
-}
-
-.view-task.light .view-task-list li:hover {
-  background-color: var(--color-secondary-purple);
-}
-
-.view-task.dark .view-task-list li:hover {
-  background-color: var(--color-secondary-purple);
-}
-
-.view-task.light .view-task-list li .checkmark {
-  background-color: var(--color-white);
-}
-
-.view-task.dark .view-task-list li .checkmark {
-  background-color: var(--color-dark-grey);
-}
-
-.view-task.light .view-task-list label {
-  color: var(--color-black);
-}
-
-.view-task.dark .view-task-list label {
-  color: var(--color-white);
-}
-
-.view-task.light .subtitle-s,
-.view-task.light input:checked ~ label {
+[data-theme='light'] .subtasks-group legend {
   color: var(--color-medium-grey);
 }
 
-.view-task.dark input:checked ~ label {
-  color: var(--color-light-grey);
+[data-theme='dark'] .subtasks-group legend {
+  color: var(--color-white);
+}
+
+[data-theme='light'] .subtasks-group label {
+  color: var(--color-black);
+  background-color: var(--color-light-grey);
+}
+
+[data-theme='dark'] .subtasks-group label {
+  color: var(--color-white);
+  background-color: var(--color-very-dark-grey);
+}
+
+[data-theme='light'] .subtasks-group label:hover {
+  background-color: var(--color-secondary-purple);
+}
+
+[data-theme='dark'] .subtasks-group label:hover {
+  background-color: var(--color-secondary-purple);
+}
+
+[data-theme='light'] .subtasks-group .checkmark {
+  background-color: var(--color-white);
+}
+
+[data-theme='dark'] .subtasks-group .checkmark {
+  background-color: var(--color-dark-grey);
+}
+
+[data-theme='light'] .subtasks-group .label-checked {
+  color: var(--color-medium-grey);
+}
+
+[data-theme='dark'] .subtasks-group .label-checked {
+  color: var(--color-medium-grey);
+}
+
+[data-theme='light'] .subtitle-s {
+  color: var(--color-medium-grey);
 }
