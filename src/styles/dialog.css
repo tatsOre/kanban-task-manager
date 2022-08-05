@@ -1,27 +1,17 @@
-/*** STYLES FOR FORMS/DIALOG/ALERT MODAL CONTAINER ***/
+/* Reach Dialog
+============================ */
 
-.dialog-container {
-  display: flex;
-  position: fixed;
-  inset: 0;
-}
-
-.dialog-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
+div[data-reach-dialog-overlay] {
   background-color: rgba(0, 0, 0, 0.5);
   animation: fade-in 200ms both;
 }
 
-.dialog-content {
-  margin: auto;
-  position: relative;
-  animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+div[data-reach-dialog-content] {
   padding: 1.5rem;
   max-width: 90%;
   width: 480px;
   border-radius: 6px;
+  animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
 }
 
 @media screen and (min-width: 767px) {
@@ -51,18 +41,18 @@
 /* Theming
 ============================ */
 
-[data-theme='light'] .dialog-content {
+[data-theme='light'] div[data-reach-dialog-content] {
   background-color: var(--color-white);
 }
 
-[data-theme='dark'] .dialog-content {
+[data-theme='dark'] div[data-reach-dialog-content] {
   background-color: var(--color-dark-grey);
 }
 
-[data-theme='light'] [id*="dialog-title"] {
+[data-theme='light'] [id*='dialog-label'] {
   color: var(--color-black);
 }
 
-[data-theme='dark'] [id*="dialog-title"] {
+[data-theme='dark'] [id*='dialog-label'] {
   color: var(--color-white);
 }

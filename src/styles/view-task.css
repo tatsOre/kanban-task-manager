@@ -41,7 +41,7 @@
 
 .subtasks-group input:checked ~ .checkmark:after {
   position: absolute;
-  content: url('../../assets/icon-check.svg');
+  content: url('../assets/icon-check.svg');
   bottom: 0rem;
   left: 0.1rem;
 }

@@ -1,11 +1,14 @@
+@import url('./board.css');
 @import url('./button.css');
 @import url('./dialog.css');
 @import url('./forms.css');
-@import url('./board.css');
+@import url('./layout.css');
+@import url('./nav-menu.css');
 @import url('./sidebar.css');
 @import url('./theme-toggle.css');
 @import url('./typography.css');
 @import url('./view-task.css');
+@import "@reach/dialog/styles.css";
 
 /*** GLOBAL STYLES ***/
 
@@ -29,10 +32,24 @@
   --color-red-hover: #ff9898;
   --color-cyan-accent: #49c4e5;
   --color-green-accent: #67e2ae;
+
+  --header-height-sm: 64px;
+  --header-height-md: 81px;
+  --header-height-lg: 97px;
+  --header-width-md: 261px;
+  --header-width-lg: 300px; 
 }
 
 /* Base
 ============================ */
+
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  background-color: #a8a4ff;
+}
+
 
 * {
   box-sizing: border-box;
@@ -62,12 +79,17 @@ input:hover {
   cursor: pointer;
 }
 
+.stretched-link::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  content: "";
+  background-color: rgba(0,0,0,0);
+}
+
 /* Misc
 ============================ */
 
-.kanban-logotype .logo-large {
-  display: none;
-}
 .kanban-logotype figcaption {
   visibility: hidden;
   height: 0;
@@ -88,6 +110,5 @@ input:hover {
 ============================ */
 
 [data-theme] * {
-  transition: background-color 0.5s ease,
-              color 0.5s ease;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }

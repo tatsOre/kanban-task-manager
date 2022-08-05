@@ -1,17 +1,15 @@
 import { useState } from 'react'
-
 import { Button, CloseButton } from './button'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues || {})
   const [errors, setErrors] = useState({})
 
-  const onChange = ({ target }) => {
-    console.log('Changing', target.value)
-    if (errors[target.name]) {
-      errors[target.name] = ''
+  const onChange = ({ target: { name, value } }) => {
+    if (errors[name]) {
+      errors[name] = ''
     }
-    setValues((s) => ({ ...s, [target.name]: target.value }))
+    setValues((s) => ({ ...s, [name]: value }))
   }
 
   const onChangeArrayItem = (e, idx) => {
@@ -65,7 +63,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2 id="board-dialog-title" className="heading-l">
+      <h2 id="dialog-label" className="heading-l">
         {edit ? 'Edit Board' : 'Add New Board'}
       </h2>
       <form onSubmit={handleSubmit} className="task-form">

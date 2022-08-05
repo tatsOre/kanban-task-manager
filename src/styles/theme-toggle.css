@@ -1,18 +1,19 @@
 div.toggle-container {
-  width: 251px;
+  width: 235px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
+  margin: 0 auto;
 }
 
 div.toggle-container::before {
-  content: url('../../assets/icon-light-theme.svg');
+  content: url('../assets/icon-light-theme.svg');
 }
 
 div.toggle-container::after {
-  content: url('../../assets/icon-dark-theme.svg');
+  content: url('../assets/icon-dark-theme.svg');
 }
 
 label.toggle-box {
@@ -32,12 +33,16 @@ label.toggle-box {
 
 .toggle-slider {
   position: absolute;
-  cursor: pointer;
   inset: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
   background-color: var(--color-main-purple);
+}
+
+.toggle-slider:hover {
+  cursor: pointer;
+  background-color: var(--color-main-purple-hover);
 }
 
 .toggle-slider:before {

@@ -1,9 +1,10 @@
-import IconCross from './icons/icon-cross'
+import AddIcon from '../icons/icon-add-plus'
+import IconCross from '../icons/icon-cross'
 
-function Button({ children, style, size, variant, ...props }) {
+function Button({ className, children, style, size, variant, ...props }) {
   return (
     <button
-      className={`button ${variant} ${size}`}
+      className={`button ${variant} ${size} ${className}`}
       style={{ ...style }}
       {...props}>
       {children}
@@ -24,12 +25,15 @@ function CloseButton(props) {
   )
 }
 
-function AddTaskButton(props) {
+function AddButton({ className, ...props }) {
   return (
-    <Button id="add-task-button" type="button" {...props}>
-      + <span>Add New Task</span>
-    </Button>
+    <button
+      className={`plus-button primary ${className}`}
+      type="button"
+      {...props}>
+      <AddIcon />
+    </button>
   )
 }
 
-export { AddTaskButton, Button, CloseButton }
+export { AddButton, Button, CloseButton }

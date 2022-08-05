@@ -1,11 +1,9 @@
 import { useState } from 'react'
-
-import { Button, CloseButton } from '../components/button'
+import { Button, CloseButton } from './button'
 
 function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues || {})
   const [errors, setErrors] = useState({})
-
   const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile']
 
   const onChange = ({ target }) => {
@@ -50,11 +48,6 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       setErrors((s) => ({ ...s, title: "Can't be empty" }))
     }
 
-    if (!values.description) {
-      valid = false
-      setErrors((s) => ({ ...s, description: "Can't be empty" }))
-    }
-
     if (values.subtasks.length) {
       values.subtasks.forEach((s, idx) => {
         if (!s.title) {
@@ -74,7 +67,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2 id="task-dialog-title" className="heading-l">
+      <h2 id="dialog-label" className="heading-l">
         {edit ? 'Edit Task' : 'Add New Task'}
       </h2>
       <form onSubmit={handleSubmit} className="task-form">
@@ -103,32 +96,34 @@ function TaskForm({ initialValues, edit, onSubmit }) {
             rows="6"
             className={errors.description ? 'invalid' : undefined}
           />
-          {errors.description ? <strong>Can't be empty</strong> : null}
         </div>
 
         <div className="input-group">
           <label id="subtasks-list">Subtasks</label>
           <ul aria-labelledby="subtasks-list" className="form-input-list">
-            {values.subtasks.map((subtask, index) => (
-              <li key={`subtask-${index}`}>
-                <input
-                  aria-label=""
-                  value={subtask.title}
-                  placeholder={placeholders[index] || 'e.g. Beautiful Subtask'}
-                  type="text"
-                  onChange={(e) => onChangeArrayItem(e, index)}
-                  className={
-                    errors.subtasks && errors.subtasks[index]
-                      ? 'invalid'
-                      : undefined
-                  }
-                />
-                <CloseButton onClick={() => removeArrayItem(index)} />
-                {errors.subtasks && errors.subtasks[index] ? (
-                  <strong>Can't be empty</strong>
-                ) : null}
-              </li>
-            ))}
+            {values.subtasks &&
+              values.subtasks.map((subtask, index) => (
+                <li key={`subtask-${index}`}>
+                  <input
+                    aria-label=""
+                    value={subtask.title}
+                    placeholder={
+                      placeholders[index] || 'e.g. Beautiful Subtask'
+                    }
+                    type="text"
+                    onChange={(e) => onChangeArrayItem(e, index)}
+                    className={
+                      errors.subtasks && errors.subtasks[index]
+                        ? 'invalid'
+                        : undefined
+                    }
+                  />
+                  <CloseButton onClick={() => removeArrayItem(index)} />
+                  {errors.subtasks && errors.subtasks[index] ? (
+                    <strong>Can't be empty</strong>
+                  ) : null}
+                </li>
+              ))}
           </ul>
 
           <Button type="button" onClick={appendArrayItem} variant="secondary">

@@ -116,7 +116,7 @@ button[id^='dropdown-task-status'][aria-expanded='true'] {
 }
 
 button[id^='dropdown-task-status']::after {
-  content: url('../../assets/icon-chevron-down.svg');
+  content: url('../assets/icon-chevron-down.svg');
   position: absolute;
   right: 1rem;
   transition: transform 0.1s;

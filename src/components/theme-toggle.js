@@ -1,7 +1,13 @@
-import { useTheme } from '../components/context/theme'
+import { useAppData } from '../context/app-data'
 
 function Switch(props) {
-  const [theme, setTheme] = useTheme()
+  const [state, dispatch] = useAppData()
+
+  const toggleTheme = () =>
+    dispatch({
+      type: 'SET_THEME',
+      payload: state.THEME === 'dark' ? 'light' : 'dark'
+    })
 
   return (
     <div className="toggle-container">
@@ -9,11 +15,11 @@ function Switch(props) {
         <input
           className="toggle-input"
           type="checkbox"
-          onChange={() => {}}
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          onChange={toggleTheme}
+          onClick={toggleTheme}
           data-testid="toggle-input"
         />
-        <span className={`toggle-slider ${theme}`} {...props} />
+        <span className={`toggle-slider ${state.THEME}`} {...props} />
       </label>
     </div>
   )

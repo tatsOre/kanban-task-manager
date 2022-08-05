@@ -1,6 +1,6 @@
 import { cloneElement, useEffect, useReducer, useState } from 'react'
 
-function formSubmissionReducer(state, action) {
+function fetchReducer(state, action) {
   switch (action.type) {
     case 'START':
       return { status: 'pending', response: null, error: null }
@@ -10,13 +10,12 @@ function formSubmissionReducer(state, action) {
       return { status: 'rejected', response: null, error: action.responseError }
 
     default:
-      // throw new Error(`Unsupported type: ${action.type}`);
-      return state
+      return
   }
 }
 
 function useFormSubmission({ method, endpoint, data }) {
-  const [state, dispatch] = useReducer(formSubmissionReducer, {
+  const [state, dispatch] = useReducer(fetchReducer, {
     status: 'idle',
     response: null,
     error: null
@@ -38,6 +37,7 @@ function useFormSubmission({ method, endpoint, data }) {
         })
         .then(async (response) => {
           const { data } = await response.json()
+
           if (response.ok) {
             dispatch({ type: 'RESOLVE', responseData: data })
           } else {
@@ -53,9 +53,7 @@ function useFormSubmission({ method, endpoint, data }) {
   return state
 }
 
-/*  TODO: Think how to design submission for Task/Board Forms */
-
-function FormSubmission({ method, endpoint, children, callback }) {
+function FormSubmission({ method, endpoint, children }) {
   const [formData, setFormData] = useState(null)
 
   const { status, response, error } = useFormSubmission({
@@ -64,13 +62,16 @@ function FormSubmission({ method, endpoint, children, callback }) {
     data: formData
   })
 
-  /*  TODO: update here the state of the board */
+  if (status === 'resolved') return
 
   return (
-    <div>
+    <>
+      {status === 'pending' ? <p>Loading...</p> : null}
+
       {status === 'resolved' ? (
         <pre>{JSON.stringify(response, undefined, 2)}</pre>
       ) : null}
+
       {status === 'rejected' ? (
         <div role="alert" style={{ color: 'red' }}>
           {error}
@@ -78,7 +79,7 @@ function FormSubmission({ method, endpoint, children, callback }) {
       ) : null}
 
       {cloneElement(children, { onSubmit: setFormData })}
-    </div>
+    </>
   )
 }
 

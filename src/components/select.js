@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import useClickOutside from './hooks/use-click-outside'
+import useClickOutside from '../hooks/use-click-outside'
 
 const useElementIds = ({ id = `dropdown-0` }) => {
   return {

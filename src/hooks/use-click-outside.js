@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 
 const useClickOutside = (ref, callback) => {
   useEffect(() => {
-    const listener = ({ target }) => {
-      if (!ref.current || ref.current.contains(target)) {
+    const listener = (event) => {
+      event.stopPropagation()
+      if (!ref.current || ref.current.contains(event.target)) {
         return
       }
+
       callback()
     }
 
@@ -18,7 +20,6 @@ const useClickOutside = (ref, callback) => {
   }, [ref, callback])
 
   useEffect(() => {
-
     const listener = (event) => {
       if (ref.current && (event.key === 'Escape' || event.code === 'Escape')) {
         callback()

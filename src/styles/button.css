@@ -28,17 +28,40 @@
 .small {
   font-size: 0.813rem; /* 13px */
   border-radius: 20px;
-  height: 40px;
+  padding-block: 0.5rem;
 }
 
 .large {
   font-size: 0.938rem; /* 15px */
   border-radius: 24px;
-  height: 48px;
+  padding: 0.875rem 1.5rem;
 }
 
 .close-button:hover svg {
   fill: var(--color-red);
+}
+
+/* Add Task Button
+============================ */
+
+.plus-button {
+  padding: 0.5rem 1.15rem;
+  border-radius: 24px;
+}
+
+
+@media screen and (min-width: 767px) {
+  .button.add-task-btn {
+    padding: 0.875rem 1.5rem;
+  }
+
+  .add-task-btn svg {
+    display: none;
+  }
+
+  .add-task-btn span {
+    display: block;
+  }
 }
 
 /* Theming
