@@ -1,5 +1,6 @@
 import AddIcon from '../icons/icon-add-plus'
 import IconCross from '../icons/icon-cross'
+import { IconHideSidebar, IconShowSidebar } from '../icons/icon-sidebar'
 
 function Button({ className, children, style, size, variant, ...props }) {
   return (
@@ -14,7 +15,8 @@ function Button({ className, children, style, size, variant, ...props }) {
 
 Button.defaultProps = {
   size: 'small',
-  variant: 'primary'
+  variant: 'primary',
+  className: '',
 }
 
 function CloseButton(props) {
@@ -36,4 +38,21 @@ function AddButton({ className, ...props }) {
   )
 }
 
-export { AddButton, Button, CloseButton }
+function SidebarToggle({ openSidebar, onClick, ...props }) {
+  return (
+    <button
+      className={`${openSidebar ? 'hide' : 'show'} toggle-sidebar heading-m`}
+      onClick={onClick}
+      {...props}>
+      {openSidebar ? (
+        <>
+          <IconHideSidebar /> Hide Sidebar
+        </>
+      ) : (
+        <IconShowSidebar />
+      )}
+    </button>
+  )
+}
+
+export { AddButton, Button, CloseButton, SidebarToggle }

@@ -6,15 +6,28 @@ import { FormSubmission } from '../hooks/use-form-submission'
 import ViewTask from './view-task'
 import BoardForm from './board-form'
 
-const CreateBoardModal = () => {
+const DialogContainer = (props) => {
   const navigate = useNavigate()
 
+  const [state] = useAppData()
+  //navigate(`/boards/${state.ACTIVE_TASK.boardId}`)
   function onDismiss() {
     navigate(-1)
   }
 
   return (
-    <Dialog aria-labelledby="dialog-label" onDismiss={onDismiss}>
+    <Dialog
+      aria-labelledby="dialog-label"
+      onDismiss={onDismiss}
+      data-theme={state.THEME}
+      {...props}
+    />
+  )
+}
+
+const CreateBoardModal = () => {
+  return (
+    <DialogContainer>
       <FormSubmission method="POST" endpoint="" callback={() => {}}>
         <BoardForm
           initialValues={{
@@ -23,24 +36,19 @@ const CreateBoardModal = () => {
           }}
         />
       </FormSubmission>
-    </Dialog>
+    </DialogContainer>
   )
 }
 
 const EditBoardModal = () => {
-  const navigate = useNavigate()
   const [state] = useAppData()
 
-  function onDismiss() {
-    navigate(-1)
-  }
-
   return (
-    <Dialog aria-labelledby="dialog-label" onDismiss={onDismiss}>
+    <DialogContainer>
       <FormSubmission method="PUT" endpoint={''} callback={() => {}}>
         <BoardForm initialValues={state.ACTIVE_BOARD} edit />
       </FormSubmission>
-    </Dialog>
+    </DialogContainer>
   )
 }
 
@@ -54,20 +62,12 @@ function getTaskById(id, board) {
 const ViewTaskModal = () => {
   const [state] = useAppData()
   const { taskId } = useParams()
-  const navigate = useNavigate()
-
   const task = getTaskById(taskId, state.ACTIVE_BOARD)
 
-  function onDismiss() {
-    navigate(-1)
-  }
-
-  //navigate(`/boards/${state.ACTIVE_TASK.boardId}`)
-
   return (
-    <Dialog aria-labelledby="dialog-label" onDismiss={onDismiss}>
+    <DialogContainer>
       {task ? <ViewTask task={task} /> : <p>Something went wrong.</p>}
-    </Dialog>
+    </DialogContainer>
   )
 }
 

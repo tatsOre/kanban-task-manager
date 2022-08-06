@@ -43,14 +43,20 @@
   transform: rotate(180deg);
 }
 
-*
 /* Theming */
-
 
 /* Boards Aside Menu 
 ============================ */
 
+.dashboard-sidebar h2 {
+  padding-inline-start: 2rem;
+  margin-block: 1rem;
+}
 
+.dashboard-sidebar .boards-tabs {
+  padding-inline-end: 1.25rem;
+
+}
 
 /* Boards Menu List and List Items
 ============================ */
@@ -61,13 +67,22 @@
   display: flex;
   align-items: center;
   width: 100%;
+  min-width: fit-content;
   height: 48px;
-  padding-inline-start: 1.5rem;
+  padding-inline-start: 2rem;
   border-radius: 0px 100px 100px 0px;
+}
+
+.boards-tabs li a.new-board {
+  color: var(--color-main-purple);
 }
 
 .boards-tabs li a svg {
   margin-inline-end: 1rem;
+}
+
+a.new-board svg path {
+  fill: var(--color-main-purple);
 }
 
 .boards-tabs li a:hover {

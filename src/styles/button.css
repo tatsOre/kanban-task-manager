@@ -28,13 +28,13 @@
 .small {
   font-size: 0.813rem; /* 13px */
   border-radius: 20px;
-  padding-block: 0.5rem;
+  height: 40px;
 }
 
 .large {
   font-size: 0.938rem; /* 15px */
   border-radius: 24px;
-  padding: 0.875rem 1.5rem;
+  height: 48px;
 }
 
 .close-button:hover svg {
@@ -48,7 +48,6 @@
   padding: 0.5rem 1.15rem;
   border-radius: 24px;
 }
-
 
 @media screen and (min-width: 767px) {
   .button.add-task-btn {
@@ -69,4 +68,55 @@
 
 [data-theme='dark'] .secondary {
   background-color: var(--color-white);
+}
+
+/* Sidebar Button Toggle
+============================ */
+button.toggle-sidebar {
+  display: none;
+}
+
+@media screen and (min-width: 767px) {
+  button.toggle-sidebar {
+    position: absolute;
+    border-radius: 0px 100px 100px 0px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    bottom: 2.5rem;
+  }
+
+  button.toggle-sidebar.hide {
+    padding-inline-start: 2rem;
+    color: var(--color-medium-grey);
+    min-width: 240px;
+  }
+
+  button.toggle-sidebar.hide:hover {
+    color: var(--color-main-purple);
+    background-color: var(--color-secondary-purple);
+  }
+
+  button.toggle-sidebar.hide svg {
+    margin-inline-end: 0.8rem;
+  }
+
+  button.toggle-sidebar.hide:hover svg path {
+    fill: var(--color-main-purple);
+  }
+
+  button.toggle-sidebar.show {
+    padding-inline: 1.125rem;
+    background-color: var(--color-main-purple);
+  }
+
+  button.toggle-sidebar.show:hover {
+    background-color: var(--color-main-purple-hover);
+  }
+}
+
+@media screen and (min-width: 1399px) {
+  button.toggle-sidebar.hide {
+    min-width: 280px;
+  }
 }

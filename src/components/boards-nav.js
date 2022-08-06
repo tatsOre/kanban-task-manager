@@ -15,26 +15,32 @@ const BoardsNavigation = ({ boards }) => {
   return (
     <>
       <NavHeading boards={boards.length} />
+      <ul className="boards-tabs">
+        {boards.length
+          ? boards.map((board) => (
+              <li>
+                <NavLink
+                  to={`${board.id}`}
+                  className={
+                    ({ isActive }) =>
+                      isActive ? 'active heading-m' : 'heading-m' // TODO: Fix when modal is open
+                  }>
+                  <IconBoard />
+                  {board.name}
+                </NavLink>
+              </li>
+            ))
+          : null}
 
-      {boards.length ? (
-        <ul className="boards-tabs">
-          {boards.map((board) => (
-            <li>
-              <NavLink
-                to={`${board.id}`}
-                className={({ isActive }) =>
-                  isActive ? 'active heading-m' : 'heading-m' // TODO: Fix when modal is open
-                }>
-                <IconBoard />{board.name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      <Link to="/boards/new" state={{ backgroundLocation: location }}>
-        + Create New Board
-      </Link>
+        <li>
+          <Link
+            to="/boards/new"
+            state={{ backgroundLocation: location }}
+            className="new-board heading-m">
+            <IconBoard />+ Create New Board
+          </Link>
+        </li>
+      </ul>
     </>
   )
 }

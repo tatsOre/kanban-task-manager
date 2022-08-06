@@ -41,11 +41,11 @@ div[data-reach-dialog-content] {
 /* Theming
 ============================ */
 
-[data-theme='light'] div[data-reach-dialog-content] {
+[data-theme='light'][data-reach-dialog-content] {
   background-color: var(--color-white);
 }
 
-[data-theme='dark'] div[data-reach-dialog-content] {
+[data-theme='dark'][data-reach-dialog-content] {
   background-color: var(--color-dark-grey);
 }
 

@@ -59,7 +59,7 @@ form textarea::placeholder {
 }
 
 .form-input-list li button {
-  margin-left: 0.5rem;
+  margin-left: 1rem;
 }
 
 form input ~ strong,
@@ -168,7 +168,7 @@ button[id^='dropdown-task-status']:hover:not(:disable) {
 /* Theming
 ============================ */
 
-[data-theme='light'] form label {
+[data-theme='light'] .input-group label {
   color: var(--color-medium-grey);
 }
 

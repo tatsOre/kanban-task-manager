@@ -3,11 +3,10 @@ import { Outlet } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import useUser from '../hooks/use-user'
 import { BoardsAsideNav, BoardsMobileNav } from './boards-nav'
-import { AddButton, Button } from './button'
+import { AddButton, SidebarToggle } from './button'
 import { DropdownMenu, DropdownMenuItem } from './dropdown-menu'
 import Logo from './logotype'
 
-import { IconHideSidebar, IconShowSidebar } from '../icons/icon-sidebar'
 
 function BoardsManager() {
   const [openSidebar, setShowSidebar] = useState(true)
@@ -18,17 +17,17 @@ function BoardsManager() {
 
   const userBoards = user.boards
 
-  const handleOpenSidebar = () => setShowSidebar(true)
+  const handleToggleSidebar = () => setShowSidebar(!openSidebar)
 
   return (
-    <div data-theme={state.THEME} className="dashboard-container">
+    <div
+      data-theme={state.THEME}
+      data-open-sidebar={openSidebar}
+      className="dashboard-container">
       <header className="dashboard-header mobile">
         <Logo size="sm" />
-
         <BoardsMobileNav boards={userBoards} />
-
         <AddButton className="create-task" />
-
         <DropdownMenu>
           <DropdownMenuItem label="Edit Task" />
           <DropdownMenuItem label="Delete Task" />
@@ -40,18 +39,15 @@ function BoardsManager() {
       </header>
 
       <aside className="dashboard-sidebar">
-        <div className="boards-menu">
+        <div className="nav-container">
           <BoardsAsideNav boards={userBoards} />
-
-          <button onClick={() => {}}>
-            <IconHideSidebar /> Hide Sidebar
-          </button>
         </div>
       </aside>
 
-      <Button className="show-sidebar__btn" onClick={() => {}}>
-        <IconShowSidebar />
-      </Button>
+      <SidebarToggle
+        openSidebar={openSidebar}
+        onClick={handleToggleSidebar}
+      />
 
       {!userBoards.length && <section>hey, no boards, create one</section>}
       <Outlet />
