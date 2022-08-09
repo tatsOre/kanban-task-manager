@@ -1,20 +1,9 @@
+import json from '../data/data.json'
+
 function useUser() {
   return {
     name: 'user',
-    boards: [
-      {
-        id: 1,
-        name: 'Platform Launch'
-      },
-      {
-        id: 2,
-        name: 'Marketing Plan'
-      },
-      {
-        id: 3,
-        name: 'Roadmap'
-      }
-    ]
+    boards: json.boards.map((board) => ({ id: board.id, name: board.name }))
   }
 }
 

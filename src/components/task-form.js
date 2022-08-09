@@ -1,10 +1,23 @@
 import { useState } from 'react'
+import { useAppData } from '../context/app-data'
 import { Button, CloseButton } from './button'
+import DropdownSelect from './select'
 
 function TaskForm({ initialValues, edit, onSubmit }) {
-  const [values, setValues] = useState(initialValues || {})
+  const [values, setValues] = useState({ ...initialValues })
   const [errors, setErrors] = useState({})
+  const [state] = useAppData()
   const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile']
+
+  const dropdownProps = {
+    id: 'dropdown-task-status',
+    options:
+      state.ACTIVE_BOARD &&
+      state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase()),
+    selected: values?.status?.toLowerCase(),
+    onChange: () => {},
+    label: 'Status'
+  }
 
   const onChange = ({ target }) => {
     if (errors[target.name]) {
@@ -107,9 +120,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
                   <input
                     aria-label=""
                     value={subtask.title}
-                    placeholder={
-                      placeholders[index] || 'e.g. Beautiful Subtask'
-                    }
+                    placeholder={placeholders[index] || 'Add subtask'}
                     type="text"
                     onChange={(e) => onChangeArrayItem(e, index)}
                     className={
@@ -132,12 +143,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
         </div>
 
         <div className="input-group">
-          <label>Status</label>
-          <select name="status" value={values.status} onChange={onChange}>
-            <option value="todo">Todo</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
-          </select>
+          <DropdownSelect {...dropdownProps} />
         </div>
 
         <Button type="submit">{edit ? 'Save Changes' : 'Create Task'}</Button>

@@ -6,7 +6,16 @@ const BOARD_SCHEMA = {
 const TASK_SCHEMA = {
   title: '',
   description: '',
-  subtasks: []
+  subtasks: [
+    {
+      title: '',
+      isCompleted: false
+    },
+    {
+      title: '',
+      isCompleted: false
+    }
+  ]
 }
 
 export { BOARD_SCHEMA, TASK_SCHEMA }

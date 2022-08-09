@@ -46,11 +46,11 @@
   border-radius: 6px;
 }
 
-.board-details .new-column button {
+.board-details .new-column a {
   color: var(--color-medium-grey);
 }
 
-.board-details .new-column button:hover {
+.board-details .new-column a:hover {
   color: var(--color-main-purple);
 }
 

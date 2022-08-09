@@ -18,12 +18,11 @@ const BoardsNavigation = ({ boards }) => {
       <ul className="boards-tabs">
         {boards.length
           ? boards.map((board) => (
-              <li>
+              <li key={`board-${board.id}-link`}>
                 <NavLink
                   to={`${board.id}`}
-                  className={
-                    ({ isActive }) =>
-                      isActive ? 'active heading-m' : 'heading-m' // TODO: Fix when modal is open
+                  className={({ isActive }) =>
+                    isActive ? 'active heading-m' : 'heading-m'
                   }>
                   <IconBoard />
                   {board.name}

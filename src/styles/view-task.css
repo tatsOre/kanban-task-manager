@@ -3,8 +3,13 @@
   color: var(--color-medium-grey);
 }
 
+.view-task-form #dropdown-task-status-label {
+  margin-block-end: 1rem;
+}
+
 .subtasks-group {
   border: none;
+  margin-block-end: 1.5rem;
 }
 
 .subtasks-group legend {

@@ -3,7 +3,7 @@ import { createContext, useContext, useReducer } from 'react'
 const AppContext = createContext()
 
 const initialState = {
-  THEME: 'light',
+  THEME: 'dark',
   ACTIVE_BOARD: null,
   ACTIVE_TASK: null
 }
@@ -19,7 +19,6 @@ function useAppData() {
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_ACTIVE_TASK':
-      console.log('Setting active task')
       return {
         ...state,
         ACTIVE_TASK: action.payload

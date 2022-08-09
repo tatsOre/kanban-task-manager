@@ -22,13 +22,14 @@ export default function App() {
             <Route path=":boardId" element={<Board />} />
           </Route>
         </Route>
+        <Route path='*' element={<Home />} />
       </Routes>
 
       {state?.backgroundLocation && (
         <Routes>
           <Route path="/boards/new" element={<CreateBoardModal />} />
           <Route path="/boards/edit/:boardId" element={<EditBoardModal />} />
-          <Route path="/tasks/:taskId" element={<ViewTaskModal />} />
+          <Route path="/boards/:boardId/tasks/:taskId" element={<ViewTaskModal />} />
         </Routes>
       )}
     </AppDataProvider>

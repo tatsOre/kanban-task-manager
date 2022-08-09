@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, CloseButton } from './button'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
-  const [values, setValues] = useState(initialValues || {})
+  const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
   const onChange = ({ target: { name, value } }) => {
@@ -26,9 +26,8 @@ function BoardForm({ initialValues, edit, onSubmit }) {
     setValues((s) => ({ ...s, columns: edited }))
   }
 
-  const appendArrayItem = () => {
+  const appendArrayItem = () =>
     setValues((s) => ({ ...s, columns: [...s.columns, { name: '' }] }))
-  }
 
   const removeArrayItem = (idx) => {
     const filtered = values.columns.filter((s, index) => index !== idx)
@@ -84,7 +83,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
         <div className="input-group">
           <label id="columns-list">{edit && 'Board'} Columns</label>
           <ul aria-labelledby="columns-list" className="form-input-list">
-            {values.columns.map((column, index) => (
+            {values.columns?.map((column, index) => (
               <li key={`column-${index}`}>
                 <input
                   aria-label=""

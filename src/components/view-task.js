@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAppData } from '../context/app-data'
 import DropdownSelect from './select'
 
 export function getCompletedSubtasks(subtasks) {
@@ -33,19 +34,20 @@ function Checkbox({ subtask, onChange }) {
 }
 
 function TaskView({ task }) {
+  const [state] = useAppData()
+
   const handleSubtaskChange = (value) => console.log(value)
+
+  const handleStatusChange = (value) => console.log(value)
 
   const dropdownProps = {
     id: 'dropdown-task-status',
-    options: [
-      { label: 'Todo', value: 'todo' },
-      { label: 'Doing', value: 'doing' },
-      { label: 'Done', value: 'done' }
-    ],
+    options:
+      state.ACTIVE_BOARD &&
+      state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase()),
     selected: task?.status?.toLowerCase(),
-    onChange: (value) => console.log('Selected value:', value),
-    label: 'Current Status',
-    disabled: false
+    onChange: handleStatusChange,
+    label: 'Current Status'
   }
 
   const completed = getCompletedSubtasks(task.subtasks)
@@ -58,23 +60,25 @@ function TaskView({ task }) {
 
       <p className="view-task-desc body-l">{task?.description}</p>
 
-      {task?.subtasks?.length ? (
-        <fieldset className="subtasks-group">
-          <legend className="subtitle-s">
-            Subtasks {completed} of {task.subtasks?.length}
-          </legend>
+      <form className='view-task-form'>
+        {task?.subtasks?.length ? (
+          <fieldset className="subtasks-group">
+            <legend className="subtitle-s">
+              Subtasks {completed} of {task.subtasks?.length}
+            </legend>
 
-          {task.subtasks.map((subtask) => (
-            <Checkbox
-              key={`subtask-${subtask?.title}`}
-              subtask={subtask}
-              onChange={handleSubtaskChange}
-            />
-          ))}
-        </fieldset>
-      ) : null}
+            {task.subtasks.map((subtask) => (
+              <Checkbox
+                key={`subtask-${subtask?.title}`}
+                subtask={subtask}
+                onChange={handleSubtaskChange}
+              />
+            ))}
+          </fieldset>
+        ) : null}
 
-      <DropdownSelect {...dropdownProps} />
+        <DropdownSelect {...dropdownProps} />
+      </form>
     </>
   )
 }

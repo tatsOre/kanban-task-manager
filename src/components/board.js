@@ -1,16 +1,14 @@
 import { useEffect } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import { Button } from './button'
+import { getCompletedSubtasks } from './view-task'
 
 import json from '../data/data.json' // UI Implementation
-import { getCompletedSubtasks } from './view-task'
 
 const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
 
-const BoardTaskItem = ({ data }) => {
+const BoardTaskItem = ({ board, data }) => {
   const location = useLocation()
-
   const completed = getCompletedSubtasks(data.subtasks)
 
   return data ? (
@@ -20,7 +18,7 @@ const BoardTaskItem = ({ data }) => {
         {completed} of {data.subtasks?.length} subtasks
       </p>
       <Link
-        to={`/tasks/${data.id}`}
+        to={`/boards/${board}/tasks/${data.id}`}
         state={{ backgroundLocation: location }}
         className="stretched-link"></Link>
     </li>
@@ -56,10 +54,10 @@ function Board() {
       </div>
 
       <section className="board-details">
-        {data.columns.length ? (
+        {data.columns?.length ? (
           <>
             {data.columns.map((column) => (
-              <section className="board-column">
+              <section className="board-column" key={column.name}>
                 <h3 className="heading-s">
                   {column.name} ({column.tasks.length})
                 </h3>
@@ -69,7 +67,7 @@ function Board() {
                         <BoardTaskItem
                           board={data.id}
                           data={task}
-                          onClick={() => {}}
+                          key={`task-${task.id}`}
                         />
                       ))
                     : null}
@@ -78,15 +76,22 @@ function Board() {
             ))}
 
             <section className="new-column">
-              <button className="heading-xl" type="button">
+              <NavLink
+                className="heading-xl"
+                to={`/boards/edit/${data.id}`}
+                state={{ backgroundLocation: location }}>
                 + New Column
-              </button>
+              </NavLink>
             </section>
           </>
         ) : (
           <>
             <p>This board is empty. Create a new column to get started.</p>
-            <Button size="large">+ Add New Column</Button>
+            <NavLink
+              to={`/boards/edit/${data.id}`}
+              state={{ backgroundLocation: location }}>
+              + Add New Column
+            </NavLink>
           </>
         )}
       </section>

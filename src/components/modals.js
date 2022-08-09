@@ -5,6 +5,7 @@ import { useAppData } from '../context/app-data'
 import { FormSubmission } from '../hooks/use-form-submission'
 import ViewTask from './view-task'
 import BoardForm from './board-form'
+import TaskForm from './task-form'
 
 const DialogContainer = (props) => {
   const navigate = useNavigate()
@@ -71,4 +72,28 @@ const ViewTaskModal = () => {
   )
 }
 
-export { CreateBoardModal, EditBoardModal, ViewTaskModal }
+const CreateTaskModal = () => {
+  return (
+    <DialogContainer>
+      <TaskForm
+        initialValues={{
+          title: '',
+          description: '',
+          subtasks: [
+            {
+              title: '',
+              isCompleted: false
+            },
+            {
+              title: '',
+              isCompleted: false
+            }
+          ]
+        }}
+        onSubmit={() => {}}
+      />
+    </DialogContainer>
+  )
+}
+
+export { CreateBoardModal, EditBoardModal, ViewTaskModal, CreateTaskModal }

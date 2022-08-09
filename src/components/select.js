@@ -11,9 +11,7 @@ const useElementIds = ({ id = `dropdown-0` }) => {
 }
 
 const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
-  const initialSelectedItemIndex = items.findIndex(
-    (obj) => obj.value === initialSelected
-  )
+  const initialSelectedItemIndex = items.indexOf(initialSelected)
 
   const [selectedIndex, setSelectedIndex] = useState(
     initialSelectedItemIndex === -1 ? 0 : initialSelectedItemIndex
@@ -45,7 +43,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
         break
 
       case 'Enter':
-        isMenuOpen && onSelect(items[selectedIndex].value)
+        isMenuOpen && onSelect(items[selectedIndex])
       default:
         return
     }
@@ -138,17 +136,17 @@ const DropdownSelect = (props) => {
         {...getButtonProps({
           disabled: disabled || options.length === 0
         })}>
-        {options[selectedIndex]?.label || 'None'}
+        {options[selectedIndex] || 'None'}
       </button>
 
       <ul {...getMenuProps()}>
         {isOpen &&
-          options.map(({ label, value }, index) => (
+          options.map((value, index) => (
             <li
               key={`dropdown-option-${value}`}
               className={selectedIndex === index ? 'selected' : undefined}
               {...getItemProps({ value, index })}>
-              {label}
+              {value}
             </li>
           ))}
       </ul>

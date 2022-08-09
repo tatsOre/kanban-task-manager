@@ -6,6 +6,7 @@ import { BoardsAsideNav, BoardsMobileNav } from './boards-nav'
 import { AddButton, SidebarToggle } from './button'
 import { DropdownMenu, DropdownMenuItem } from './dropdown-menu'
 import Logo from './logotype'
+import { CreateTaskModal } from './modals'
 
 
 function BoardsManager() {
@@ -48,6 +49,8 @@ function BoardsManager() {
         openSidebar={openSidebar}
         onClick={handleToggleSidebar}
       />
+     
+     
 
       {!userBoards.length && <section>hey, no boards, create one</section>}
       <Outlet />

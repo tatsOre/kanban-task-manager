@@ -36,7 +36,9 @@
     display: flex;
     flex-flow: row wrap;
     position: relative;
-    height: inherit;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
   }
 
   .dashboard-header {
@@ -51,7 +53,7 @@
 
   .nav-container {
     min-width: max-content;
-    height: 90%;
+    height: calc(100% - 5rem);
     display: flex;
     flex-direction: column;
   }
@@ -93,6 +95,7 @@
     order: 4;
     flex: 1 0 calc(100% - var(--header-width-md));
     height: calc(100% - var(--header-height-md));
+    overflow: scroll;
   }
 }
 

@@ -62,27 +62,21 @@ form textarea::placeholder {
   margin-left: 1rem;
 }
 
-form input ~ strong,
-form textarea ~ strong {
+form input ~ strong {
   color: var(--color-red);
   position: absolute;
   font-weight: 500;
-  font-size: 0.813rem; /* 13px */
+  font-size: 0.75rem; /* 12px */
 }
 
 form .input-group input[type='text'] ~ strong {
-  top: 1.8rem;
-  right: 1.35rem;
-}
-
-form textarea ~ strong {
-  bottom: 0.5rem;
-  right: 1.35rem;
+  top: 2.25rem;
+  right: 1rem;
 }
 
 .form-input-list li input[type='text'] ~ strong {
-  top: 0.85rem;
-  right: 3.25rem;
+  top: 0.8rem;
+  right: 3rem;
 }
 
 form button[type='submit'] {
@@ -104,11 +98,15 @@ button[id^='dropdown-task-status'] {
   width: 100%;
   height: 40px;
   padding-inline: 1rem;
-  margin-block-start: 0.5rem;
   position: relative;
   color: var(--color-black);
   background-color: var(--color-white);
   border: 1px solid var(--color-lines-medium);
+}
+
+button[id^='dropdown-task-status']::first-letter,
+#dropdown-task-status-menu li::first-letter {
+  text-transform: capitalize;
 }
 
 button[id^='dropdown-task-status'][aria-expanded='true'] {
@@ -131,25 +129,24 @@ button[id^='dropdown-task-status']:disabled {
   color: var(--color-medium-grey);
 }
 
-button[id^='dropdown-task-status']:hover:not(:disable) {
+button[id^='dropdown-task-status']:hover {
   border-color: var(--color-main-purple);
 }
 
 #dropdown-task-status-label {
+  display: block;
   font-style: normal;
   font-weight: 700;
   font-size: 0.75rem; /* 12px */
   line-height: 0.938rem; /* 15px */
-  display: block;
   color: var(--color-medium-grey);
 }
 
 #dropdown-task-status-menu {
   position: absolute;
-  top: 4.5rem;
+  top: 5rem;
   width: 100%;
   background-color: var(--color-white);
-  box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
   border-radius: 8px;
 }
 
@@ -158,15 +155,41 @@ button[id^='dropdown-task-status']:hover:not(:disable) {
   font-size: 0.813rem; /* 13px */
   line-height: 1.438rem; /* 23px */
   color: var(--color-medium-grey);
-  margin: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 #dropdown-task-status-menu li:hover {
   cursor: pointer;
+  background-color: var(--color-secondary-purple);
+}
+
+#dropdown-task-status-menu li:first-of-type {
+  margin-block-start: 0.5rem;
+}
+
+#dropdown-task-status-menu li:last-of-type {
+  margin-block-end: 0.5rem;
 }
 
 /* Theming
 ============================ */
+
+[data-theme='dark'] button[id^='dropdown-task-status'] {
+  color: var(--color-white);
+  background-color: var(--color-dark-grey);
+}
+
+[data-theme='dark'] #dropdown-task-status-label {
+  color: var(--color-white);
+}
+
+[data-theme='dark'] #dropdown-task-status-menu {
+  background-color: var(--color-very-dark-grey);
+}
+
+[data-theme='light'] #dropdown-task-status-menu {
+  box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
+}
 
 [data-theme='light'] .input-group label {
   color: var(--color-medium-grey);
