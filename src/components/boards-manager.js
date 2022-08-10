@@ -4,10 +4,8 @@ import { useAppData } from '../context/app-data'
 import useUser from '../hooks/use-user'
 import { BoardsAsideNav, BoardsMobileNav } from './boards-nav'
 import { AddButton, SidebarToggle } from './button'
-import { DropdownMenu, DropdownMenuItem } from './dropdown-menu'
-import Logo from './logotype'
-import { CreateTaskModal } from './modals'
 
+import Logo from './logotype'
 
 function BoardsManager() {
   const [openSidebar, setShowSidebar] = useState(true)
@@ -29,10 +27,6 @@ function BoardsManager() {
         <Logo size="sm" />
         <BoardsMobileNav boards={userBoards} />
         <AddButton className="create-task" />
-        <DropdownMenu>
-          <DropdownMenuItem label="Edit Task" />
-          <DropdownMenuItem label="Delete Task" />
-        </DropdownMenu>
       </header>
 
       <header className="dashboard-header">
@@ -44,15 +38,7 @@ function BoardsManager() {
           <BoardsAsideNav boards={userBoards} />
         </div>
       </aside>
-
-      <SidebarToggle
-        openSidebar={openSidebar}
-        onClick={handleToggleSidebar}
-      />
-     
-     
-
-      {!userBoards.length && <section>hey, no boards, create one</section>}
+      <SidebarToggle openSidebar={openSidebar} onClick={handleToggleSidebar} />
       <Outlet />
     </div>
   )

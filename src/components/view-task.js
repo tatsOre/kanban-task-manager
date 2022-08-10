@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
+import { DialogHeading } from './modals'
 import DropdownSelect from './select'
 
 export function getCompletedSubtasks(subtasks) {
@@ -33,8 +36,12 @@ function Checkbox({ subtask, onChange }) {
   )
 }
 
-function TaskView({ task }) {
-  const [state] = useAppData()
+function TaskView() {
+  const [state, dispatch] = useAppData()
+
+  const navigate = useNavigate()
+
+  const { ACTIVE_BOARD: board, ACTIVE_TASK: task } = state
 
   const handleSubtaskChange = (value) => console.log(value)
 
@@ -54,13 +61,26 @@ function TaskView({ task }) {
 
   return (
     <>
-      <h2 id="dialog-label" className="heading-l">
-        {task?.title}
-      </h2>
+      <DialogHeading>{task?.title}</DialogHeading>
+
+      <div className="temp task">
+        <Link
+          to={`/boards/${board.id}/edit/${task.id}`}
+          state={{ backgroundLocation: `/boards/${board.id}` }}>
+          Edit Task
+        </Link>
+
+        <button
+          onClick={() => {
+            navigate(-1)
+            dispatch({ type: 'OPEN_DELETE_TASK', payload: true })
+          }}>
+          Delete Task
+        </button>
+      </div>
 
       <p className="view-task-desc body-l">{task?.description}</p>
-
-      <form className='view-task-form'>
+      <form className="view-task-form">
         {task?.subtasks?.length ? (
           <fieldset className="subtasks-group">
             <legend className="subtitle-s">

@@ -3,9 +3,11 @@ import { createContext, useContext, useReducer } from 'react'
 const AppContext = createContext()
 
 const initialState = {
-  THEME: 'dark',
+  THEME: 'light',
   ACTIVE_BOARD: null,
-  ACTIVE_TASK: null
+  ACTIVE_TASK: null,
+  DELETE_TASK: false,
+  DELETE_BOARD: false
 }
 
 function useAppData() {
@@ -24,7 +26,6 @@ function reducer(state, action) {
         ACTIVE_TASK: action.payload
       }
     case 'SET_ACTIVE_BOARD':
-      
       return {
         ...state,
         ACTIVE_BOARD: action.payload
@@ -33,6 +34,16 @@ function reducer(state, action) {
       return {
         ...state,
         THEME: action.payload
+      }
+    case 'OPEN_DELETE_TASK':
+      return {
+        ...state,
+        DELETE_TASK: action.payload
+      }
+    case 'OPEN_DELETE_BOARD':
+      return {
+        ...state,
+        DELETE_BOARD: action.payload
       }
     case 'RESET_STATE':
       return initialState

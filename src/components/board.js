@@ -5,6 +5,8 @@ import { getCompletedSubtasks } from './view-task'
 
 import json from '../data/data.json' // UI Implementation
 
+import { DeleteBoard, DeleteTask } from './modals'
+
 const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
 
 const BoardTaskItem = ({ board, data }) => {
@@ -32,69 +34,90 @@ function Board() {
 
   useEffect(() => {
     const fetchBoard = () => {
-      const board = json.boards.find((b) => b.id == boardId)
+      const board = json.boards.find((b) => b.id === parseInt(boardId))
       dispatch({ type: 'SET_ACTIVE_BOARD', payload: board })
     }
     fetchBoard()
   }, [boardId])
 
-  if (!state.ACTIVE_BOARD) return null
-
   const { ACTIVE_BOARD: data } = state
 
   return (
     <>
-      <div className="board-toolbar">
-        <BoardHeading name={data.name} />
-        <Link
-          to={`/boards/edit/${data.id}`}
-          state={{ backgroundLocation: location }}>
-          Edit
-        </Link>
-      </div>
+      {state.ACTIVE_BOARD ? (
+        <>
+          <div className="board-toolbar">
+            <BoardHeading name={data.name} />
 
-      <section className="board-details">
-        {data.columns?.length ? (
-          <>
-            {data.columns.map((column) => (
-              <section className="board-column" key={column.name}>
-                <h3 className="heading-s">
-                  {column.name} ({column.tasks.length})
-                </h3>
-                <ul className="column-tasks">
-                  {column.tasks.length
-                    ? column.tasks.map((task) => (
-                        <BoardTaskItem
-                          board={data.id}
-                          data={task}
-                          key={`task-${task.id}`}
-                        />
-                      ))
-                    : null}
-                </ul>
-              </section>
-            ))}
+            <div className="temp">
+              <Link
+                to="/boards/tasks/new"
+                state={{ backgroundLocation: location }}>
+                Add Task
+              </Link>
 
-            <section className="new-column">
-              <NavLink
-                className="heading-xl"
+              <Link
                 to={`/boards/edit/${data.id}`}
                 state={{ backgroundLocation: location }}>
-                + New Column
-              </NavLink>
-            </section>
-          </>
-        ) : (
-          <>
-            <p>This board is empty. Create a new column to get started.</p>
-            <NavLink
-              to={`/boards/edit/${data.id}`}
-              state={{ backgroundLocation: location }}>
-              + Add New Column
-            </NavLink>
-          </>
-        )}
-      </section>
+                Edit Board
+              </Link>
+              <button
+                onClick={() =>
+                  dispatch({ type: 'OPEN_DELETE_BOARD', payload: true })
+                }>
+                Delete Board
+              </button>
+            </div>
+          </div>
+
+          <section className="board-details">
+            {data.columns?.length ? (
+              <>
+                {data.columns.map((column) => (
+                  <section className="board-column" key={column.name}>
+                    <h3 className="heading-s">
+                      {column.name} ({column.tasks.length})
+                    </h3>
+                    <ul className="column-tasks">
+                      {column.tasks.length
+                        ? column.tasks.map((task) => (
+                            <BoardTaskItem
+                              board={data.id}
+                              data={task}
+                              key={`task-${task.id}`}
+                            />
+                          ))
+                        : null}
+                    </ul>
+                  </section>
+                ))}
+
+                <section className="new-column">
+                  <NavLink
+                    className="heading-xl"
+                    to={`/boards/edit/${data.id}`}
+                    state={{ backgroundLocation: location }}>
+                    + New Column
+                  </NavLink>
+                </section>
+              </>
+            ) : (
+              <>
+                <p>This board is empty. Create a new column to get started.</p>
+                <NavLink
+                  to={`/boards/edit/${data.id}`}
+                  state={{ backgroundLocation: location }}>
+                  + Add New Column
+                </NavLink>
+              </>
+            )}
+          </section>
+        </>
+      ) : (
+        <p>Ups, this board does not exist anymore!</p>
+      )}
+      {state.DELETE_BOARD && <DeleteBoard />}
+      {state.DELETE_TASK && <DeleteTask />}
     </>
   )
 }

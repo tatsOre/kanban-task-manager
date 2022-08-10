@@ -44,6 +44,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
 
       case 'Enter':
         isMenuOpen && onSelect(items[selectedIndex])
+        break
       default:
         return
     }

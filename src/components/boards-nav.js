@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import IconBoard from '../icons/icon-board'
-
 import ThemeToggle from '../components/theme-toggle'
 import IconChevron from '../icons/icon-chevron'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuLink,
+  MenuList
+} from '@reach/menu-button'
 
 const NavHeading = ({ boards }) => (
   <h2 className="heading-s">ALL BOARDS ({boards || 0})</h2>
@@ -79,4 +85,21 @@ function BoardsAsideNav({ boards }) {
   )
 }
 
-export { BoardsAsideNav, BoardsMobileNav }
+function TaskMenu({ board, task, onClick }) {
+  return (
+    <Menu>
+      <MenuButton>...</MenuButton>
+      <MenuList>
+        <Link
+          to={`/boards/${board}/${task.id}/edit`}
+          state={{ backgroundLocation: `/boards/${board}` }}>
+          <MenuItem>Edit</MenuItem>
+        </Link>
+
+        <MenuItem onSelect={onClick}>Delete</MenuItem>
+      </MenuList>
+    </Menu>
+  )
+}
+
+export { BoardsAsideNav, BoardsMobileNav, TaskMenu }

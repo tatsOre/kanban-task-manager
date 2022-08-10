@@ -5,7 +5,9 @@ import Board from './components/board'
 import Home from './components/home'
 import {
   CreateBoardModal,
+  CreateTaskModal,
   EditBoardModal,
+  EditTaskModal,
   ViewTaskModal
 } from './components/modals'
 
@@ -22,14 +24,22 @@ export default function App() {
             <Route path=":boardId" element={<Board />} />
           </Route>
         </Route>
-        <Route path='*' element={<Home />} />
+        <Route path="*" element={<Home />} />
       </Routes>
 
       {state?.backgroundLocation && (
         <Routes>
           <Route path="/boards/new" element={<CreateBoardModal />} />
           <Route path="/boards/edit/:boardId" element={<EditBoardModal />} />
-          <Route path="/boards/:boardId/tasks/:taskId" element={<ViewTaskModal />} />
+          <Route path="/boards/tasks/new" element={<CreateTaskModal />} />
+          <Route
+            path="/boards/:boardId/tasks/:taskId"
+            element={<ViewTaskModal />}
+          />
+          <Route
+            path="/boards/:boardId/edit/:taskId"
+            element={<EditTaskModal />}
+          />
         </Routes>
       )}
     </AppDataProvider>

@@ -14,6 +14,25 @@ div[data-reach-dialog-content] {
   animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
 }
 
+div[data-reach-alert-dialog-content] [data-reach-alert-dialog-label] {
+  color: var(--color-red);
+}
+
+div[data-reach-alert-dialog-content] [data-reach-alert-dialog-description] {
+  color: var(--color-medium-grey);
+  margin-block: 1.5rem;
+}
+
+div[data-reach-alert-dialog-content] .alert-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+div[data-reach-alert-dialog-content] .alert-buttons button {
+  flex: 1;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
