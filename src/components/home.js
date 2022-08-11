@@ -1,13 +1,20 @@
 import { Navigate } from 'react-router-dom'
-import useUser from '../hooks/use-user'
 
 const Home = () => {
-  const user = useUser()
+  const user = {
+    boards: [
+      {
+        name: 'Board',
+        id: 1,
+        columns: []
+      }
+    ]
+  }
 
   return (
     <div>
       {user && user.boards.length ? (
-        <Navigate to={`boards/${user.boards[0].id}`} replace />
+        <Navigate to={`boards/${1}`} replace />
       ) : (
         <Navigate to="boards" replace />
       )}

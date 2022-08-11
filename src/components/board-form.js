@@ -56,6 +56,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
     }
 
     if (valid) {
+      console.log('Submitting new board', values)
       onSubmit({ ...values })
     }
   }

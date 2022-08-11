@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
-import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { getCompletedSubtasks } from './view-task'
-
-import json from '../data/data.json' // UI Implementation
-
 import { DeleteBoard, DeleteTask } from './modals'
+import { BOARDS_KEY } from '../utils/constants'
 
 const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
 
@@ -34,8 +32,10 @@ function Board() {
 
   useEffect(() => {
     const fetchBoard = () => {
-      const board = json.boards.find((b) => b.id === parseInt(boardId))
-      dispatch({ type: 'SET_ACTIVE_BOARD', payload: board })
+      const data = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+      const boardData = data.find((b) => b.id === parseInt(boardId))
+
+      dispatch({ type: 'SET_ACTIVE_BOARD', payload: boardData })
     }
     fetchBoard()
   }, [boardId])
@@ -51,13 +51,13 @@ function Board() {
 
             <div className="temp">
               <Link
-                to="/boards/tasks/new"
+                to={`/boards/${data.id}/new-task`}
                 state={{ backgroundLocation: location }}>
                 Add Task
               </Link>
 
               <Link
-                to={`/boards/edit/${data.id}`}
+                to={`/boards/${data.id}/edit`}
                 state={{ backgroundLocation: location }}>
                 Edit Board
               </Link>
@@ -76,10 +76,10 @@ function Board() {
                 {data.columns.map((column) => (
                   <section className="board-column" key={column.name}>
                     <h3 className="heading-s">
-                      {column.name} ({column.tasks.length})
+                      {column.name} ({column.tasks?.length || 0})
                     </h3>
                     <ul className="column-tasks">
-                      {column.tasks.length
+                      {column.tasks?.length
                         ? column.tasks.map((task) => (
                             <BoardTaskItem
                               board={data.id}
@@ -93,22 +93,22 @@ function Board() {
                 ))}
 
                 <section className="new-column">
-                  <NavLink
+                  <Link
                     className="heading-xl"
-                    to={`/boards/edit/${data.id}`}
+                    to={`/boards/${data.id}/edit`}
                     state={{ backgroundLocation: location }}>
                     + New Column
-                  </NavLink>
+                  </Link>
                 </section>
               </>
             ) : (
               <>
                 <p>This board is empty. Create a new column to get started.</p>
-                <NavLink
-                  to={`/boards/edit/${data.id}`}
+                <Link
+                  to={`/boards/${data.id}/edit`}
                   state={{ backgroundLocation: location }}>
                   + Add New Column
-                </NavLink>
+                </Link>
               </>
             )}
           </section>

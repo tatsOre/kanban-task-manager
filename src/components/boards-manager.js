@@ -1,20 +1,13 @@
-import { useState } from 'react'
+import {  useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import useUser from '../hooks/use-user'
-import { BoardsAsideNav, BoardsMobileNav } from './boards-nav'
+import { BoardsAsideNav } from './boards-nav'
 import { AddButton, SidebarToggle } from './button'
-
 import Logo from './logotype'
 
 function BoardsManager() {
   const [openSidebar, setShowSidebar] = useState(true)
-
   const [state] = useAppData()
-
-  const user = useUser()
-
-  const userBoards = user.boards
 
   const handleToggleSidebar = () => setShowSidebar(!openSidebar)
 
@@ -25,7 +18,7 @@ function BoardsManager() {
       className="dashboard-container">
       <header className="dashboard-header mobile">
         <Logo size="sm" />
-        <BoardsMobileNav boards={userBoards} />
+
         <AddButton className="create-task" />
       </header>
 
@@ -35,7 +28,7 @@ function BoardsManager() {
 
       <aside className="dashboard-sidebar">
         <div className="nav-container">
-          <BoardsAsideNav boards={userBoards} />
+          <BoardsAsideNav/>
         </div>
       </aside>
       <SidebarToggle openSidebar={openSidebar} onClick={handleToggleSidebar} />

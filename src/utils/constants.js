@@ -18,4 +18,6 @@ const TASK_SCHEMA = {
   ]
 }
 
-export { BOARD_SCHEMA, TASK_SCHEMA }
+const BOARDS_KEY = 'kanban-boards'
+
+export { BOARDS_KEY, BOARD_SCHEMA, TASK_SCHEMA }

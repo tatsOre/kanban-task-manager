@@ -12,6 +12,7 @@ import ViewTask from './view-task'
 import BoardForm from './board-form'
 import TaskForm from './task-form'
 import { Button } from './button'
+import { BOARDS_KEY, BOARD_SCHEMA } from '../utils/constants'
 
 export const DialogHeading = ({ children }) => (
   <h2 id="dialog-label" className="heading-l">
@@ -39,28 +40,67 @@ const DialogContainer = (props) => {
 }
 
 const CreateBoardModal = () => {
+  const navigate = useNavigate()
+
+  const [, dispatch] = useAppData()
+
+  const handleCreateBoard = (body) => {
+    const boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+
+    const id = boards.length + 1
+
+    const updatedBoards = [...boards, { id, ...body }]
+
+    window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(updatedBoards))
+
+    dispatch({ type: 'SET_NEW_BOARD', payload: { id, name: body.name } })
+
+    navigate(`/boards/${id}`)
+  }
+
   return (
     <DialogContainer>
-      <FormSubmission method="POST" endpoint="" callback={() => {}}>
-        <BoardForm
-          initialValues={{
-            name: '',
-            columns: [{ name: 'Todo' }, { name: 'Doing' }]
-          }}
-        />
-      </FormSubmission>
+      <BoardForm initialValues={BOARD_SCHEMA} onSubmit={handleCreateBoard} />
     </DialogContainer>
   )
 }
 
 const EditBoardModal = () => {
-  const [state] = useAppData()
+  const navigate = useNavigate()
+
+  const [state, dispatch] = useAppData()
+
+  const handleEditBoard = (body) => {
+    const boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+
+    const updatedIndex = boards.findIndex((b) => b.id == body.id)
+
+    const updatedBoards = [
+      ...boards.slice(0, updatedIndex),
+      body,
+      ...boards.slice(updatedIndex + 1)
+    ]
+
+    console.log(updatedBoards)
+
+    window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(updatedBoards))
+
+    const mappedBoards = updatedBoards.map((b) => ({ id: b.id, name: b.name }))
+
+    dispatch({ type: 'UPDATE_BOARDS', payload: mappedBoards })
+
+    dispatch({ type: 'SET_ACTIVE_BOARD', payload: body })
+
+    navigate(`/boards/${body.id}`)
+  }
 
   return (
     <DialogContainer>
-      <FormSubmission method="PUT" endpoint={''} callback={() => {}}>
-        <BoardForm initialValues={state.ACTIVE_BOARD} edit />
-      </FormSubmission>
+      <BoardForm
+        initialValues={state.ACTIVE_BOARD}
+        onSubmit={handleEditBoard}
+        edit
+      />
     </DialogContainer>
   )
 }
@@ -134,7 +174,10 @@ const DeleteBoardModal = ({ board, task, close }) => {
   const cancelRef = useRef()
 
   return (
-    <AlertDialog leastDestructiveRef={cancelRef} className="alert-dialog" data-theme={state.THEME} >
+    <AlertDialog
+      leastDestructiveRef={cancelRef}
+      className="alert-dialog"
+      data-theme={state.THEME}>
       {board || task ? (
         <>
           <AlertDialogLabel className="heading-l">
@@ -187,12 +230,15 @@ const DeleteTask = () => {
   const closeDialog = () => {
     dispatch({ type: 'OPEN_DELETE_TASK', payload: false })
     console.log(state.ACTIVE_TASK)
-    console.log(`/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`)
-    navigate(`/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`)
-    
+    console.log(
+      `/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`
+    )
+    navigate(
+      `/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`
+    )
   }
 
-  return <DeleteBoardModal task={state.ACTIVE_TASK} close={closeDialog}  />
+  return <DeleteBoardModal task={state.ACTIVE_TASK} close={closeDialog} />
 }
 
 export {

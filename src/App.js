@@ -30,8 +30,8 @@ export default function App() {
       {state?.backgroundLocation && (
         <Routes>
           <Route path="/boards/new" element={<CreateBoardModal />} />
-          <Route path="/boards/edit/:boardId" element={<EditBoardModal />} />
-          <Route path="/boards/tasks/new" element={<CreateTaskModal />} />
+          <Route path="/boards/:boardId/edit" element={<EditBoardModal />} />
+          <Route path="/boards/:boardId/new-task" element={<CreateTaskModal />} />
           <Route
             path="/boards/:boardId/tasks/:taskId"
             element={<ViewTaskModal />}

@@ -1,26 +1,27 @@
 import { useState } from 'react'
-import IconBoard from '../icons/icon-board'
-import ThemeToggle from '../components/theme-toggle'
-import IconChevron from '../icons/icon-chevron'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuLink,
-  MenuList
-} from '@reach/menu-button'
+import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
+import { useAppData } from '../context/app-data'
+import IconBoard from '../icons/icon-board'
+import IconChevron from '../icons/icon-chevron'
+import ThemeToggle from '../components/theme-toggle'
 
 const NavHeading = ({ boards }) => (
   <h2 className="heading-s">ALL BOARDS ({boards || 0})</h2>
 )
 
-const BoardsNavigation = ({ boards }) => {
-  let location = useLocation()
+const BoardsNavigation = () => {
+  const [state] = useAppData()
 
+  const location = useLocation()
+
+  const boards = state && state.USER_BOARDS
+
+  console.log(location.pathname)
   return (
     <>
       <NavHeading boards={boards.length} />
+
       <ul className="boards-tabs">
         {boards.length
           ? boards.map((board) => (
@@ -28,7 +29,9 @@ const BoardsNavigation = ({ boards }) => {
                 <NavLink
                   to={`${board.id}`}
                   className={({ isActive }) =>
-                    isActive ? 'active heading-m' : 'heading-m'
+                    isActive 
+                      ? 'active heading-m'
+                      : 'heading-m'
                   }>
                   <IconBoard />
                   {board.name}
@@ -50,11 +53,7 @@ const BoardsNavigation = ({ boards }) => {
   )
 }
 
-BoardsNavigation.defaultProps = {
-  boards: []
-}
-
-function BoardsMobileNav({ boards }) {
+function BoardsMobileNav() {
   const [openMenu, setOpenMenu] = useState(false)
 
   return (
@@ -69,17 +68,17 @@ function BoardsMobileNav({ boards }) {
       </button>
 
       <div role="menu">
-        <BoardsNavigation boards={boards} />
+        <BoardsNavigation />
         <ThemeToggle />
       </div>
     </div>
   )
 }
 
-function BoardsAsideNav({ boards }) {
+function BoardsAsideNav() {
   return (
     <>
-      <BoardsNavigation boards={boards} />
+      <BoardsNavigation />
       <ThemeToggle />
     </>
   )
