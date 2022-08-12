@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-package-lock.json
 
 # testing
 /coverage
@@ -29,7 +28,7 @@ yarn-error.log*
 *.fig
 *.xd
 
-data.json
 /src/drafts/*
 
 .prettierignore
+/package-lock.json

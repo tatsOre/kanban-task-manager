@@ -17,7 +17,6 @@ const BoardsNavigation = () => {
 
   const boards = state && state.USER_BOARDS
 
-  console.log(location.pathname)
   return (
     <>
       <NavHeading boards={boards.length} />
@@ -29,9 +28,7 @@ const BoardsNavigation = () => {
                 <NavLink
                   to={`${board.id}`}
                   className={({ isActive }) =>
-                    isActive 
-                      ? 'active heading-m'
-                      : 'heading-m'
+                    isActive ? 'active heading-m' : 'heading-m'
                   }>
                   <IconBoard />
                   {board.name}

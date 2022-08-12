@@ -3,6 +3,8 @@ const BOARD_SCHEMA = {
   columns: [{ name: 'Todo' }, { name: 'Doing' }]
 }
 
+const COLUMN_SCHEMA = { name: '', tasks: [] }
+
 const TASK_SCHEMA = {
   title: '',
   description: '',
@@ -20,4 +22,4 @@ const TASK_SCHEMA = {
 
 const BOARDS_KEY = 'kanban-boards'
 
-export { BOARDS_KEY, BOARD_SCHEMA, TASK_SCHEMA }
+export { BOARDS_KEY, BOARD_SCHEMA, COLUMN_SCHEMA, TASK_SCHEMA }

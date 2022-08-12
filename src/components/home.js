@@ -1,20 +1,15 @@
 import { Navigate } from 'react-router-dom'
+import { useAppData } from '../context/app-data'
 
 const Home = () => {
-  const user = {
-    boards: [
-      {
-        name: 'Board',
-        id: 1,
-        columns: []
-      }
-    ]
-  }
+  const [state] = useAppData()
+  const userBoards = (state && state.USER_BOARDS) || []
+  const userBoardPath = (userBoards.length && userBoards[0].id) || null
 
   return (
     <div>
-      {user && user.boards.length ? (
-        <Navigate to={`boards/${1}`} replace />
+      {userBoardPath ? (
+        <Navigate to={`boards/${userBoardPath}`} replace />
       ) : (
         <Navigate to="boards" replace />
       )}

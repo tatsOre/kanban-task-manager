@@ -7,15 +7,18 @@ function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState({ ...initialValues })
   const [errors, setErrors] = useState({})
   const [state] = useAppData()
+
   const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee & smile']
+
+  const boardColumns =
+    state.ACTIVE_BOARD &&
+    state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase())
 
   const dropdownProps = {
     id: 'dropdown-task-status',
-    options:
-      state.ACTIVE_BOARD &&
-      state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase()),
-    selected: values?.status?.toLowerCase(),
-    onChange: () => {},
+    options: boardColumns,
+    selected: values.status?.toLowerCase(),
+    onChange: (val) => setValues((s) => ({ ...s, status: val })),
     label: 'Status'
   }
 
@@ -74,7 +77,11 @@ function TaskForm({ initialValues, edit, onSubmit }) {
     }
 
     if (valid) {
-      onSubmit({ ...values })
+      onSubmit({
+        ...values,
+        status: values.status || boardColumns[0],
+        boardId: state.ACTIVE_BOARD.id
+      })
     }
   }
 

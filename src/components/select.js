@@ -137,7 +137,7 @@ const DropdownSelect = (props) => {
         {...getButtonProps({
           disabled: disabled || options.length === 0
         })}>
-        {options[selectedIndex] || 'None'}
+        {options[selectedIndex] || '--'}
       </button>
 
       <ul {...getMenuProps()}>

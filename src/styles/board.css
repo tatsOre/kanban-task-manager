@@ -73,7 +73,8 @@
 /* Theming
 ============================ */
 
-[data-theme='light'] .board-details {
+[data-theme='light'] .board-details,
+[data-theme='light'] .board-toolbar.empty  {
   background-color: var(--color-light-grey);
 }
 
@@ -93,7 +94,8 @@
   );
 }
 
-[data-theme='dark'] .board-details {
+[data-theme='dark'] .board-details,
+[data-theme='dark'] .board-toolbar.empty {
   background-color: var(--color-very-dark-grey);
 }
 

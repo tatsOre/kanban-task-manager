@@ -11,6 +11,13 @@ import {
   ViewTaskModal
 } from './components/modals'
 
+const BoardsHome = () => (
+  <>
+    <div className="board-toolbar empty"></div>
+    <section className="board-details empty">Hey! Choose one of the board on the left or create a new one!</section>
+  </>
+)
+
 export default function App() {
   const location = useLocation()
   let state = location.state
@@ -21,6 +28,7 @@ export default function App() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="boards" element={<BoardManager />}>
+            <Route index element={<BoardsHome />} />
             <Route path=":boardId" element={<Board />} />
           </Route>
         </Route>
@@ -31,7 +39,10 @@ export default function App() {
         <Routes>
           <Route path="/boards/new" element={<CreateBoardModal />} />
           <Route path="/boards/:boardId/edit" element={<EditBoardModal />} />
-          <Route path="/boards/:boardId/new-task" element={<CreateTaskModal />} />
+          <Route
+            path="/boards/:boardId/new-task"
+            element={<CreateTaskModal />}
+          />
           <Route
             path="/boards/:boardId/tasks/:taskId"
             element={<ViewTaskModal />}

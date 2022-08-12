@@ -1,41 +1,40 @@
 import { useState } from 'react'
+import uuid from 'react-uuid'
 import { Button, CloseButton } from './button'
+import { COLUMN_SCHEMA } from '../utils/constants'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
   const onChange = ({ target: { name, value } }) => {
-    if (errors[name]) {
-      errors[name] = ''
-    }
+    if (errors[name]) errors[name] = ''
     setValues((s) => ({ ...s, [name]: value }))
   }
 
   const onChangeArrayItem = (e, idx) => {
-    if (errors.columns && errors.columns[idx]) {
-      errors.columns[idx] = ''
-    }
+    if (errors.columns && errors.columns[idx]) errors.columns[idx] = ''
 
-    const edited = values.columns.map((s, index) => {
-      if (idx === index) {
-        return { ...s, name: e.target.value }
-      }
-      return s
-    })
-    setValues((s) => ({ ...s, columns: edited }))
+    const updatedColumns = values.columns.map((col, index) =>
+      idx === index ? { ...col, name: e.target.value } : col
+    )
+    setValues((state) => ({ ...state, columns: updatedColumns }))
   }
 
   const appendArrayItem = () =>
-    setValues((s) => ({ ...s, columns: [...s.columns, { name: '' }] }))
+    setValues((state) => ({
+      ...state,
+      columns: [...state.columns, { columnId: uuid(), ...COLUMN_SCHEMA }]
+    }))
 
-  const removeArrayItem = (idx) => {
-    const filtered = values.columns.filter((s, index) => index !== idx)
-    setValues((s) => ({ ...s, columns: filtered }))
-  }
+  const removeArrayItem = (idx) =>
+    setValues((state) => ({
+      ...state,
+      columns: [...state.columns.slice(0, idx), ...state.columns.slice(idx + 1)]
+    }))
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     let valid = true
 
     if (!values.name) {
@@ -44,21 +43,18 @@ function BoardForm({ initialValues, edit, onSubmit }) {
     }
 
     if (values.columns.length) {
-      values.columns.forEach((s, idx) => {
-        if (!s.name) {
+      values.columns.forEach((column, idx) => {
+        if (!column.name) {
           valid = false
-          setErrors((s) => ({
-            ...s,
-            columns: { ...s.columns, [idx]: "Can't be empty" }
+          setErrors((state) => ({
+            ...state,
+            columns: { ...state.columns, [idx]: "Can't be empty" }
           }))
         }
       })
     }
 
-    if (valid) {
-      console.log('Submitting new board', values)
-      onSubmit({ ...values })
-    }
+    if (valid) onSubmit({ ...values })
   }
 
   return (
@@ -84,25 +80,28 @@ function BoardForm({ initialValues, edit, onSubmit }) {
         <div className="input-group">
           <label id="columns-list">{edit && 'Board'} Columns</label>
           <ul aria-labelledby="columns-list" className="form-input-list">
-            {values.columns?.map((column, index) => (
-              <li key={`column-${index}`}>
-                <input
-                  aria-label=""
-                  value={column.name}
-                  type="text"
-                  onChange={(e) => onChangeArrayItem(e, index)}
-                  className={
-                    errors.columns && errors.columns[index]
-                      ? 'invalid'
-                      : undefined
-                  }
-                />
-                <CloseButton onClick={() => removeArrayItem(index)} />
-                {errors.columns && errors.columns[index] ? (
-                  <strong>Can't be empty</strong>
-                ) : null}
-              </li>
-            ))}
+            {values.columns?.map(({ name }, index) => {
+              const inputError =
+                errors.columns &&
+                errors.columns[index] &&
+                !values.columns[index].name
+
+              return (
+                <li key={`column-${index}`}>
+                  <input
+                    aria-label="column name"
+                    value={name}
+                    type="text"
+                    onChange={(e) => onChangeArrayItem(e, index)}
+                    className={inputError ? 'invalid' : undefined}
+                  />
+
+                  <CloseButton onClick={() => removeArrayItem(index)} />
+
+                  {inputError ? <strong>Can't be empty</strong> : null}
+                </li>
+              )
+            })}
           </ul>
 
           <Button type="button" onClick={appendArrayItem} variant="secondary">

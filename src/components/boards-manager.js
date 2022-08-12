@@ -18,7 +18,6 @@ function BoardsManager() {
       className="dashboard-container">
       <header className="dashboard-header mobile">
         <Logo size="sm" />
-
         <AddButton className="create-task" />
       </header>
 
@@ -31,6 +30,7 @@ function BoardsManager() {
           <BoardsAsideNav/>
         </div>
       </aside>
+      
       <SidebarToggle openSidebar={openSidebar} onClick={handleToggleSidebar} />
       <Outlet />
     </div>

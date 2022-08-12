@@ -6,7 +6,7 @@ import { DialogHeading } from './modals'
 import DropdownSelect from './select'
 
 export function getCompletedSubtasks(subtasks) {
-  if (!Array.isArray(subtasks) || !subtasks.length) return
+  if (!Array.isArray(subtasks) || !subtasks.length) return 0
   return subtasks.filter((t) => t.isCompleted).length
 }
 
@@ -57,7 +57,7 @@ function TaskView() {
     label: 'Current Status'
   }
 
-  const completed = getCompletedSubtasks(task.subtasks)
+  const completedSubtasks = getCompletedSubtasks(task.subtasks)
 
   return (
     <>
@@ -84,7 +84,7 @@ function TaskView() {
         {task?.subtasks?.length ? (
           <fieldset className="subtasks-group">
             <legend className="subtitle-s">
-              Subtasks {completed} of {task.subtasks?.length}
+              Subtasks {completedSubtasks} of {task.subtasks?.length}
             </legend>
 
             {task.subtasks.map((subtask) => (

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { cloneElement, useEffect, useReducer, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Dialog } from '@reach/dialog'
 import {
@@ -6,13 +6,101 @@ import {
   AlertDialogLabel,
   AlertDialogDescription
 } from '@reach/alert-dialog'
+import uuid from 'react-uuid'
 import { useAppData } from '../context/app-data'
-import { FormSubmission } from '../hooks/use-form-submission'
 import ViewTask from './view-task'
 import BoardForm from './board-form'
 import TaskForm from './task-form'
 import { Button } from './button'
-import { BOARDS_KEY, BOARD_SCHEMA } from '../utils/constants'
+import { BOARDS_KEY, BOARD_SCHEMA, TASK_SCHEMA } from '../utils/constants'
+
+function useLocalStorage() {
+  const store = (() => {
+    if (window !== undefined) {
+      const boards = window.sessionStorage.getItem(BOARDS_KEY)
+      if (boards) return JSON.parse(boards)
+    }
+    return []
+  })()
+
+  const getUserBoards = () => store.map((b) => ({ id: b.id, name: b.name }))
+
+  const setBoards = (boards) => {
+    if (window !== undefined)
+      window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(boards))
+  }
+
+  const getBoardIndex = (boardId) => {
+    return store.findIndex((b) => b.id === boardId)
+  }
+
+  const createBoard = (body) => {
+    const id = uuid()
+
+    const updatedBoards = [...store, { id, ...body }]
+
+    setBoards(updatedBoards)
+
+    return { id, ...body }
+  }
+
+  const updateBoard = (body) => {
+    const updatedIndex = getBoardIndex(body.id)
+
+    const updatedBoards = [
+      ...store.slice(0, updatedIndex),
+      body,
+      ...store.slice(updatedIndex + 1)
+    ]
+
+    setBoards(updatedBoards)
+
+    return body
+  }
+
+  const deleteBoard = (boardId) => {
+    const deletedIndex = getBoardIndex(boardId)
+
+    const updatedBoards = [
+      ...store.slice(0, deletedIndex),
+      ...store.slice(deletedIndex + 1)
+    ]
+
+    setBoards(updatedBoards)
+  }
+
+  const updateStoreAtIndex = (index, data) => [
+    ...store.slice(0, index),
+    data,
+    ...store.slice(index + 1)
+  ]
+
+  const createTask = (task) => {
+    const boardIndex = getBoardIndex(task.boardId)
+
+    const newBoard = { ...store[boardIndex] } // TODO: change to deep copy
+
+    const columnIndex = newBoard.columns.findIndex(
+      (c) => c.name.toLowerCase() == task.status.toLowerCase()
+    )
+
+    newBoard.columns[columnIndex].tasks.push({ id: uuid(), ...task })
+
+    const updatedBoards = updateStoreAtIndex(boardIndex, newBoard)
+
+    setBoards(updatedBoards)
+
+    return newBoard
+  }
+
+  return {
+    createBoard,
+    createTask,
+    updateBoard,
+    deleteBoard,
+    getUserBoards
+  }
+}
 
 export const DialogHeading = ({ children }) => (
   <h2 id="dialog-label" className="heading-l">
@@ -44,23 +132,19 @@ const CreateBoardModal = () => {
 
   const [, dispatch] = useAppData()
 
-  const handleCreateBoard = (body) => {
-    const boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+  const { createBoard } = useLocalStorage()
 
-    const id = boards.length + 1
+  const handleCreate = (body) => {
+    const board = createBoard(body)
 
-    const updatedBoards = [...boards, { id, ...body }]
+    dispatch({ type: 'SET_NEW_BOARD', payload: board })
 
-    window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(updatedBoards))
-
-    dispatch({ type: 'SET_NEW_BOARD', payload: { id, name: body.name } })
-
-    navigate(`/boards/${id}`)
+    navigate(`/boards/${board.id}`)
   }
 
   return (
     <DialogContainer>
-      <BoardForm initialValues={BOARD_SCHEMA} onSubmit={handleCreateBoard} />
+      <BoardForm initialValues={BOARD_SCHEMA} onSubmit={handleCreate} />
     </DialogContainer>
   )
 }
@@ -70,56 +154,45 @@ const EditBoardModal = () => {
 
   const [state, dispatch] = useAppData()
 
-  const handleEditBoard = (body) => {
-    const boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+  const { updateBoard, getUserBoards } = useLocalStorage()
 
-    const updatedIndex = boards.findIndex((b) => b.id == body.id)
+  const handleEdit = (body) => {
+    const newBoard = updateBoard(body)
 
-    const updatedBoards = [
-      ...boards.slice(0, updatedIndex),
-      body,
-      ...boards.slice(updatedIndex + 1)
-    ]
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
 
-    console.log(updatedBoards)
+    dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
 
-    window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(updatedBoards))
-
-    const mappedBoards = updatedBoards.map((b) => ({ id: b.id, name: b.name }))
-
-    dispatch({ type: 'UPDATE_BOARDS', payload: mappedBoards })
-
-    dispatch({ type: 'SET_ACTIVE_BOARD', payload: body })
-
-    navigate(`/boards/${body.id}`)
+    navigate(`/boards/${newBoard.id}`)
   }
 
   return (
     <DialogContainer>
       <BoardForm
         initialValues={state.ACTIVE_BOARD}
-        onSubmit={handleEditBoard}
+        onSubmit={handleEdit}
         edit
       />
     </DialogContainer>
   )
 }
 
-function getTaskById(id, board) {
-  for (let column of board.columns) {
-    const task = column.tasks.find((t) => t.id === id)
-    if (task) return task
-  }
-}
-
 const ViewTaskModal = () => {
   const [state, dispatch] = useAppData()
+
   const { taskId } = useParams()
 
-  useEffect(() => {
-    const task = getTaskById(parseInt(taskId), state.ACTIVE_BOARD)
+  function getTaskById(id, board) {
+    for (let column of board.columns) {
+      const task = column.tasks.find((t) => t.id == id)
+      if (task) {
+        return dispatch({ type: 'SET_ACTIVE_TASK', payload: task })
+      }
+    }
+  }
 
-    dispatch({ type: 'SET_ACTIVE_TASK', payload: task })
+  useEffect(() => {
+    getTaskById(taskId, state.ACTIVE_BOARD)
   }, [taskId])
 
   return (
@@ -134,33 +207,33 @@ const ViewTaskModal = () => {
 }
 
 const CreateTaskModal = () => {
+  const navigate = useNavigate()
+
+  const [, dispatch] = useAppData()
+
+  const { createTask, getUserBoards } = useLocalStorage()
+
+  const handleCreate = (body) => {
+    const newBoard = createTask(body)
+
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
+
+    dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
+
+    navigate(`/boards/${body.boardId}`)
+  }
+
   return (
     <DialogContainer>
-      <TaskForm
-        initialValues={{
-          title: '',
-          description: '',
-          subtasks: [
-            {
-              title: '',
-              isCompleted: false
-            },
-            {
-              title: '',
-              isCompleted: false
-            }
-          ]
-        }}
-        onSubmit={() => {}}
-      />
+      <TaskForm initialValues={TASK_SCHEMA} onSubmit={handleCreate} />
     </DialogContainer>
   )
 }
 
 const EditTaskModal = () => {
   const [state] = useAppData()
-  const { taskId } = useParams()
-  const task = getTaskById(taskId, state.ACTIVE_BOARD)
+
+  const task = state.ACTIVE_TASK
 
   return (
     <DialogContainer>
@@ -169,15 +242,14 @@ const EditTaskModal = () => {
   )
 }
 
-const DeleteBoardModal = ({ board, task, close }) => {
-  const [state] = useAppData()
+const DeleteAlertDialog = ({ board, task, onClose, onDelete, theme }) => {
   const cancelRef = useRef()
 
   return (
     <AlertDialog
       leastDestructiveRef={cancelRef}
       className="alert-dialog"
-      data-theme={state.THEME}>
+      data-theme={theme}>
       {board || task ? (
         <>
           <AlertDialogLabel className="heading-l">
@@ -193,10 +265,10 @@ const DeleteBoardModal = ({ board, task, close }) => {
           </AlertDialogDescription>
 
           <div className="alert-buttons">
-            <Button onClick={() => {}} variant="danger">
+            <Button onClick={onDelete} variant="danger">
               Delete
             </Button>
-            <Button ref={cancelRef} onClick={close} variant="secondary">
+            <Button ref={cancelRef} onClick={onClose} variant="secondary">
               Cancel
             </Button>
           </div>
@@ -206,7 +278,7 @@ const DeleteBoardModal = ({ board, task, close }) => {
           <AlertDialogDescription>
             Something went wrong, try later.
           </AlertDialogDescription>
-          <Button onClick={close} variant="secondary">
+          <Button onClick={onClose} variant="secondary">
             Close
           </Button>
         </>
@@ -217,10 +289,32 @@ const DeleteBoardModal = ({ board, task, close }) => {
 
 const DeleteBoard = () => {
   const [state, dispatch] = useAppData()
+
+  const navigate = useNavigate()
+
+  const { deleteBoard, getUserBoards } = useLocalStorage()
+
+  const handleDelete = () => {
+    deleteBoard(state.ACTIVE_BOARD.id)
+
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
+
+    dispatch({ type: 'OPEN_DELETE_BOARD', payload: false })
+
+    navigate('/')
+  }
+
   const closeDialog = () =>
     dispatch({ type: 'OPEN_DELETE_BOARD', payload: false })
 
-  return <DeleteBoardModal board={state.ACTIVE_BOARD} close={closeDialog} />
+  return (
+    <DeleteAlertDialog
+      board={state.ACTIVE_BOARD}
+      theme={state.THEME}
+      onClose={closeDialog}
+      onDelete={handleDelete}
+    />
+  )
 }
 
 const DeleteTask = () => {
@@ -229,16 +323,16 @@ const DeleteTask = () => {
 
   const closeDialog = () => {
     dispatch({ type: 'OPEN_DELETE_TASK', payload: false })
-    console.log(state.ACTIVE_TASK)
-    console.log(
-      `/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`
-    )
-    navigate(
-      `/boards/${state.ACTIVE_TASK.boardId}/tasks/${state.ACTIVE_TASK.id}`
-    )
+    navigate(`/boards/${state.ACTIVE_TASK.boardId}`)
   }
 
-  return <DeleteBoardModal task={state.ACTIVE_TASK} close={closeDialog} />
+  return (
+    <DeleteAlertDialog
+      task={state.ACTIVE_TASK}
+      onClose={closeDialog}
+      theme={state.THEME}
+    />
+  )
 }
 
 export {
