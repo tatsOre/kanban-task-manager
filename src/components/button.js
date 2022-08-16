@@ -1,3 +1,4 @@
+import React from 'react'
 import AddIcon from '../icons/icon-add-plus'
 import IconCross from '../icons/icon-cross'
 import { IconHideSidebar, IconShowSidebar } from '../icons/icon-sidebar'
@@ -16,7 +17,7 @@ function Button({ className, children, style, size, variant, ...props }) {
 Button.defaultProps = {
   size: 'small',
   variant: 'primary',
-  className: '',
+  className: ''
 }
 
 function CloseButton(props) {
@@ -27,23 +28,13 @@ function CloseButton(props) {
   )
 }
 
-function AddButton({ className, ...props }) {
-  return (
-    <button
-      className={`plus-button primary ${className}`}
-      type="button"
-      {...props}>
-      <AddIcon />
-    </button>
-  )
-}
 
-function SidebarToggle({ openSidebar, onClick, ...props }) {
+
+function SidebarToggle({ openSidebar, onClick }) {
   return (
     <button
       className={`${openSidebar ? 'hide' : 'show'} toggle-sidebar heading-m`}
-      onClick={onClick}
-      {...props}>
+      onClick={onClick}>
       {openSidebar ? (
         <>
           <IconHideSidebar /> Hide Sidebar
@@ -55,4 +46,4 @@ function SidebarToggle({ openSidebar, onClick, ...props }) {
   )
 }
 
-export { AddButton, Button, CloseButton, SidebarToggle }
+export {  Button, CloseButton, SidebarToggle }

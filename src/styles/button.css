@@ -1,41 +1,4 @@
-.primary {
-  color: var(--color-white);
-  background-color: var(--color-main-purple);
-}
 
-.primary:hover {
-  background-color: var(--color-main-purple-hover);
-}
-
-.secondary {
-  color: var(--color-main-purple);
-  background-color: var(--color-secondary-purple);
-}
-
-.secondary:hover {
-  background-color: var(--color-secondary-purple);
-}
-
-.danger {
-  color: var(--color-white);
-  background-color: var(--color-red);
-}
-
-.danger:hover {
-  background-color: var(--color-red-hover);
-}
-
-.small {
-  font-size: 0.813rem; /* 13px */
-  border-radius: 20px;
-  height: 40px;
-}
-
-.large {
-  font-size: 0.938rem; /* 15px */
-  border-radius: 24px;
-  height: 48px;
-}
 
 .close-button:hover svg {
   fill: var(--color-red);
@@ -83,7 +46,7 @@ button.toggle-sidebar {
     height: 48px;
     display: flex;
     align-items: center;
-    bottom: 2.5rem;
+    bottom: 32px;
   }
 
   button.toggle-sidebar.hide {

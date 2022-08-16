@@ -83,129 +83,25 @@ form button[type='submit'] {
   margin-block-start: 1.5rem;
 }
 
-/* Task Status Dropdown Menu
-============================ */
-
-#dropdown-container {
-  position: relative;
-}
-
-button[id^='dropdown-task-status'] {
-  font-size: 0.813rem; /* 13px */
-  font-weight: 500;
-  text-align: left;
-  border-radius: 4px;
-  width: 100%;
-  height: 40px;
-  padding-inline: 1rem;
-  position: relative;
-  color: var(--color-black);
-  background-color: var(--color-white);
-  border: 1px solid var(--color-lines-medium);
-}
-
-button[id^='dropdown-task-status']::first-letter,
-#dropdown-task-status-menu li::first-letter {
-  text-transform: capitalize;
-}
-
-button[id^='dropdown-task-status'][aria-expanded='true'] {
-  border-color: var(--color-main-purple);
-}
-
-button[id^='dropdown-task-status']::after {
-  content: url('../assets/icon-chevron-down.svg');
-  position: absolute;
-  right: 1rem;
-  transition: transform 0.1s;
-}
-
-button[id^='dropdown-task-status'][aria-expanded='true']::after {
-  transform: rotate(-180deg);
-  top: 0.75rem;
-}
-
-button[id^='dropdown-task-status']:disabled {
-  color: var(--color-medium-grey);
-}
-
-button[id^='dropdown-task-status']:hover {
-  border-color: var(--color-main-purple);
-}
-
-#dropdown-task-status-label {
-  display: block;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.75rem; /* 12px */
-  line-height: 0.938rem; /* 15px */
-  color: var(--color-medium-grey);
-}
-
-#dropdown-task-status-menu {
-  position: absolute;
-  top: 5rem;
-  width: 100%;
-  background-color: var(--color-white);
-  border-radius: 8px;
-}
-
-#dropdown-task-status-menu li {
-  font-weight: 500;
-  font-size: 0.813rem; /* 13px */
-  line-height: 1.438rem; /* 23px */
-  color: var(--color-medium-grey);
-  padding: 0.5rem 1rem;
-}
-
-#dropdown-task-status-menu li:hover {
-  cursor: pointer;
-  background-color: var(--color-secondary-purple);
-}
-
-#dropdown-task-status-menu li:first-of-type {
-  margin-block-start: 0.5rem;
-}
-
-#dropdown-task-status-menu li:last-of-type {
-  margin-block-end: 0.5rem;
-}
-
 /* Theming
-============================ */
-
-[data-theme='dark'] button[id^='dropdown-task-status'] {
-  color: var(--color-white);
-  background-color: var(--color-dark-grey);
-}
-
-[data-theme='dark'] #dropdown-task-status-label {
-  color: var(--color-white);
-}
-
-[data-theme='dark'] #dropdown-task-status-menu {
-  background-color: var(--color-very-dark-grey);
-}
-
-[data-theme='light'] #dropdown-task-status-menu {
-  box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
-}
+  ============================ */
 
 [data-theme='light'] .input-group label {
-  color: var(--color-medium-grey);
+    color: var(--color-medium-grey);
 }
 
 [data-theme='dark'] form label {
-  color: var(--color-white);
+    color: var(--color-white);
 }
 
 [data-theme='light'] form input[type='text']::placeholder,
 [data-theme='light'] form textarea::placeholder {
-  color: var(--color-black);
+    color: var(--color-black);
 }
 
 [data-theme='dark'] form input[type='text'],
 [data-theme='dark'] form input[type='text']::placeholder,
+[data-theme='dark'] form textarea,
 [data-theme='dark'] form textarea::placeholder {
-  color: var(--color-white);
+    color: var(--color-white);
 }

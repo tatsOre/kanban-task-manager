@@ -4,7 +4,14 @@ import { useAppData } from '../context/app-data'
 import { getCompletedSubtasks } from './view-task'
 import { DeleteBoard, DeleteTask } from './modals'
 import { BOARDS_KEY } from '../utils/constants'
+import {ButtonSize, DangerButton, PrimaryButton, SecondaryButton} from './button/index'
 
+/**
+ *
+ * @param {*} param0
+ * @returns
+ * https://govuk-react.github.io/govuk-react/?path=/docs/welcome--page
+ */
 const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
 
 const BoardTask = ({ board, task }) => {
@@ -43,6 +50,8 @@ function Board() {
 
   const { ACTIVE_BOARD: board, DELETE_BOARD, DELETE_TASK } = state
 
+  const hasColumns = board && board.columns && board.columns.length
+
   return (
     <>
       <div className={`board-toolbar ${board ? '' : 'empty'}`}>
@@ -52,8 +61,9 @@ function Board() {
 
             <nav className="temp">
               <Link
-                to={`/boards/${board.id}/new-task`}
-                state={{ backgroundLocation: location }}>
+                to={hasColumns ? `/boards/${board.id}/new-task` : '#'}
+                state={{ backgroundLocation: location }}
+                className={hasColumns ? undefined : 'disabled'}>
                 Add Task
               </Link>
 
@@ -73,10 +83,10 @@ function Board() {
         )}
       </div>
 
-      <section className={`board-details ${board ? '' : 'empty'}`}>
+      <section className={`board-details ${hasColumns ? '' : 'empty'}`}>
         {board ? (
           <>
-            {board.columns?.length ? (
+            {hasColumns ? (
               <>
                 {board.columns.map((column) => (
                   <section className="board-column" key={column.columnId}>
@@ -104,6 +114,9 @@ function Board() {
                     state={{ backgroundLocation: location }}>
                     + New Column
                   </Link>
+                  <a href={`http://localhost:3000/boards/${board.id}/edit`}>
+                    New Col
+                  </a>
                 </section>
               </>
             ) : (
@@ -111,9 +124,14 @@ function Board() {
                 <p>This board is empty. Create a new column to get started.</p>
                 <Link
                   to={`/boards/${board.id}/edit`}
-                  state={{ backgroundLocation: location }}>
+                  state={{ backgroundLocation: location }}
+                  className="primary large">
                   + Add New Column
                 </Link>
+
+                <SecondaryButton size={ButtonSize.Large}>Test Large</SecondaryButton>
+                <DangerButton size={ButtonSize.Large}>Danger</DangerButton>
+                <PrimaryButton>Hola</PrimaryButton>
               </>
             )}
           </>

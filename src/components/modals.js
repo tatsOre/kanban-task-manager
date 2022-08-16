@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useReducer, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Dialog } from '@reach/dialog'
 import {
@@ -11,8 +11,10 @@ import { useAppData } from '../context/app-data'
 import ViewTask from './view-task'
 import BoardForm from './board-form'
 import TaskForm from './task-form'
-import { Button } from './button'
 import { BOARDS_KEY, BOARD_SCHEMA, TASK_SCHEMA } from '../utils/constants'
+import { DangerButton, SecondaryButton } from './button/index'
+
+const getUserBoards = (arr) => arr.map((b) => ({ id: b.id, name: b.name }))
 
 function useLocalStorage() {
   const store = (() => {
@@ -23,8 +25,6 @@ function useLocalStorage() {
     return []
   })()
 
-  const getUserBoards = () => store.map((b) => ({ id: b.id, name: b.name }))
-
   const setBoards = (boards) => {
     if (window !== undefined)
       window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(boards))
@@ -33,6 +33,12 @@ function useLocalStorage() {
   const getBoardIndex = (boardId) => {
     return store.findIndex((b) => b.id === boardId)
   }
+
+  const updateStoreAtIndex = (index, data) => [
+    ...store.slice(0, index),
+    data,
+    ...store.slice(index + 1)
+  ]
 
   const createBoard = (body) => {
     const id = uuid()
@@ -55,7 +61,7 @@ function useLocalStorage() {
 
     setBoards(updatedBoards)
 
-    return body
+    return [body, updatedBoards]
   }
 
   const deleteBoard = (boardId) => {
@@ -67,18 +73,14 @@ function useLocalStorage() {
     ]
 
     setBoards(updatedBoards)
-  }
 
-  const updateStoreAtIndex = (index, data) => [
-    ...store.slice(0, index),
-    data,
-    ...store.slice(index + 1)
-  ]
+    return updatedBoards
+  }
 
   const createTask = (task) => {
     const boardIndex = getBoardIndex(task.boardId)
 
-    const newBoard = { ...store[boardIndex] } // TODO: change to deep copy
+    const newBoard = { ...store[boardIndex] }
 
     const columnIndex = newBoard.columns.findIndex(
       (c) => c.name.toLowerCase() == task.status.toLowerCase()
@@ -90,15 +92,62 @@ function useLocalStorage() {
 
     setBoards(updatedBoards)
 
-    return newBoard
+    return [newBoard, updatedBoards]
+  }
+
+  const updateTask = (task) => {
+    const boardIndex = getBoardIndex(task.boardId)
+
+    const newBoard = { ...store[boardIndex] }
+
+    const columnIndex = newBoard.columns.findIndex(
+      (c) => c.name.toLowerCase() == task.status.toLowerCase()
+    )
+
+    newBoard.columns[columnIndex].tasks.forEach((t, idx) => {
+      if (t.id == task.id) {
+        newBoard.columns[columnIndex].tasks[idx] = task
+      }
+    })
+
+    const updatedBoards = updateStoreAtIndex(boardIndex, newBoard)
+
+    setBoards(updatedBoards)
+
+    return [newBoard, updatedBoards]
+  }
+
+  const deleteTask = (task) => {
+    const boardIndex = getBoardIndex(task.boardId)
+
+    const newBoard = { ...store[boardIndex] }
+
+    const columnIndex = newBoard.columns.findIndex(
+      (c) => c.name.toLowerCase() == task.status.toLowerCase()
+    )
+
+    const updatedCol = newBoard.columns[columnIndex].tasks.filter(
+      (t) => t.id != task.id
+    )
+
+    console.log(updatedCol)
+
+    newBoard.columns[columnIndex].tasks = updatedCol
+
+    const updatedBoards = updateStoreAtIndex(boardIndex, newBoard)
+
+    setBoards(updatedBoards)
+
+    return [newBoard, updatedBoards]
   }
 
   return {
     createBoard,
     createTask,
     updateBoard,
+    updateTask,
     deleteBoard,
-    getUserBoards
+    deleteTask
   }
 }
 
@@ -154,12 +203,12 @@ const EditBoardModal = () => {
 
   const [state, dispatch] = useAppData()
 
-  const { updateBoard, getUserBoards } = useLocalStorage()
+  const { updateBoard } = useLocalStorage()
 
   const handleEdit = (body) => {
-    const newBoard = updateBoard(body)
+    const [newBoard, updatedBoards] = updateBoard(body)
 
-    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards(updatedBoards) })
 
     dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
 
@@ -211,12 +260,12 @@ const CreateTaskModal = () => {
 
   const [, dispatch] = useAppData()
 
-  const { createTask, getUserBoards } = useLocalStorage()
+  const { createTask } = useLocalStorage()
 
   const handleCreate = (body) => {
-    const newBoard = createTask(body)
+    const [newBoard, updatedBoards] = createTask(body)
 
-    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards(updatedBoards) })
 
     dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
 
@@ -231,13 +280,25 @@ const CreateTaskModal = () => {
 }
 
 const EditTaskModal = () => {
-  const [state] = useAppData()
+  const navigate = useNavigate()
 
-  const task = state.ACTIVE_TASK
+  const [state, dispatch] = useAppData()
+
+  const { updateTask } = useLocalStorage()
+
+  const handleEdit = (body) => {
+    const [newBoard, updatedBoards] = updateTask(body)
+
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards(updatedBoards) })
+
+    dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
+
+    navigate(`/boards/${body.boardId}`)
+  }
 
   return (
     <DialogContainer>
-      <TaskForm initialValues={task} onSubmit={() => {}} edit />
+      <TaskForm initialValues={state.ACTIVE_TASK} onSubmit={handleEdit} edit />
     </DialogContainer>
   )
 }
@@ -265,12 +326,10 @@ const DeleteAlertDialog = ({ board, task, onClose, onDelete, theme }) => {
           </AlertDialogDescription>
 
           <div className="alert-buttons">
-            <Button onClick={onDelete} variant="danger">
-              Delete
-            </Button>
-            <Button ref={cancelRef} onClick={onClose} variant="secondary">
+            <DangerButton onClick={onDelete}>Delete</DangerButton>
+            <SecondaryButton ref={cancelRef} onClick={onClose}>
               Cancel
-            </Button>
+            </SecondaryButton>
           </div>
         </>
       ) : (
@@ -278,9 +337,7 @@ const DeleteAlertDialog = ({ board, task, onClose, onDelete, theme }) => {
           <AlertDialogDescription>
             Something went wrong, try later.
           </AlertDialogDescription>
-          <Button onClick={onClose} variant="secondary">
-            Close
-          </Button>
+          <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         </>
       )}
     </AlertDialog>
@@ -292,12 +349,12 @@ const DeleteBoard = () => {
 
   const navigate = useNavigate()
 
-  const { deleteBoard, getUserBoards } = useLocalStorage()
+  const { deleteBoard } = useLocalStorage()
 
   const handleDelete = () => {
-    deleteBoard(state.ACTIVE_BOARD.id)
+    const updatedBoards = deleteBoard(state.ACTIVE_BOARD.id)
 
-    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards() })
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards(updatedBoards) })
 
     dispatch({ type: 'OPEN_DELETE_BOARD', payload: false })
 
@@ -319,7 +376,22 @@ const DeleteBoard = () => {
 
 const DeleteTask = () => {
   const [state, dispatch] = useAppData()
+
   const navigate = useNavigate()
+
+  const { deleteTask } = useLocalStorage()
+
+  const handleDelete = () => {
+    const [newBoard, updatedBoards] = deleteTask(state.ACTIVE_TASK)
+
+    dispatch({ type: 'UPDATE_BOARDS', payload: getUserBoards(updatedBoards) })
+
+    dispatch({ type: 'SET_ACTIVE_BOARD', payload: newBoard })
+
+    dispatch({ type: 'OPEN_DELETE_TASK', payload: false })
+
+    navigate(`/boards/${newBoard.id}`)
+  }
 
   const closeDialog = () => {
     dispatch({ type: 'OPEN_DELETE_TASK', payload: false })
@@ -331,6 +403,7 @@ const DeleteTask = () => {
       task={state.ACTIVE_TASK}
       onClose={closeDialog}
       theme={state.THEME}
+      onDelete={handleDelete}
     />
   )
 }

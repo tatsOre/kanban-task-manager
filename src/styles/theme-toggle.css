@@ -1,6 +1,7 @@
 div.toggle-container {
   width: 235px;
   height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;

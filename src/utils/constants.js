@@ -1,6 +1,9 @@
 const BOARD_SCHEMA = {
   name: '',
-  columns: [{ name: 'Todo' }, { name: 'Doing' }]
+  columns: [
+    { name: 'Todo', tasks: [] },
+    { name: 'Doing', tasks: [] }
+  ]
 }
 
 const COLUMN_SCHEMA = { name: '', tasks: [] }

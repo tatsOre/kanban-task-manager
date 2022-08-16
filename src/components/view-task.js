@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { DialogHeading } from './modals'
-import DropdownSelect from './select'
+import SelectInput from './selectInput'
 
 export function getCompletedSubtasks(subtasks) {
   if (!Array.isArray(subtasks) || !subtasks.length) return 0
@@ -21,7 +20,7 @@ function Checkbox({ subtask, onChange }) {
   if (!subtask) return null
 
   return (
-    <label className={`body-m ${isChecked ? 'label-checked' : undefined}`}>
+    <label className={`body-m ${isChecked ? 'label-checked' : ''}`}>
       <input
         type="checkbox"
         value={subtask.title}
@@ -29,7 +28,7 @@ function Checkbox({ subtask, onChange }) {
         checked={isChecked}
       />
       <span
-        className={`checkmark ${isChecked ? 'checkbox-active' : undefined}`}
+        className={`checkmark ${isChecked ? 'checkbox-active' : ''}`}
         aria-hidden="true"></span>
       {subtask.title}
     </label>
@@ -47,14 +46,21 @@ function TaskView() {
 
   const handleStatusChange = (value) => console.log(value)
 
+  const boardColumns =
+    state.ACTIVE_BOARD &&
+    state.ACTIVE_BOARD.columns.map((c) => ({
+      value: c.name.toLowerCase(),
+      label: c.name
+    }))
+
+  console.log(boardColumns)
+
   const dropdownProps = {
     id: 'dropdown-task-status',
-    options:
-      state.ACTIVE_BOARD &&
-      state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase()),
+    options: boardColumns,
     selected: task?.status?.toLowerCase(),
     onChange: handleStatusChange,
-    label: 'Current Status'
+    inputLabel: 'Current Status'
   }
 
   const completedSubtasks = getCompletedSubtasks(task.subtasks)
@@ -97,7 +103,7 @@ function TaskView() {
           </fieldset>
         ) : null}
 
-        <DropdownSelect {...dropdownProps} />
+        <SelectInput {...dropdownProps} />
       </form>
     </>
   )

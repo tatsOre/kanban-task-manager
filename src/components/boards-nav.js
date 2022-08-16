@@ -36,16 +36,14 @@ const BoardsNavigation = () => {
               </li>
             ))
           : null}
-
-        <li>
-          <Link
-            to="/boards/new"
-            state={{ backgroundLocation: location }}
-            className="new-board heading-m">
-            <IconBoard />+ Create New Board
-          </Link>
-        </li>
       </ul>
+
+      <Link
+        to="/boards/new"
+        state={{ backgroundLocation: location }}
+        className="new-board heading-m">
+        <IconBoard />+ Create New Board
+      </Link>
     </>
   )
 }

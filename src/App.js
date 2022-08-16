@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { AppDataProvider } from './context/app-data'
+import { useEffect } from 'react'
+import { AppDataProvider, useAppData } from './context/app-data'
 import BoardManager from './components/boards-manager'
 import Board from './components/board'
 import Home from './components/home'
@@ -11,16 +12,29 @@ import {
   ViewTaskModal
 } from './components/modals'
 
-const BoardsHome = () => (
-  <>
-    <div className="board-toolbar empty"></div>
-    <section className="board-details empty">Hey! Choose one of the board on the left or create a new one!</section>
-  </>
-)
+const BoardsHome = () => {
+  const [state] = useAppData()
+  return (
+    <>
+      <div className="board-toolbar empty"></div>
+      <section className="board-details empty">
+        {state.ACTIVE_BOARD ? (
+          <p>Hey! Choose one of the boards on the left to get started.</p>
+        ) : (
+          <p>Your dashboard is empty. Create a new board to get started.</p>
+        )}
+      </section>
+    </>
+  )
+}
 
 export default function App() {
   const location = useLocation()
   let state = location.state
+
+  useEffect(() => {
+    document.title = 'Kanban Task Manager'
+  }, [])
 
   return (
     <AppDataProvider>

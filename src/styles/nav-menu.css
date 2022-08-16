@@ -49,6 +49,7 @@
 ============================ */
 
 .dashboard-sidebar h2 {
+  min-width: 250px;
   padding-inline-start: 2rem;
   margin-block: 1rem;
 }
@@ -56,6 +57,29 @@
 .dashboard-sidebar .boards-tabs {
   padding-inline-end: 1.25rem;
 
+  overflow-y: scroll;
+}
+
+.boards-tabs {
+  --scrollbar-foreground: var(--color-lines-dark);
+  --scrollbar-background: var(--color-dark-grey);
+  /* Foreground, Background */
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+}
+
+.boards-tabs::-webkit-scrollbar {
+  width: 10px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+
+.boards-tabs::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: var(--scrollbar-foreground);
+}
+
+.boards-tabs::-webkit-scrollbar-track {
+  /* Background */
+  background: var(--scrollbar-background);
 }
 
 /* Boards Menu List and List Items
@@ -66,8 +90,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  width: 100%;
-  min-width: fit-content;
+  min-width: 245px;
   height: 48px;
   padding-inline-start: 2rem;
   border-radius: 0px 100px 100px 0px;

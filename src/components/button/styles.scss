@@ -1,0 +1,66 @@
+@use '../shared/variables' as v;
+
+.button {
+    border: none;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: bold;
+    transition: background-color 0.5s;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &.primary {
+        color: v.$color-white;
+        background-color: v.$color-main-purple;
+
+        &:hover {
+            background-color: v.$color-main-purple-hover;
+        }
+    }
+
+    &.secondary {
+        color: v.$color-main-purple;
+        background-color: v.$color-secondary-purple;
+
+        &:hover {
+            background-color: v.$color-secondary-purple;
+        }
+    }
+
+    &.danger {
+        color: v.$color-white;
+        background-color: v.$color-red;
+
+        &:hover {
+            background-color: v.$color-red-hover;
+        }
+    }
+
+    &.small {
+        /* 13px */
+        font-size: 0.813rem;
+        border-radius: 20px;
+        padding: 0.75rem 1.15rem;
+    }
+
+    &.large {
+        /* 15px */
+        font-size: 0.938rem;
+        border-radius: 24px;
+        padding: 1rem 1.15rem;
+    }
+}
+
+
+/* Theming
+  ============================ */
+
+[data-theme='dark'] {
+    .button {
+        &.secondary {
+            background-color: v.$color-white;
+        }
+    }
+}

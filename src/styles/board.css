@@ -5,6 +5,19 @@
   padding-block: 1.5rem;
 }
 
+.board-details.empty {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-details.empty p {
+  color: var(--color-medium-grey);
+  margin-block-end: 0.5rem;
+}
+
 .board-details .board-column h3 {
   text-transform: uppercase;
   margin-block-end: 1.5rem;
@@ -22,7 +35,7 @@
 }
 
 .board-details .board-column:nth-child(3n + 1) h3::before {
-  background-color: var(--color-cyan-accent);
+  background-color: var(--color-cyan);
 }
 
 .board-details .board-column:nth-child(3n + 2) h3::before {
@@ -30,7 +43,7 @@
 }
 
 .board-details .board-column:nth-child(3n + 3) h3::before {
-  background-color: var(--color-green-accent);
+  background-color: var(--color-green);
 }
 
 .board-details .board-column,
@@ -72,9 +85,16 @@
 
 /* Theming
 ============================ */
+[data-theme='light'] .board-name {
+  color: var(--color-black);
+}
+
+[data-theme='dark'] .board-name {
+  color: var(--color-white);
+}
 
 [data-theme='light'] .board-details,
-[data-theme='light'] .board-toolbar.empty  {
+[data-theme='light'] .board-toolbar.empty {
   background-color: var(--color-light-grey);
 }
 

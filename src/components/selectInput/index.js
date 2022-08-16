@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
-import useClickOutside from '../hooks/use-click-outside'
+import { cx } from '../utils'
+import useClickOutside from '../../hooks/use-click-outside'
+import './styles.scss'
 
-const useElementIds = ({ id = `dropdown-0` }) => {
+const useElementIds = ({ id = 'select' }) => {
   return {
     id,
     labelId: `${id}-label`,
@@ -10,12 +12,25 @@ const useElementIds = ({ id = `dropdown-0` }) => {
   }
 }
 
-const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
-  const initialSelectedItemIndex = items.indexOf(initialSelected)
+/**
+ *
+ * React Custom Hook that retrieves the methods and variables needed to initialize the Select Component
+ * @returns
+ *     getButtonProps       Methods and attributes for Select toggle button element
+ *     getContainerProps    Attributes for Select wrapper element
+ *     getItemProps
+ *     getLabelProps
+ *     getMenuProps
+ *     isOpen               true | false - Current state of the Listbox element
+ *     selectedIndex        Index of the selected item
+ */
 
-  const [selectedIndex, setSelectedIndex] = useState(
-    initialSelectedItemIndex === -1 ? 0 : initialSelectedItemIndex
+const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
+  const initialSelectedItemIndex = items.findIndex(
+    (el) => el.value == initialSelected
   )
+
+  const [selectedIndex, setSelectedIndex] = useState(initialSelectedItemIndex)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -43,7 +58,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
         break
 
       case 'Enter':
-        isMenuOpen && onSelect(items[selectedIndex])
+        isMenuOpen && onSelect(items[selectedIndex].value)
         break
       default:
         return
@@ -57,7 +72,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
     event.stopPropagation()
   }
 
-  const getButtonProps = ({ ...props } = {}) => ({
+  const getButtonProps = ({ disabled, ...props } = {}) => ({
     id: elementIds.toggleButtonId,
     'aria-labelledby': `${elementIds.labelId} ${elementIds.toggleButtonId}`,
     'aria-haspopup': 'listbox',
@@ -65,6 +80,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
     type: 'button',
     onClick: onToggleButton,
     onKeyDown: onKeyDown,
+    disabled: disabled || items.length === 0,
     ...props
   })
 
@@ -104,14 +120,33 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
     getLabelProps,
     getMenuProps,
     isOpen: isMenuOpen,
-    setIsOpen: setIsMenuOpen,
-    selectedIndex,
-    setSelectedIndex
+    selectedIndex
   }
 }
 
-const DropdownSelect = (props) => {
-  const { id, options, selected, onChange, label, disabled } = props
+/**
+ *
+ * @param id           String     Unique identifier used for the form input component and its children
+ * @param inputLabel   String     Sets the contents of the input label.
+ * @param disabled     Boolean    If the button is enabled
+ * @param onChange     Function   Method triggered when an item is selected
+ * @param options      Array      Array of objects that represents the select input options.
+ *                                Schema: [{ label: String, value: String }]
+ * @param selected     String
+ * @returns            React Component
+ */
+
+// TODO: - pass prop in case of errors, - use Button Component
+
+function SelectInput(props) {
+  const {
+    id,
+    inputLabel = '',
+    disabled = false,
+    onChange,
+    options = [],
+    selected = ''
+  } = props
 
   const {
     getButtonProps,
@@ -129,25 +164,25 @@ const DropdownSelect = (props) => {
   })
 
   return (
-    <div {...getContainerProps()} className={isOpen ? 'open' : undefined}>
+    <div
+      {...getContainerProps()}
+      className={cx([isOpen ? 'open' : undefined, 'select-input'])}>
       <label {...getLabelProps()} className={disabled ? 'disabled' : undefined}>
-        {label}
+        {inputLabel}
       </label>
-      <button
-        {...getButtonProps({
-          disabled: disabled || options.length === 0
-        })}>
-        {options[selectedIndex] || '--'}
+      <button {...getButtonProps({ disabled })}>
+        {(options[selectedIndex] && options[selectedIndex].label) ||
+          'Select...'}
       </button>
 
       <ul {...getMenuProps()}>
         {isOpen &&
-          options.map((value, index) => (
+          options.map((opt, index) => (
             <li
-              key={`dropdown-option-${value}`}
+              key={`dropdown-option-${opt.value}`}
               className={selectedIndex === index ? 'selected' : undefined}
-              {...getItemProps({ value, index })}>
-              {value}
+              {...getItemProps({ value: opt.value, index })}>
+              {opt.value}
             </li>
           ))}
       </ul>
@@ -155,12 +190,4 @@ const DropdownSelect = (props) => {
   )
 }
 
-DropdownSelect.defaultProps = {
-  options: [],
-  selected: '',
-  onChange: () => {},
-  label: '',
-  disabled: false
-}
-
-export default DropdownSelect
+export default SelectInput

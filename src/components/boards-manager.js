@@ -2,7 +2,7 @@ import {  useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { BoardsAsideNav } from './boards-nav'
-import { AddButton, SidebarToggle } from './button'
+import { SidebarToggle } from './button'
 import Logo from './logotype'
 
 function BoardsManager() {
@@ -18,7 +18,8 @@ function BoardsManager() {
       className="dashboard-container">
       <header className="dashboard-header mobile">
         <Logo size="sm" />
-        <AddButton className="create-task" />
+        
+        
       </header>
 
       <header className="dashboard-header">

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAppData } from '../context/app-data'
-import { Button, CloseButton } from './button'
-import DropdownSelect from './select'
+import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
+import SelectInput from './selectInput'
 
 function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState({ ...initialValues })
@@ -12,14 +12,17 @@ function TaskForm({ initialValues, edit, onSubmit }) {
 
   const boardColumns =
     state.ACTIVE_BOARD &&
-    state.ACTIVE_BOARD.columns.map((c) => c.name.toLowerCase())
+    state.ACTIVE_BOARD.columns.map((c) => ({
+      value: c.name.toLowerCase(),
+      label: c.name
+    }))
 
   const dropdownProps = {
     id: 'dropdown-task-status',
     options: boardColumns,
     selected: values.status?.toLowerCase(),
     onChange: (val) => setValues((s) => ({ ...s, status: val })),
-    label: 'Status'
+    inputLabel: 'Status'
   }
 
   const onChange = ({ target }) => {
@@ -77,11 +80,15 @@ function TaskForm({ initialValues, edit, onSubmit }) {
     }
 
     if (valid) {
-      onSubmit({
-        ...values,
-        status: values.status || boardColumns[0],
-        boardId: state.ACTIVE_BOARD.id
-      })
+      if (edit) {
+        onSubmit({ ...values })
+      } else {
+        onSubmit({
+          ...values,
+          status: values.status || boardColumns[0].value,
+          boardId: state.ACTIVE_BOARD.id
+        })
+      }
     }
   }
 
@@ -136,7 +143,11 @@ function TaskForm({ initialValues, edit, onSubmit }) {
                         : undefined
                     }
                   />
-                  <CloseButton onClick={() => removeArrayItem(index)} />
+                  <StandardButton
+                    onClick={() => removeArrayItem(index)}
+                    iconStart="close"
+                  />
+
                   {errors.subtasks && errors.subtasks[index] ? (
                     <strong>Can't be empty</strong>
                   ) : null}
@@ -144,16 +155,18 @@ function TaskForm({ initialValues, edit, onSubmit }) {
               ))}
           </ul>
 
-          <Button type="button" onClick={appendArrayItem} variant="secondary">
+          <SecondaryButton onClick={appendArrayItem}>
             + Add New Subtask
-          </Button>
+          </SecondaryButton>
         </div>
 
         <div className="input-group">
-          <DropdownSelect {...dropdownProps} />
+          <SelectInput {...dropdownProps} />
         </div>
 
-        <Button type="submit">{edit ? 'Save Changes' : 'Create Task'}</Button>
+        <PrimaryButton type="submit">
+          {edit ? 'Save Changes' : 'Create Task'}
+        </PrimaryButton>
       </form>
     </>
   )

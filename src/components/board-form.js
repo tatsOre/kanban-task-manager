@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import uuid from 'react-uuid'
-import { Button, CloseButton } from './button'
+
+import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
 import { COLUMN_SCHEMA } from '../utils/constants'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
@@ -73,6 +74,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
             placeholder="e.g. Web Design"
             onChange={onChange}
             className={errors.name ? 'invalid' : undefined}
+            maxLength="40"
           />
           {errors.name ? <strong>Can't be empty</strong> : null}
         </div>
@@ -96,7 +98,10 @@ function BoardForm({ initialValues, edit, onSubmit }) {
                     className={inputError ? 'invalid' : undefined}
                   />
 
-                  <CloseButton onClick={() => removeArrayItem(index)} />
+                  <StandardButton
+                    onClick={() => removeArrayItem(index)}
+                    iconStart="close"
+                  />
 
                   {inputError ? <strong>Can't be empty</strong> : null}
                 </li>
@@ -104,14 +109,14 @@ function BoardForm({ initialValues, edit, onSubmit }) {
             })}
           </ul>
 
-          <Button type="button" onClick={appendArrayItem} variant="secondary">
+          <SecondaryButton onClick={appendArrayItem}>
             + Add New Column
-          </Button>
+          </SecondaryButton>
         </div>
 
-        <Button type="submit">
+        <PrimaryButton type="submit">
           {edit ? 'Save Changes' : 'Create New Board'}
-        </Button>
+        </PrimaryButton>
       </form>
     </>
   )

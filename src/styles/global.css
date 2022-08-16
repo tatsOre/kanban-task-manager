@@ -30,8 +30,8 @@
   --color-secondary-purple: rgba(99, 95, 199, 0.1);
   --color-red: #ea5555;
   --color-red-hover: #ff9898;
-  --color-cyan-accent: #49c4e5;
-  --color-green-accent: #67e2ae;
+  --color-cyan: #49c4e5;
+  --color-green: #67e2ae;
 
   --header-height-sm: 64px;
   --header-height-md: 81px;
@@ -90,6 +90,11 @@ a {
   text-decoration: none;
 }
 
+a.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .stretched-link::after {
   position: absolute;
   inset: 0;
@@ -141,7 +146,29 @@ a {
   margin-right: 0;
 }
 
-
 .temp.task a {
   margin: 0;
+}
+
+
+.board-details {
+  --scrollbar-foreground: var(--color-medium-grey);
+  --scrollbar-background: var(--color-dark-grey);
+  /* Foreground, Background */
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+}
+
+.board-details::-webkit-scrollbar {
+  width: 10px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+
+.board-details::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: var(--scrollbar-foreground);
+}
+
+.board-details::-webkit-scrollbar-track {
+  /* Background */
+  background: var(--scrollbar-background);
 }
