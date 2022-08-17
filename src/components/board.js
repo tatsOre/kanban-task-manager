@@ -4,7 +4,8 @@ import { useAppData } from '../context/app-data'
 import { getCompletedSubtasks } from './view-task'
 import { DeleteBoard, DeleteTask } from './modals'
 import { BOARDS_KEY } from '../utils/constants'
-import {ButtonSize, DangerButton, PrimaryButton, SecondaryButton} from './button/index'
+import { DangerButton, PrimaryButton, SecondaryButton} from './button/index'
+import { Size as ButtonSize } from './shared/types/appearance'
 
 /**
  *

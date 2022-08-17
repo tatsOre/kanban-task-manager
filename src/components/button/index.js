@@ -1,19 +1,7 @@
 import { cx } from '../utils'
 import IconCross from '../../icons/icon-cross'
+import { ButtonAppearances } from '../shared/types/appearance'
 import './styles.scss'
-
-export const ButtonAppearances = {
-  Primary: 'primary',
-  Secondary: 'secondary',
-  Danger: 'danger',
-  Success: 'success',
-  Standard: 'standard'
-}
-
-export const ButtonSize = {
-  Small: 'small',
-  Large: 'large'
-}
 
 const IconStyles = {
   close: IconCross
@@ -25,18 +13,19 @@ const IconComponent = ({ name, ...props }) => {
 }
 
 /**
+ * @param     props:
+ *            ariaHaspopup  Boolean    If the button triggers new content to appear (e.g.: modals and dropdowns)
+ *            ariaLabel     String     If the button does not contain text children. (e.g.: icon buttons)
+ *            children      React.ReactNode | String
+ *            disabled      Boolean    If the button is enabled
+ *            iconStart     String     Icon before the button text
+ *            iconEnd       String     Icon after the button text
+ *            isProcessing  Boolean    Is the action intended to be finished or not
+ *            onFocus       Function   Method triggered when button gets focus
+ *            onClick       Function   Method triggered when button is clicked
+ *            type          String     "button" | "reset" | "submit" HTML attribute
  *
- * @param ariaHaspopup  Boolean    If the button triggers new content to appear (e.g.: modals and dropdowns)
- * @param ariaLabel     String     If the button does not contain text children. (e.g.: icon buttons)
- * @param children      React.ReactNode | string
- * @param disabled      Boolean    If the button is enabled
- * @param iconStart     String     Icon before the button text
- * @param iconEnd       String     Icon after the button text
- * @param isProcessing  Boolean    Is the action intended to be finished or not
- * @param onFocus       Function   Method triggered when button gets focus
- * @param onClick       Function   Method triggered when button is clicked
- * @param type          String     "button" | "reset" | "submit" HTML attribute
- * @returns             React Component
+ * @returns                 React Component
  */
 
 function ButtonBase(props) {

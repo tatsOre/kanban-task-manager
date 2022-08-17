@@ -81,11 +81,6 @@ li {
   list-style: none;
 }
 
-label:hover,
-input:hover {
-  cursor: pointer;
-}
-
 a {
   text-decoration: none;
 }
@@ -149,7 +144,6 @@ a.disabled {
 .temp.task a {
   margin: 0;
 }
-
 
 .board-details {
   --scrollbar-foreground: var(--color-medium-grey);

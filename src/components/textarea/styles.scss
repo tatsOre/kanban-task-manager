@@ -1,0 +1,41 @@
+@use '../shared/variables' as v;
+@use '../shared/mixins' as m;
+
+.textarea-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin-block-end: 0.5rem;
+
+        [data-theme='light'] & {
+            color: v.$color-medium-grey;
+        }
+
+        [data-theme='dark'] & {
+            color: v.$color-white;
+        }
+
+        &.visually-hidden {
+            @include m.visually-hidden;
+        }
+    }
+
+    textarea {
+        @include m.input-standard;
+        padding-block: 0.5rem;
+
+        &.error {
+            border-color: v.$color-red;
+        }
+    }
+
+    strong {
+        @include m.input-error;
+        margin-block-start: 0.5rem;
+    }
+
+    small {
+        @include m.input-hint;
+    }
+}

@@ -1,0 +1,51 @@
+@use './variables' as v;
+
+$radius: 4px;
+
+@mixin input-standard {
+    border-radius: $radius;
+    padding-block: 0.75rem;
+    padding-inline: 0.9rem;
+    border: 1px solid v.$color-lines-medium;
+    background-color: transparent;
+
+    &:hover {
+        border: 1px solid v.$color-main-purple;
+        cursor: pointer;
+    }
+
+    &::placeholder {
+        opacity: 0.25;
+        /* 23px */
+        line-height: 1.438rem;
+    }
+
+    [data-theme='light'] & {
+        color: v.$color-black;
+    }
+
+    [data-theme='dark'] & {
+        color: v.$color-white;
+    }
+}
+
+@mixin input-hint {
+    color: v.$color-medium-grey;
+    font-size: 10px;
+    letter-spacing: 0.15px;
+    margin-block-start: 0.5rem;
+}
+
+@mixin input-error {
+    color: v.$color-red;
+    font-weight: 500;
+    /* 12px */
+    font-size: 0.75rem;
+}
+
+@mixin visually-hidden {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}

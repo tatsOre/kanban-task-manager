@@ -53,8 +53,6 @@ function TaskView() {
       label: c.name
     }))
 
-  console.log(boardColumns)
-
   const dropdownProps = {
     id: 'dropdown-task-status',
     options: boardColumns,
@@ -86,6 +84,7 @@ function TaskView() {
       </div>
 
       <p className="view-task-desc body-l">{task?.description}</p>
+      
       <form className="view-task-form">
         {task?.subtasks?.length ? (
           <fieldset className="subtasks-group">

@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useAppData } from '../context/app-data'
+import { InputAppearances } from './shared/types/appearance'
 import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
 import SelectInput from './selectInput'
+import Textarea from './textarea'
+import TextInput from './textInput'
 
 function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState({ ...initialValues })
@@ -97,60 +100,57 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       <h2 id="dialog-label" className="heading-l">
         {edit ? 'Edit Task' : 'Add New Task'}
       </h2>
-      <form onSubmit={handleSubmit} className="task-form">
-        <div className="input-group">
-          <label htmlFor="title">Title</label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            value={values.title}
-            placeholder="e.g. Take coffee break"
-            onChange={onChange}
-            className={errors.title ? 'invalid' : undefined}
-          />
-          {errors.title ? <strong>Can't be empty</strong> : null}
-        </div>
+      <form onSubmit={handleSubmit} className="task-form" noValidate>
+        <TextInput
+          appearance={errors.title ? InputAppearances.Error : undefined}
+          className="input-group"
+          errors={errors.title}
+          id="task-title"
+          inputLabel="Title"
+          name="title"
+          onChange={onChange}
+          placeholder="e.g. Take coffee break"
+          value={values.title}
+          required
+        />
 
-        <div className="input-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={values.description}
-            placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
-            onChange={onChange}
-            rows="6"
-            className={errors.description ? 'invalid' : undefined}
-          />
-        </div>
+        <Textarea
+          appearance={errors.description ? InputAppearances.Error : undefined}
+          className="textarea-group"
+          id="description"
+          inputLabel="Description"
+          name="description"
+          value={values.description}
+          placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
+          onChange={onChange}
+          rows="6"
+        />
 
-        <div className="input-group">
-          <label id="subtasks-list">Subtasks</label>
-          <ul aria-labelledby="subtasks-list" className="form-input-list">
+        <div>
+          <label id="subtasks-list" className='form-label'>Subtasks</label>
+          <ul aria-labelledby="subtasks-list" className="input-list">
             {values.subtasks &&
               values.subtasks.map((subtask, index) => (
                 <li key={`subtask-${index}`}>
-                  <input
-                    aria-label=""
-                    value={subtask.title}
-                    placeholder={placeholders[index] || 'Add subtask'}
-                    type="text"
-                    onChange={(e) => onChangeArrayItem(e, index)}
-                    className={
+                  <TextInput
+                    appearance={
                       errors.subtasks && errors.subtasks[index]
-                        ? 'invalid'
+                        ? InputAppearances.Error
                         : undefined
                     }
+                    className="input-group"
+                    errors={errors.subtasks && errors.subtasks[index]}
+                    inputLabel="Subtask Title"
+                    showInputLabel={false}
+                    placeholder={placeholders[index] || 'Add subtask'}
+                    onChange={(e) => onChangeArrayItem(e, index)}
+                    value={subtask.title}
                   />
+
                   <StandardButton
                     onClick={() => removeArrayItem(index)}
                     iconStart="close"
                   />
-
-                  {errors.subtasks && errors.subtasks[index] ? (
-                    <strong>Can't be empty</strong>
-                  ) : null}
                 </li>
               ))}
           </ul>

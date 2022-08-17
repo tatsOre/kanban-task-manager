@@ -1,0 +1,47 @@
+@use '../shared/variables' as v;
+@use '../shared/mixins' as m;
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    
+    label {
+        margin-block-end: 0.5rem;
+
+        [data-theme='light'] & {
+            color: v.$color-medium-grey;
+        }
+
+        [data-theme='dark'] & {
+            color: v.$color-white;
+        }
+
+        &.visually-hidden {
+            @include m.visually-hidden;
+        }
+    }
+
+    .input-wrapper {
+        position: relative;
+        input {
+            @include m.input-standard;
+            width: 100%;
+
+            &.error {
+                border-color: v.$color-red;
+            }
+        }
+
+        strong {
+            @include m.input-error;
+            position: absolute;
+            top: 0.8rem;
+            right: 1rem;
+        }
+
+    }
+
+    small {
+        @include m.input-hint;
+    }
+}
