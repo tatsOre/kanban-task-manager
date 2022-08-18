@@ -4,7 +4,7 @@ import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
 import { useAppData } from '../context/app-data'
 import IconBoard from '../icons/icon-board'
 import IconChevron from '../icons/icon-chevron'
-import ThemeToggle from '../components/theme-toggle'
+import ThemeToggle from './themeToggle'
 
 const NavHeading = ({ boards }) => (
   <h2 className="heading-s">ALL BOARDS ({boards || 0})</h2>

@@ -1,0 +1,31 @@
+@use '../shared/variables' as v;
+
+.theme-toggle {
+    width: 235px;
+    height: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin: 0 auto;
+
+    &::before {
+        content: url('../../assets/icon-light-theme.svg');
+        padding-inline-end: 1rem;
+    }
+
+    &::after {
+        content: url('../../assets/icon-dark-theme.svg');
+        padding-inline-start: 1rem;
+    }
+
+    [data-theme='light'] & {
+        background-color: v.$color-light-grey;
+    }
+
+    [data-theme='dark'] & {
+        background-color: v.$color-very-dark-grey;
+    }
+
+}

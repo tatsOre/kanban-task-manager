@@ -1,0 +1,68 @@
+@use '../shared/variables' as v;
+@use '../shared/mixins' as m;
+
+.toggle-container {
+    display: flex;
+
+    &.col-align {
+        flex-direction: column;
+
+        .toggle-label {
+            margin-inline-start: 0rem;
+            margin-block-start: 0.25rem;
+        }
+    }
+
+    .visually-hidden {
+        @include m.visually-hidden;
+    }
+
+    .toggle-label {
+        margin-inline-start: 0.5rem;
+        color: v.$color-medium-grey;
+    }
+}
+
+.toggle-box {
+    width: 2.5rem;
+    height: 1.25rem;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+
+    .toggle-input {
+        @include m.visually-hidden;
+
+        &:not(:checked)~.toggle-slider::before {
+            -webkit-transform: translateX(19px);
+            -ms-transform: translateX(19px);
+            transform: translateX(19px);
+        }
+    }
+
+    .toggle-slider {
+        position: absolute;
+        inset: 0;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        border-radius: 34px;
+        background-color: v.$color-main-purple;
+
+        &:hover {
+            background-color: v.$color-main-purple-hover;
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            bottom: 3px;
+            left: 4px;
+            background-color: v.$color-white;
+            -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    }
+}

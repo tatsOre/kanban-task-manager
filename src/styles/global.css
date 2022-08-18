@@ -4,7 +4,6 @@
 @import url('./forms.css');
 @import url('./layout.css');
 @import url('./nav-menu.css');
-@import url('./theme-toggle.css');
 @import url('./typography.css');
 @import url('./view-task.css');
 @import '@reach/dialog/styles.css';
@@ -147,7 +146,7 @@ a.disabled {
 
 .board-details {
   --scrollbar-foreground: var(--color-medium-grey);
-  --scrollbar-background: var(--color-dark-grey);
+  --scrollbar-background: var(--color-secondary-purple);
   /* Foreground, Background */
   scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
 }
@@ -160,9 +159,14 @@ a.disabled {
 .board-details::-webkit-scrollbar-thumb {
   /* Foreground */
   background: var(--scrollbar-foreground);
+  border-radius: 10px;
 }
 
 .board-details::-webkit-scrollbar-track {
   /* Background */
+  background: var(--scrollbar-background);
+}
+
+.board-details::-webkit-scrollbar-corner {
   background: var(--scrollbar-background);
 }

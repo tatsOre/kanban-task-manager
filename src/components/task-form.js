@@ -117,17 +117,19 @@ function TaskForm({ initialValues, edit, onSubmit }) {
         <Textarea
           appearance={errors.description ? InputAppearances.Error : undefined}
           className="textarea-group"
-          id="description"
+          id="task-description"
           inputLabel="Description"
           name="description"
-          value={values.description}
-          placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
           onChange={onChange}
+          placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
           rows="6"
+          value={values.description}
         />
 
         <div>
-          <label id="subtasks-list" className='form-label'>Subtasks</label>
+          <label id="subtasks-list" className="form-label">
+            Subtasks
+          </label>
           <ul aria-labelledby="subtasks-list" className="input-list">
             {values.subtasks &&
               values.subtasks.map((subtask, index) => (
@@ -141,9 +143,9 @@ function TaskForm({ initialValues, edit, onSubmit }) {
                     className="input-group"
                     errors={errors.subtasks && errors.subtasks[index]}
                     inputLabel="Subtask Title"
-                    showInputLabel={false}
-                    placeholder={placeholders[index] || 'Add subtask'}
                     onChange={(e) => onChangeArrayItem(e, index)}
+                    placeholder={placeholders[index] || 'Add subtask'}
+                    showInputLabel={false}
                     value={subtask.title}
                   />
 
