@@ -1,10 +1,16 @@
 import { cx } from '../utils'
 import IconCross from '../../icons/icon-cross'
+import IconBoard from '../../icons/icon-board'
+import IconEyeClosed from '../../icons/icon-eye-closed'
+import IconEyeOpen from '../../icons/icon-eye-open'
 import { ButtonAppearances } from '../shared/types/appearance'
 import './styles.scss'
 
 const IconStyles = {
-  close: IconCross
+  close: IconCross,
+  board: IconBoard,
+  "eye-open": IconEyeOpen,
+  "eye-crossed": IconEyeClosed
 }
 
 const IconComponent = ({ name, ...props }) => {

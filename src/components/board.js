@@ -1,18 +1,10 @@
-import { useEffect, memo } from 'react'
+import { useEffect } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { getCompletedSubtasks } from './view-task'
 import { DeleteBoard, DeleteTask } from './modals'
 import { BOARDS_KEY } from '../utils/constants'
-import { DangerButton, PrimaryButton, SecondaryButton} from './button/index'
-import { Size as ButtonSize } from './shared/types/appearance'
 
-/**
- *
- * @param {*} param0
- * @returns
- * https://govuk-react.github.io/govuk-react/?path=/docs/welcome--page
- */
 const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
 
 const BoardTask = ({ board, task }) => {
@@ -115,9 +107,6 @@ function Board() {
                     state={{ backgroundLocation: location }}>
                     + New Column
                   </Link>
-                  <a href={`http://localhost:3000/boards/${board.id}/edit`}>
-                    New Col
-                  </a>
                 </section>
               </>
             ) : (
@@ -129,10 +118,6 @@ function Board() {
                   className="primary large">
                   + Add New Column
                 </Link>
-
-                <SecondaryButton size={ButtonSize.Large}>Test Large</SecondaryButton>
-                <DangerButton size={ButtonSize.Large}>Danger</DangerButton>
-                <PrimaryButton>Hola</PrimaryButton>
               </>
             )}
           </>

@@ -64,3 +64,34 @@
         }
     }
 }
+
+/* Icon Buttons
+  ============================ */
+
+.button {
+    &.close-button:hover svg {
+        fill: v.$color-red;
+    }
+
+    &.plus-button {
+        padding: 0.5rem 1.15rem;
+        border-radius: 24px;
+    }
+}
+
+/* Add Task Button
+  ============================ */
+
+  @media (min-width: v.$breakpoint-tablet) {
+    .button.add-task-btn {
+        padding: 0.875rem 1.5rem;
+    }
+
+    .add-task-btn svg {
+        display: none;
+    }
+
+    .add-task-btn span {
+        display: block;
+    }
+}

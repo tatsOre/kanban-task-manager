@@ -1,0 +1,48 @@
+@use '../shared/variables' as v;
+
+.button {
+    &.toggle-sidebar {
+        display: none;
+    }
+}
+
+@media (min-width: v.$breakpoint-tablet) {
+    .button {
+        &.toggle-sidebar {
+            position: absolute;
+            border-radius: 0px 100px 100px 0px;
+            display: flex;
+            align-items: center;
+            bottom: 32px;
+
+            &.hide {
+                padding-inline-start: 2rem;
+                color: v.$color-medium-grey;
+                min-width: 240px;
+
+                &:hover {
+                    color: v.$color-main-purple;
+                    background-color: v.$color-secondary-purple;
+
+                    svg path {
+                        fill: v.$color-main-purple;
+                    }
+                }
+
+                svg {
+                    margin-inline-end: 0.8rem;
+                }
+            }
+
+            &.open {
+                padding: 1.25rem;
+            }
+        }
+    }
+}
+
+@media (min-width: v.$breakpoint-large) {
+    .button.toggle-sidebar.hide {
+        min-width: 280px;
+    }
+}

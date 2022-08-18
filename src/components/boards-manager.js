@@ -1,8 +1,8 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { BoardsAsideNav } from './boards-nav'
-import { SidebarToggle } from './button'
+import SidebarToggleButton from './button/SidebarToggleButton'
 import Logo from './logotype'
 
 function BoardsManager() {
@@ -18,8 +18,6 @@ function BoardsManager() {
       className="dashboard-container">
       <header className="dashboard-header mobile">
         <Logo size="sm" />
-        
-        
       </header>
 
       <header className="dashboard-header">
@@ -28,11 +26,11 @@ function BoardsManager() {
 
       <aside className="dashboard-sidebar">
         <div className="nav-container">
-          <BoardsAsideNav/>
+          <BoardsAsideNav />
         </div>
       </aside>
-      
-      <SidebarToggle openSidebar={openSidebar} onClick={handleToggleSidebar} />
+
+      <SidebarToggleButton open={openSidebar} onClick={handleToggleSidebar} />
       <Outlet />
     </div>
   )
