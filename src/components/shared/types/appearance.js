@@ -12,6 +12,11 @@ export const InputAppearances = {
   Success: 'success'
 }
 
+export const LinkAppearances = {
+  Primary: 'primary',
+  Standard: 'standard'
+}
+
 export const Size = {
   Small: 'small',
   Large: 'large'

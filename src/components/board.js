@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import { getCompletedSubtasks } from './view-task'
-import { DeleteBoard, DeleteTask } from './modals'
 import { BOARDS_KEY } from '../utils/constants'
 
-const BoardHeading = ({ name }) => <h2 className="board-name">{name}</h2>
+import { getCompletedSubtasks } from './view-task'
+import { DeleteBoard, DeleteTask } from './modals'
+import { HeadingM, HeadingS, HeadingXL } from './heading'
+import { StandardButtonLink } from './link/StyledLink'
 
 const BoardTask = ({ board, task }) => {
   const location = useLocation()
@@ -14,7 +15,7 @@ const BoardTask = ({ board, task }) => {
 
   return task ? (
     <li>
-      <h4 className="task-title heading-m">{title}</h4>
+      <HeadingM tag="h4">{title}</HeadingM>
       <p className="body-m">
         {completedSubtasks} of {subtasks.length} subtasks
       </p>
@@ -50,7 +51,9 @@ function Board() {
       <div className={`board-toolbar ${board ? '' : 'empty'}`}>
         {board && (
           <>
-            <BoardHeading name={board.name} />
+            <HeadingXL className="board-name" tag="h2">
+              {board.name}
+            </HeadingXL>
 
             <nav className="temp">
               <Link
@@ -83,9 +86,9 @@ function Board() {
               <>
                 {board.columns.map((column) => (
                   <section className="board-column" key={column.columnId}>
-                    <h3 className="heading-s">
+                    <HeadingS tag="h3">
                       {column.name} ({column.tasks?.length || 0})
-                    </h3>
+                    </HeadingS>
                     <ul className="column-tasks">
                       {column.tasks?.length
                         ? column.tasks.map((task) => (
@@ -112,12 +115,12 @@ function Board() {
             ) : (
               <>
                 <p>This board is empty. Create a new column to get started.</p>
-                <Link
+
+                <StandardButtonLink
                   to={`/boards/${board.id}/edit`}
-                  state={{ backgroundLocation: location }}
-                  className="primary large">
+                  state={{ backgroundLocation: location }}>
                   + Add New Column
-                </Link>
+                </StandardButtonLink>
               </>
             )}
           </>

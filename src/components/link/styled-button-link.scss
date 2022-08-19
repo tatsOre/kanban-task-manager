@@ -1,0 +1,112 @@
+@use '../shared/variables' as v;
+@use '../shared/mixins' as m;
+@use '../shared/typography' as t;
+
+@mixin button-layout {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+
+    span.icon-container {
+        display: flex;
+        align-items: center;
+
+        &.start {
+            margin-inline-end: 1rem;
+        }
+
+        &.end {
+            margin-inline-start: 1rem;
+        }
+    }
+
+    &.disabled,
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.tab-link {
+    @include button-layout;
+    @include t.heading-m;
+    padding: 0.9rem 1rem 0.9rem 2rem;
+    border-radius: 0px 100px 100px 0px;
+
+    &.primary {
+        color: v.$color-medium-grey;
+
+        & svg path {
+            fill: v.$color-medium-grey;
+        }
+
+        &:hover {
+            &:not([disabled]) {
+                color: v.$color-main-purple;
+                background-color: v.$color-secondary-purple;
+
+                & svg path {
+                    fill: v.$color-main-purple;
+                }
+            }
+        }
+
+        &.active {
+            background-color: v.$color-main-purple;
+            color: v.$color-white;
+
+            & svg path {
+                fill: v.$color-white;
+            }
+        }
+    }
+
+    &.standard {
+        color: v.$color-main-purple;
+
+        & svg path {
+            fill: v.$color-main-purple;
+        }
+
+        &:hover {
+            &:not([disabled]) {
+                background-color: v.$color-secondary-purple;
+            }
+        }
+    }
+
+
+}
+
+.button-link {
+    @include button-layout;
+    @include t.heading-m;
+    padding: 0.9rem 1.15rem;
+    border-radius: 100px;
+
+    &.primary {
+        color: v.$color-white;
+        background-color: v.$color-main-purple;
+
+        & svg path {
+            fill: v.$color-white;
+        }
+
+        &:active,
+        &:hover {
+            &:not([disabled]) {
+                background-color: v.$color-main-purple-hover;
+            }
+        }
+    }
+
+    &.standard {
+        color: v.$color-main-purple;
+        background-color: v.$color-secondary-purple;
+
+        & svg path {
+            fill: v.$color-main-purple;
+        }
+    }
+
+}

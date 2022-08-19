@@ -1,0 +1,66 @@
+@use '../shared/variables' as v;
+
+body {
+    font-family: v.$font-base;
+    font-size: 16px;
+}
+
+button,
+textarea,
+input {
+    font-family: v.$font-base;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@mixin heading-xl {
+    font-weight: bold;
+    /* 24px */
+    font-size: 1.5rem;
+    /* 30px */
+    line-height: 1.875rem;
+}
+
+@mixin heading-l {
+    font-weight: bold;
+    /* 18px */
+    font-size: 1.125rem;
+    /* 23px */
+    line-height: 1.438rem;
+}
+
+@mixin heading-m {
+    font-weight: bold;
+    /* 15px */
+    font-size: 0.938rem;
+    /* 19px */
+    line-height: 1.188rem;
+}
+
+@mixin heading-s {
+    font-weight: bold;
+    /* 11px */
+    font-size: 0.688rem;
+    /* 15px */
+    line-height: 0.938rem;
+    letter-spacing: 2.4px;
+    color: v.$color-medium-grey;
+}
+
+@mixin body-l {
+    font-weight: medium;
+    font-size: 0.813rem;
+    /* 13px */
+    line-height: 1.438rem;
+    /* 23px */
+}
+
+@mixin body-m {
+    font-weight: bold;
+    /* 12px */
+    font-size: 0.75rem;
+    /* 15px */
+    line-height: 0.938rem;
+}

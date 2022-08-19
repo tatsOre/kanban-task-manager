@@ -5,6 +5,7 @@ import { COLUMN_SCHEMA } from '../utils/constants'
 import { InputAppearances } from './shared/types/appearance'
 import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
 import TextInput from './textInput'
+import { HeadingL } from './heading'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues)
@@ -62,12 +63,12 @@ function BoardForm({ initialValues, edit, onSubmit }) {
 
   return (
     <>
-      <h2 id="dialog-label" className="heading-l">
+      <HeadingL id="dialog-label" tag="h2">
         {edit ? 'Edit Board' : 'Add New Board'}
-      </h2>
+      </HeadingL>
       <form onSubmit={handleSubmit} className="task-form" noValidate>
         <TextInput
-          appearance={errors.name ? InputAppearances.Error : undefined}
+          appearance={errors.name && InputAppearances.Error}
           className="input-group"
           errors={errors.name}
           id="board-name"
@@ -84,6 +85,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
           <label id="columns-list" className="form-label">
             {edit && 'Board'} Columns
           </label>
+
           <ul aria-labelledby="columns-list" className="input-list">
             {values.columns?.map(({ name }, index) => {
               const hasError =
@@ -94,7 +96,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
               return (
                 <li key={`column-${index}`}>
                   <TextInput
-                    appearance={hasError ? InputAppearances.Error : undefined}
+                    appearance={hasError && InputAppearances.Error}
                     className="input-group"
                     errors={hasError && errors.columns[index]}
                     inputLabel="column name"

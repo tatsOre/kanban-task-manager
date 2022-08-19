@@ -4,18 +4,22 @@ import IconBoard from '../../icons/icon-board'
 import IconEyeClosed from '../../icons/icon-eye-closed'
 import IconEyeOpen from '../../icons/icon-eye-open'
 import { ButtonAppearances } from '../shared/types/appearance'
-import './styles.scss'
+import './button.scss'
 
 const IconStyles = {
   close: IconCross,
   board: IconBoard,
-  "eye-open": IconEyeOpen,
-  "eye-crossed": IconEyeClosed
+  'eye-open': IconEyeOpen,
+  'eye-crossed': IconEyeClosed
 }
 
 const IconComponent = ({ name, ...props }) => {
   const Icon = IconStyles[name]
-  return <Icon {...props} />
+  return (
+    <span>
+      <Icon {...props} />
+    </span>
+  )
 }
 
 /**

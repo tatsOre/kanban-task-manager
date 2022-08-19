@@ -1,14 +1,10 @@
 import { useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, MenuButton, MenuItem, MenuList } from '@reach/menu-button'
+import { useLocation } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import IconBoard from '../icons/icon-board'
 import IconChevron from '../icons/icon-chevron'
 import ThemeToggle from './themeToggle'
-
-const NavHeading = ({ boards }) => (
-  <h2 className="heading-s">ALL BOARDS ({boards || 0})</h2>
-)
+import { PrimaryTabLink, StandardTabLink } from './link/StyledLink'
+import { HeadingS } from './heading'
 
 const BoardsNavigation = () => {
   const [state] = useAppData()
@@ -19,31 +15,30 @@ const BoardsNavigation = () => {
 
   return (
     <>
-      <NavHeading boards={boards.length} />
+      <HeadingS tag="h2">ALL BOARDS ({boards.length})</HeadingS>
 
       <ul className="boards-tabs">
         {boards.length
           ? boards.map((board) => (
               <li key={`board-${board.id}-link`}>
-                <NavLink
-                  to={`${board.id}`}
-                  className={({ isActive }) =>
-                    isActive ? 'active heading-m' : 'heading-m'
-                  }>
-                  <IconBoard />
+                <PrimaryTabLink
+                  iconStart="board"
+                  showIsActive={true}
+                  to={`${board.id}`}>
                   {board.name}
-                </NavLink>
+                </PrimaryTabLink>
               </li>
             ))
           : null}
       </ul>
 
-      <Link
+      <StandardTabLink
+        iconStart="board"
+        className="new-board"
         to="/boards/new"
-        state={{ backgroundLocation: location }}
-        className="new-board heading-m">
-        <IconBoard />+ Create New Board
-      </Link>
+        state={{ backgroundLocation: location }}>
+        + Create New Board
+      </StandardTabLink>
     </>
   )
 }
@@ -79,21 +74,4 @@ function BoardsAsideNav() {
   )
 }
 
-function TaskMenu({ board, task, onClick }) {
-  return (
-    <Menu>
-      <MenuButton>...</MenuButton>
-      <MenuList>
-        <Link
-          to={`/boards/${board}/${task.id}/edit`}
-          state={{ backgroundLocation: `/boards/${board}` }}>
-          <MenuItem>Edit</MenuItem>
-        </Link>
-
-        <MenuItem onSelect={onClick}>Delete</MenuItem>
-      </MenuList>
-    </Menu>
-  )
-}
-
-export { BoardsAsideNav, BoardsMobileNav, TaskMenu }
+export { BoardsAsideNav, BoardsMobileNav }

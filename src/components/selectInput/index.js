@@ -51,6 +51,7 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
           selectedIndex === items.length - 1 ? selectedIndex : selectedIndex + 1
         setSelectedIndex(newIndex)
         break
+
       case 'ArrowUp':
         event.preventDefault()
         newIndex = selectedIndex - 1 <= 0 ? 0 : selectedIndex - 1
@@ -130,23 +131,16 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
  * @param inputLabel   String     Sets the contents of the input label.
  * @param disabled     Boolean    If the button is enabled
  * @param onChange     Function   Method triggered when an item is selected
- * @param options      Array      Array of objects that represents the select input options.
+ * @param options      Array      Array of objects that represents the Select Input options.
  *                                Schema: [{ label: String, value: String }]
- * @param selected     String
+ * @param selected     String     Selected initial value
  * @returns            React Component
  */
 
 // TODO: - pass prop in case of errors, - use Button Component
 
 function SelectInput(props) {
-  const {
-    id,
-    inputLabel = '',
-    disabled = false,
-    onChange,
-    options = [],
-    selected = ''
-  } = props
+  const { id, inputLabel, disabled, onChange, options, selected } = props
 
   const {
     getButtonProps,
@@ -166,8 +160,8 @@ function SelectInput(props) {
   return (
     <div
       {...getContainerProps()}
-      className={cx([isOpen ? 'open' : undefined, 'select-input'])}>
-      <label {...getLabelProps()} className={disabled ? 'disabled' : undefined}>
+      className={cx([isOpen && 'open', 'select-input'])}>
+      <label {...getLabelProps()} className={cx([disabled && 'disabled'])}>
         {inputLabel}
       </label>
       <button {...getButtonProps({ disabled })}>
@@ -180,7 +174,7 @@ function SelectInput(props) {
           options.map((opt, index) => (
             <li
               key={`dropdown-option-${opt.value}`}
-              className={selectedIndex === index ? 'selected' : undefined}
+              className={cx([selectedIndex === index && 'selected'])}
               {...getItemProps({ value: opt.value, index })}>
               {opt.value}
             </li>
@@ -188,6 +182,14 @@ function SelectInput(props) {
       </ul>
     </div>
   )
+}
+
+SelectInput.defaultProps = {
+  inputLabel: '',
+  disabled: false,
+  onChange: () => {},
+  options: [],
+  selected: ''
 }
 
 export default SelectInput

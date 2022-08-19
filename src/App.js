@@ -14,11 +14,12 @@ import {
 
 const BoardsHome = () => {
   const [state] = useAppData()
+ 
   return (
     <>
       <div className="board-toolbar empty"></div>
       <section className="board-details empty">
-        {state.ACTIVE_BOARD ? (
+        {state.USER_BOARDS.length ? (
           <p>Hey! Choose one of the boards on the left to get started.</p>
         ) : (
           <p>Your dashboard is empty. Create a new board to get started.</p>

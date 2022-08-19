@@ -1,0 +1,46 @@
+@use '../shared/variables' as v;
+@use '../shared/typography' as tm;
+
+.heading-xl {
+    @include tm.heading-xl;
+}
+
+.heading-l {
+    @include tm.heading-l;
+}
+
+.heading-m {
+    @include tm.heading-m;
+}
+
+.heading-s {
+    @include tm.heading-s;
+    color: var(--color-medium-grey);
+}
+
+.subtitle-s {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.75rem;
+    /* 12px */
+    line-height: 0.938rem;
+    /* 15px */
+    color: var(--color-medium-grey);
+}
+
+.body-l {
+    font-weight: medium;
+    font-size: 0.813rem;
+    /* 13px */
+    line-height: 1.438rem;
+    /* 23px */
+}
+
+form label,
+.body-m {
+    font-weight: bold;
+    font-size: 0.75rem;
+    /* 12px */
+    line-height: 0.938rem;
+    /* 15px */
+}
