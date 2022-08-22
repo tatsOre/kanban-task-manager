@@ -1,7 +1,7 @@
 @import url('./board.css');
 @import url('./dialog.css');
 @import url('./forms.css');
-@import url('./layout.css');
+@import url('./layout.scss');
 @import url('./nav-menu.css');
 @import url('./view-task.css');
 @import '@reach/dialog/styles.css';
@@ -142,22 +142,3 @@ li {
   scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
 }
 
-.board-details::-webkit-scrollbar {
-  width: 10px; /* Mostly for vertical scrollbars */
-  height: 10px; /* Mostly for horizontal scrollbars */
-}
-
-.board-details::-webkit-scrollbar-thumb {
-  /* Foreground */
-  background: var(--scrollbar-foreground);
-  border-radius: 10px;
-}
-
-.board-details::-webkit-scrollbar-track {
-  /* Background */
-  background: var(--scrollbar-background);
-}
-
-.board-details::-webkit-scrollbar-corner {
-  background: var(--scrollbar-background);
-}

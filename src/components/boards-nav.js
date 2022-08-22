@@ -5,7 +5,7 @@ import ThemeToggle from './themeToggle'
 import { PrimaryTabLink, StandardTabLink } from './link/StyledLink'
 import { HeadingS } from './heading'
 
-const BoardsNavigation = () => {
+export const BoardsNavigation = (props) => {
   const [state] = useAppData()
 
   const location = useLocation()
@@ -14,8 +14,6 @@ const BoardsNavigation = () => {
 
   return (
     <>
-      <HeadingS tag="h2">ALL BOARDS ({boards.length})</HeadingS>
-
       <ul className="boards-tabs">
         {boards.length
           ? boards.map((board) => (
@@ -23,7 +21,7 @@ const BoardsNavigation = () => {
                 <PrimaryTabLink
                   iconStart="board"
                   showIsActive={true}
-                  to={`${board.id}`}>
+                  to={`${props.completePath ? '/boards/' : ''}${board.id}`}>
                   {board.name}
                 </PrimaryTabLink>
               </li>
@@ -52,12 +50,13 @@ function BoardsMobileNav() {
         aria-expanded={openMenu}
         onClick={() => setOpenMenu(!openMenu)}>
         <span className="icon-chevron" aria-hidden="true">
-          V
+          M
         </span>
       </button>
 
       <div role="menu">
-        <BoardsNavigation />
+        <a href='www.google.com' target="blank">Google</a>
+        <BoardsNavigation completePath />
         <ThemeToggle />
       </div>
     </div>
@@ -67,6 +66,7 @@ function BoardsMobileNav() {
 function BoardsAsideNav() {
   return (
     <>
+      
       <BoardsNavigation />
       <ThemeToggle />
     </>

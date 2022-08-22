@@ -2,7 +2,7 @@ import { useAppData } from '../../context/app-data'
 import ToggleInput from '../toggleInput'
 import './styles.scss'
 
-function ThemeToggle() {
+function ThemeToggle(props) {
   const [state, dispatch] = useAppData()
 
   const toggleTheme = () =>
@@ -12,7 +12,7 @@ function ThemeToggle() {
     })
 
   return (
-    <div className="theme-toggle">
+    <div className="theme-toggle" {...props}>
       <ToggleInput
         checked={state.THEME === 'light'}
         onChange={toggleTheme}

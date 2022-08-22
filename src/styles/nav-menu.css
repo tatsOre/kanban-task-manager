@@ -48,13 +48,13 @@
 /* Boards Aside Menu 
 ============================ */
 
-.dashboard-sidebar h2 {
+.dashboard__sidebar h2 {
   min-width: 250px;
   padding-inline-start: 2rem;
   margin-block: 1rem;
 }
 
-.dashboard-sidebar .boards-tabs {
+.dashboard__sidebar .boards-tabs {
   padding-inline-end: 1.25rem;
   overflow-y: scroll;
 }

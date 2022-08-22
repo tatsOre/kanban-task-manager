@@ -8,6 +8,7 @@ import { DeleteBoard } from '../containers/board-actions'
 import { DeleteTask } from '../containers/task-actions'
 import { HeadingM, HeadingS, HeadingXL } from './heading'
 import { StandardButtonLink } from './link/StyledLink'
+import { BoardsMobileNav, BoardsNavigation } from './boards-nav'
 
 const BoardTask = ({ board, task }) => {
   const location = useLocation()
@@ -55,6 +56,10 @@ function Board() {
             <HeadingXL className="board-name" tag="h2">
               {board.name}
             </HeadingXL>
+
+           
+
+            <BoardsMobileNav />
 
             <nav className="temp">
               <Link

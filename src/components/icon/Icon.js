@@ -1,8 +1,7 @@
 import { cx } from '../utils'
 import { IconCross, IconBoard, IconEyeOpen, IconEyeClosed } from './src'
 
-
-const IconStyles = {
+const IconShapes = {
   close: IconCross,
   board: IconBoard,
   'eye-open': IconEyeOpen,
@@ -10,13 +9,12 @@ const IconStyles = {
 }
 
 const Icon = ({ className, name, ...props }) => {
-  const Icon = IconStyles[name]
-  return IconStyles[name] ? (
-    <span className={cx([className, 'icon-container'])}>
+  const Icon = IconShapes[name]
+  return Icon ? (
+    <span className={cx([className, 'icon-container'])} aria-hidden="true">
       <Icon {...props} />
     </span>
   ) : null
 }
 
 export default Icon
-

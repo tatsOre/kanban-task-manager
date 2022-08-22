@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AppDataProvider, useAppData } from './context/app-data'
-import BoardManager from './components/boards-manager'
+import BoardManager from './containers/boards-manager'
 import Board from './components/board'
 import Home from './components/home'
 import { CreateBoardModal, EditBoardModal } from './containers/board-actions'

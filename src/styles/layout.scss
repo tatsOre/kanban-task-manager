@@ -1,0 +1,190 @@
+@use '../components/shared/variables' as v;
+
+.dashboard__container {
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.dashboard__header {
+    display: none;
+
+    &.mobile {
+        display: block;
+        height: v.$header-height-sm;
+        padding: 1rem;
+    }
+}
+
+.dashboard__sidebar {
+    display: none;
+}
+
+.board-details {
+    overflow: scroll;
+}
+
+@media (min-width: v.$breakpoint-tablet) {
+    .dashboard__container {
+        overflow: hidden;
+
+        .dashboard__header {
+            order: 1;
+            width: v.$header-width-md;
+            height: v.$header-height-md;
+            display: flex;
+            align-items: center;
+            padding-inline-start: 2rem;
+            border-bottom: 1px solid transparent;
+            border-right: 1px solid v.$color-lines-light;
+
+
+            &.mobile {
+                display: none;
+            }
+        }
+
+        .dashboard__sidebar {
+            order: 3;
+            display: block;
+            height: calc(100% - v.$header-height-md);
+            overflow: hidden;
+            transition: width 0.2s ease;
+            border-right: 1px solid var(--color-lines-light);
+
+            .sidebar__container {
+                width: max-content;
+                height: calc(100% - 90px);
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .board-toolbar {
+            order: 2;
+            flex: 1 0 calc(100% - var(--header-width-md));
+            height: var(--header-height-md);
+            display: flex;
+            align-items: center;
+            padding-inline-start: 1.5rem;
+            border-bottom: 1px solid var(--color-lines-light);
+        }
+
+        .dashboard__sidebar .toggle-container {
+            margin-top: auto;
+        }
+
+        .board-details {
+            order: 4;
+            flex: 1 0 calc(100% - var(--header-width-md));
+            height: calc(100% - var(--header-height-md));
+            overflow: scroll;
+        }
+
+    }
+
+    .dashboard__container[data-open-sidebar='true'] {
+        .dashboard__sidebar {
+            width: v.$header-width-md;
+        }
+    }
+
+    .dashboard__container[data-open-sidebar='false'] {
+        .dashboard__sidebar {
+            width: 0px;
+        }
+    }
+
+    .board-details {
+        --scrollbar-foreground: var(--color-medium-grey);
+        --scrollbar-background: var(--color-secondary-purple);
+        /* Foreground, Background */
+        scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+    }
+
+    .board-details::-webkit-scrollbar {
+        width: 10px;
+        /* Mostly for vertical scrollbars */
+        height: 10px;
+        /* Mostly for horizontal scrollbars */
+    }
+
+    .board-details::-webkit-scrollbar-thumb {
+        /* Foreground */
+        background: var(--scrollbar-foreground);
+        border-radius: 10px;
+    }
+
+    .board-details::-webkit-scrollbar-track {
+        /* Background */
+        background: var(--scrollbar-background);
+    }
+
+    .board-details::-webkit-scrollbar-corner {
+        background: var(--scrollbar-background);
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .dashboard__header {
+        width: var(--header-width-lg);
+        height: var(--header-height-lg);
+    }
+
+    .dashboard__sidebar {
+        height: calc(100% - var(--header-height-lg));
+    }
+
+    [data-open-sidebar='true'] .dashboard__sidebar {
+        width: var(--header-width-lg);
+    }
+
+    .board-toolbar {
+        flex: 1 0 calc(100% - var(--header-width-lg));
+        height: var(--header-height-lg);
+    }
+
+    .board-details {
+        flex: 1 0 calc(100% - var(--header-width-lg));
+        height: calc(100% - var(--header-height-lg));
+    }
+}
+
+[data-theme='dark'] {
+    .dashboard__header {
+        background-color: v.$color-dark-grey;
+        border-right: 1px solid v.$color-lines-dark;
+    }
+
+    .dashboard__sidebar {
+        background-color: v.$color-dark-grey;
+        border-right: 1px solid v.$color-lines-dark;
+    }
+
+    .board-toolbar {
+        background-color: v.$color-dark-grey;
+        border-bottom: 1px solid v.$color-lines-dark;
+    }
+
+
+    .board-toolbar.empty {
+        border-bottom: 1px solid transparent;
+    }
+
+    &[data-open-sidebar='false'] .dashboard__header {
+        border-bottom: 1px solid v.$color-lines-dark;
+    }
+
+}
+
+[data-theme='light'] {
+    &[data-open-sidebar='false'] .dashboard__header {
+        border-bottom: 1px solid v.$color-lines-light;
+    }
+
+    .board-toolbar.empty {
+        border-bottom: 1px solid transparent;
+    }
+}
