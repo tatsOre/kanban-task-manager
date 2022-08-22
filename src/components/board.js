@@ -4,7 +4,8 @@ import { useAppData } from '../context/app-data'
 import { BOARDS_KEY } from '../utils/constants'
 
 import { getCompletedSubtasks } from './view-task'
-import { DeleteBoard, DeleteTask } from './modals'
+import { DeleteBoard } from '../containers/board-actions'
+import { DeleteTask } from '../containers/task-actions'
 import { HeadingM, HeadingS, HeadingXL } from './heading'
 import { StandardButtonLink } from './link/StyledLink'
 

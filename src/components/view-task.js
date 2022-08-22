@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import { DialogHeading } from './modals'
+
 import SelectInput from './selectInput'
 
 export function getCompletedSubtasks(subtasks) {
-  if (!Array.isArray(subtasks) || !subtasks.length) return 0
+  if (!Array.isArray(subtasks)) return 0
   return subtasks.filter((t) => t.isCompleted).length
 }
 
@@ -65,7 +65,7 @@ function TaskView() {
 
   return (
     <>
-      <DialogHeading>{task?.title}</DialogHeading>
+      <h2>{task?.title}</h2>
 
       <div className="temp task">
         <Link

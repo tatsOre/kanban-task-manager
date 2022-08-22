@@ -4,17 +4,16 @@ import { AppDataProvider, useAppData } from './context/app-data'
 import BoardManager from './components/boards-manager'
 import Board from './components/board'
 import Home from './components/home'
+import { CreateBoardModal, EditBoardModal } from './containers/board-actions'
 import {
-  CreateBoardModal,
   CreateTaskModal,
-  EditBoardModal,
   EditTaskModal,
   ViewTaskModal
-} from './components/modals'
+} from './containers/task-actions'
 
 const BoardsHome = () => {
   const [state] = useAppData()
- 
+
   return (
     <>
       <div className="board-toolbar empty"></div>

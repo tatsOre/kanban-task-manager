@@ -2,7 +2,7 @@
 @use '../shared/mixins' as m;
 @use '../shared/typography' as t;
 
-@mixin button-layout {
+@mixin link-layout {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -28,10 +28,10 @@
 }
 
 .tab-link {
-    @include button-layout;
+    @include link-layout;
     @include t.heading-m;
     padding: 0.9rem 1rem 0.9rem 2rem;
-    border-radius: 0px 100px 100px 0px;
+    border-radius: 0px 24px 24px 0px;
 
     &.primary {
         color: v.$color-medium-grey;
@@ -79,10 +79,10 @@
 }
 
 .button-link {
-    @include button-layout;
+    @include link-layout;
     @include t.heading-m;
     padding: 0.9rem 1.15rem;
-    border-radius: 100px;
+    border-radius: 24px;
 
     &.primary {
         color: v.$color-white;

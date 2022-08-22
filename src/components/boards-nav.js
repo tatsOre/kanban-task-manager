@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import IconChevron from '../icons/icon-chevron'
 import ThemeToggle from './themeToggle'
 import { PrimaryTabLink, StandardTabLink } from './link/StyledLink'
 import { HeadingS } from './heading'
@@ -53,7 +52,7 @@ function BoardsMobileNav() {
         aria-expanded={openMenu}
         onClick={() => setOpenMenu(!openMenu)}>
         <span className="icon-chevron" aria-hidden="true">
-          <IconChevron />
+          V
         </span>
       </button>
 

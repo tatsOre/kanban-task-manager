@@ -166,7 +166,7 @@ function TaskForm({ initialValues, edit, onSubmit }) {
           <SelectInput {...dropdownProps} />
         </div>
 
-        <PrimaryButton type="submit">
+        <PrimaryButton type={edit ? 'button' : 'submit'}>
           {edit ? 'Save Changes' : 'Create Task'}
         </PrimaryButton>
       </form>

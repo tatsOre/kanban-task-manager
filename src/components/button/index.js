@@ -1,26 +1,7 @@
 import { cx } from '../utils'
-import IconCross from '../../icons/icon-cross'
-import IconBoard from '../../icons/icon-board'
-import IconEyeClosed from '../../icons/icon-eye-closed'
-import IconEyeOpen from '../../icons/icon-eye-open'
 import { ButtonAppearances } from '../shared/types/appearance'
+import Icon from '../icon/Icon'
 import './button.scss'
-
-const IconStyles = {
-  close: IconCross,
-  board: IconBoard,
-  'eye-open': IconEyeOpen,
-  'eye-crossed': IconEyeClosed
-}
-
-const IconComponent = ({ name, ...props }) => {
-  const Icon = IconStyles[name]
-  return (
-    <span>
-      <Icon {...props} />
-    </span>
-  )
-}
 
 /**
  * @param     props:
@@ -64,9 +45,9 @@ function ButtonBase(props) {
   const getButtonContent = () => {
     return iconStart || iconEnd ? (
       <>
-        {iconStart && <IconComponent name={iconStart} />}
+        {iconStart && <Icon name={iconStart} />}
         {children && <span>{children}</span>}
-        {iconEnd && <IconComponent name={iconEnd} />}
+        {iconEnd && <Icon name={iconEnd} />}
       </>
     ) : (
       <span>{children}</span>

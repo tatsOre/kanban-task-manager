@@ -23,7 +23,7 @@ form > div {
 }
 
 .input-list ~ button,
-form button[type='submit'] {
+form > button {
   width: 100%;
   margin-block-start: 1.5rem;
 }

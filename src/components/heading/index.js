@@ -12,11 +12,18 @@ function HeadingBase(props) {
     h6: 'h6'
   }
   const HeadingComponent = tagElements[tag]
-  return <HeadingComponent className={className} children={children} {...other} />
+  return (
+    <HeadingComponent className={className} children={children} {...other} />
+  )
 }
 
 HeadingBase.defaultProps = {
   tag: 'h1'
+}
+
+export function HeadingStandard(props) {
+  const { className, ...other } = props
+  return <HeadingBase className={cx([className])} {...other} />
 }
 
 export function HeadingXL(props) {

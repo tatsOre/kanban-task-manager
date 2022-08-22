@@ -1,29 +1,8 @@
 import { NavLink } from 'react-router-dom'
-import IconBoard from '../../icons/icon-board'
+import Icon from '../icon/Icon'
 import { LinkAppearances } from '../shared/types/appearance'
 import { cx } from '../utils'
-import './styled-button-link.scss'
-
-// TODO: Move to Icon Component
-const IconStyles = {
-  board: IconBoard
-}
-
-const IconComponent = ({ className, name, ...props }) => {
-  const Icon = IconStyles[name]
-  return IconStyles[name] ? (
-    <span className={cx([className, 'icon-container'])}>
-      <Icon {...props} />
-    </span>
-  ) : null
-}
-
-/**
- * 
-    button link text
-    button link tab
-    button link normal
- */
+import './styles.scss'
 
 function StyledNavLink(props) {
   const {
@@ -50,9 +29,9 @@ function StyledNavLink(props) {
   const getLinkContent = () => {
     return iconStart || iconEnd ? (
       <>
-        {iconStart && <IconComponent name={iconStart} className="start" />}
+        {iconStart && <Icon name={iconStart} className="start" />}
         {children && <span>{children}</span>}
-        {iconEnd && <IconComponent name={iconEnd} className="end" />}
+        {iconEnd && <Icon name={iconEnd} className="end" />}
       </>
     ) : (
       <span>{children}</span>
