@@ -120,3 +120,20 @@
 [data-theme='light'] .subtitle-s {
   color: var(--color-medium-grey);
 }
+
+.temp.task {
+  margin-left: auto;
+  margin-right: 2rem;
+  position: absolute;
+  top: 2.15rem;
+  right: 0;
+}
+
+.temp.task a,
+.temp.task button {
+  color: var(--color-main-purple);
+  font-size: 12px;
+  font-weight: 400;
+  display: inline-block;
+  margin-left: 0.75rem;
+}

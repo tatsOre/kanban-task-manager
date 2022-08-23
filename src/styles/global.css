@@ -1,4 +1,3 @@
-@import url('./board.css');
 @import url('./dialog.css');
 @import url('./forms.css');
 @import url('./layout.scss');
@@ -78,8 +77,6 @@ li {
   list-style: none;
 }
 
-
-
 .stretched-link::after {
   position: absolute;
   inset: 0;
@@ -110,35 +107,3 @@ li {
   transition: background-color 0.2s ease, color 0.2s ease, fill 0.3s ease,
     border-color 0.3s ease;
 }
-
-.temp {
-  margin-left: auto;
-  margin-right: 2rem;
-}
-
-.temp a,
-.temp button {
-  color: var(--color-main-purple);
-  font-size: 14px;
-  font-weight: 400;
-  display: inline-block;
-  height: 30px;
-  margin-left: 1rem;
-}
-
-.temp.task {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.temp.task a {
-  margin: 0;
-}
-
-.board-details {
-  --scrollbar-foreground: var(--color-medium-grey);
-  --scrollbar-background: var(--color-secondary-purple);
-  /* Foreground, Background */
-  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
-}
-

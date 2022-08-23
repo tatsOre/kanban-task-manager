@@ -1,0 +1,180 @@
+@use '../components/shared/variables' as v;
+
+.board__toolbar {
+  &.empty {
+    background-color: v.$color-light-grey;
+
+    [data-theme='dark'] & {
+      background-color: v.$color-very-dark-grey;
+    }
+  }
+
+  .board-name {
+    color: v.$color-black;
+
+    [data-theme='dark'] & {
+      color: v.$color-white;
+    }
+  }
+
+  // Temporary board navigation:
+  .temp {
+    margin-left: auto;
+    margin-right: 2rem;
+
+    a,
+    button {
+      color: v.$color-main-purple;
+      font-size: 12px;
+      font-weight: 400;
+      display: inline-block;
+      height: 30px;
+      margin-left: 1rem;
+    }
+  }
+}
+
+.board__details {
+  display: flex;
+  gap: 1.25rem;
+  padding-inline-start: 1.5rem;
+  padding-block: 1.5rem;
+  background-color: v.$color-light-grey;
+  --scrollbar-foreground: v.$color-medium-grey;
+  --scrollbar-background: v.$color-secondary-purple;
+  /* Foreground, Background */
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
+
+  [data-theme='dark'] & {
+    background-color: v.$color-very-dark-grey;
+  }
+
+  &::-webkit-scrollbar {
+    /* Mostly for vertical scrollbars */
+    width: 10px;
+    /* Mostly for horizontal scrollbars */
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* Foreground */
+    background: var(--scrollbar-foreground);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    /* Background */
+    background: var(--scrollbar-background);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: var(--scrollbar-background);
+  }
+
+
+  &.empty {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      color: v.$color-medium-grey;
+      margin-block-end: 0.5rem;
+    }
+
+  }
+
+  .board-column {
+    flex: 0 0 280px;
+
+    h3 {
+      text-transform: uppercase;
+      margin-block-end: 1.5rem;
+      padding-inline-start: 1.75rem;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        left: 0;
+        border-radius: 50%;
+      }
+    }
+
+    &:nth-child(3n + 1) h3::before {
+      background-color: v.$color-cyan;
+    }
+
+    &:nth-child(3n + 2) h3::before {
+      background-color: v.$color-main-purple;
+    }
+
+    &:nth-child(3n + 3) h3::before {
+      background-color: v.$color-green;
+    }
+  }
+
+  .new-column {
+    flex: 0 0 280px;
+    margin-block-start: 2.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+
+    background: linear-gradient(180deg,
+        #e9effa 0%,
+        rgba(233, 239, 250, 0.5) 100%);
+
+    [data-theme='dark'] & {
+      background: linear-gradient(180deg,
+          rgba(43, 44, 55, 0.25) 0%,
+          rgba(43, 44, 55, 0.125) 100%);
+    }
+
+
+    a {
+      color: v.$color-medium-grey;
+
+      &:hover {
+        color: v.$color-main-purple;
+      }
+    }
+  }
+}
+
+.column-tasks {
+  li {
+    border-radius: 8px;
+    padding-inline: 1rem;
+    padding-block: 1.5rem;
+    margin-block-end: 1.25rem;
+    cursor: pointer;
+    user-select: none;
+
+    position: relative;
+    background-color: v.$color-white;
+    box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.1);
+
+    h4 {
+      color: v.$color-black;
+    }
+
+    p {
+      color: v.$color-medium-grey;
+      margin-block-start: 0.5rem;
+    }
+
+    [data-theme='dark'] & {
+      background-color: v.$color-dark-grey;
+
+      h4 {
+        color: v.$color-white;
+      }
+    }
+  }
+}

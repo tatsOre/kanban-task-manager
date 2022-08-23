@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { AppDataProvider, useAppData } from './context/app-data'
+import { AppDataProvider } from './context/app-data'
 import BoardManager from './containers/boards-manager'
-import Board from './components/board'
+import Board, { BoardsHome } from './components/board'
 import Home from './components/home'
 import { CreateBoardModal, EditBoardModal } from './containers/board-actions'
 import {
@@ -11,22 +11,6 @@ import {
   ViewTaskModal
 } from './containers/task-actions'
 
-const BoardsHome = () => {
-  const [state] = useAppData()
-
-  return (
-    <>
-      <div className="board-toolbar empty"></div>
-      <section className="board-details empty">
-        {state.USER_BOARDS.length ? (
-          <p>Hey! Choose one of the boards on the left to get started.</p>
-        ) : (
-          <p>Your dashboard is empty. Create a new board to get started.</p>
-        )}
-      </section>
-    </>
-  )
-}
 
 export default function App() {
   const location = useLocation()

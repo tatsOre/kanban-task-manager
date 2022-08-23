@@ -9,20 +9,38 @@ import { DeleteTask } from '../containers/task-actions'
 import { HeadingM, HeadingS, HeadingXL } from './heading'
 import { StandardButtonLink } from './link/StyledLink'
 import { BoardsMobileNav, BoardsNavigation } from './boards-nav'
+import '../styles/board.scss'
 
-const BoardTask = ({ board, task }) => {
-  const location = useLocation()
-  const { title, subtasks, id } = task
+export const BoardsHome = () => {
+  const [state] = useAppData()
+
+  return (
+    <>
+      <div className="board__toolbar empty"></div>
+      <section className="board__details empty">
+        {state.USER_BOARDS.length ? (
+          <p>Hey! Choose one of the boards on the left to get started.</p>
+        ) : (
+          <p>Your dashboard is empty. Create a new board to get started.</p>
+        )}
+      </section>
+    </>
+  )
+}
+
+
+const BoardTask = ({ task, location }) => {
+  const { boardId, title, subtasks, id } = task
   const completedSubtasks = getCompletedSubtasks(subtasks)
 
   return task ? (
-    <li>
+    <li className='task-linkcard'>
       <HeadingM tag="h4">{title}</HeadingM>
       <p className="body-m">
         {completedSubtasks} of {subtasks.length} subtasks
       </p>
       <Link
-        to={`/boards/${board}/tasks/${id}`}
+        to={`/boards/${boardId}/tasks/${id}`}
         state={{ backgroundLocation: location }}
         className="stretched-link"></Link>
     </li>
@@ -50,16 +68,12 @@ function Board() {
 
   return (
     <>
-      <div className={`board-toolbar ${board ? '' : 'empty'}`}>
+      <div className={`board__toolbar ${board ? '' : 'empty'}`}>
         {board && (
           <>
             <HeadingXL className="board-name" tag="h2">
               {board.name}
             </HeadingXL>
-
-           
-
-            <BoardsMobileNav />
 
             <nav className="temp">
               <Link
@@ -85,7 +99,7 @@ function Board() {
         )}
       </div>
 
-      <section className={`board-details ${hasColumns ? '' : 'empty'}`}>
+      <section className={`board__details ${hasColumns ? '' : 'empty'}`}>
         {board ? (
           <>
             {hasColumns ? (
@@ -99,8 +113,8 @@ function Board() {
                       {column.tasks?.length
                         ? column.tasks.map((task) => (
                             <BoardTask
-                              board={board.id}
                               task={task}
+                              location={location}
                               key={`task-${task.id}`}
                             />
                           ))
