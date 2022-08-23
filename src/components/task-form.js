@@ -20,6 +20,8 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       label: c.name
     }))
 
+    console.log(state.ACTIVE_BOARD)
+
   const dropdownProps = {
     id: 'dropdown-task-status',
     options: boardColumns,
@@ -96,81 +98,73 @@ function TaskForm({ initialValues, edit, onSubmit }) {
   }
 
   return (
-    <>
-      <h2 id="dialog-label" className="heading-l">
-        {edit ? 'Edit Task' : 'Add New Task'}
-      </h2>
-      <form onSubmit={handleSubmit} className="task-form" noValidate>
-        <TextInput
-          appearance={errors.title ? InputAppearances.Error : undefined}
-          className="input-group"
-          errors={errors.title}
-          id="task-title"
-          inputLabel="Title"
-          name="title"
-          onChange={onChange}
-          placeholder="e.g. Take coffee break"
-          value={values.title}
-          required
-        />
+    <form onSubmit={handleSubmit} className="standard" noValidate>
+      <TextInput
+        appearance={errors.title ? InputAppearances.Error : undefined}
+        className="input-group"
+        errors={errors.title}
+        id="task-title"
+        inputLabel="Title"
+        name="title"
+        onChange={onChange}
+        placeholder="e.g. Take coffee break"
+        value={values.title}
+        required
+      />
 
-        <Textarea
-          appearance={errors.description ? InputAppearances.Error : undefined}
-          className="textarea-group"
-          id="task-description"
-          inputLabel="Description"
-          name="description"
-          onChange={onChange}
-          placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
-          rows="6"
-          value={values.description}
-        />
+      <Textarea
+        appearance={errors.description ? InputAppearances.Error : undefined}
+        className="textarea-group"
+        id="task-description"
+        inputLabel="Description"
+        name="description"
+        onChange={onChange}
+        placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
+        rows="6"
+        value={values.description}
+      />
 
-        <div>
-          <label id="subtasks-list" className="form-label">
-            Subtasks
-          </label>
-          <ul aria-labelledby="subtasks-list" className="input-list">
-            {values.subtasks &&
-              values.subtasks.map((subtask, index) => (
-                <li key={`subtask-${index}`}>
-                  <TextInput
-                    appearance={
-                      errors.subtasks && errors.subtasks[index]
-                        ? InputAppearances.Error
-                        : undefined
-                    }
-                    className="input-group"
-                    errors={errors.subtasks && errors.subtasks[index]}
-                    inputLabel="Subtask Title"
-                    onChange={(e) => onChangeArrayItem(e, index)}
-                    placeholder={placeholders[index] || 'Add subtask'}
-                    showInputLabel={false}
-                    value={subtask.title}
-                  />
+      <fieldset>
+        <legend>Subtasks</legend>
 
-                  <StandardButton
-                    onClick={() => removeArrayItem(index)}
-                    iconStart="close"
-                  />
-                </li>
-              ))}
-          </ul>
+        {values.subtasks &&
+          values.subtasks.map((subtask, index) => (
+            <div className="fieldset-item">
+              <TextInput
+                appearance={
+                  errors.subtasks && errors.subtasks[index]
+                    ? InputAppearances.Error
+                    : undefined
+                }
+                className="input-group"
+                errors={errors.subtasks && errors.subtasks[index]}
+                inputLabel="Subtask Title"
+                onChange={(e) => onChangeArrayItem(e, index)}
+                placeholder={placeholders[index] || 'Add subtask'}
+                showInputLabel={false}
+                value={subtask.title}
+              />
 
-          <SecondaryButton onClick={appendArrayItem}>
-            + Add New Subtask
-          </SecondaryButton>
-        </div>
+              <StandardButton
+                onClick={() => removeArrayItem(index)}
+                iconStart="close"
+              />
+            </div>
+          ))}
 
-        <div className="input-group">
-          <SelectInput {...dropdownProps} />
-        </div>
+        <SecondaryButton onClick={appendArrayItem}>
+          + Add New Subtask
+        </SecondaryButton>
+      </fieldset>
 
-        <PrimaryButton type={edit ? 'button' : 'submit'}>
-          {edit ? 'Save Changes' : 'Create Task'}
-        </PrimaryButton>
-      </form>
-    </>
+      <div className="input-group">
+        <SelectInput {...dropdownProps} />
+      </div>
+
+      <PrimaryButton type={edit ? 'button' : 'submit'}>
+        {edit ? 'Save Changes' : 'Create Task'}
+      </PrimaryButton>
+    </form>
   )
 }
 

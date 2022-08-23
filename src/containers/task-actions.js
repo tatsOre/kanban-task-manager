@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import useLocalStorage, { getUserBoards } from '../hooks/use-storage'
 import DeleteAlertDialog from './delete-alert-dialog'
-import Modal from './dialog-modal'
+import Modal, { ModalHeading } from './dialog-modal'
 import TaskForm from '../components/task-form'
-import TaskView from '../components/view-task'
+import TaskDetails from '../components/task-details'
 import { TASK_SCHEMA } from '../utils/constants'
 
 function CreateTaskModal() {
@@ -27,6 +27,7 @@ function CreateTaskModal() {
 
   return (
     <Modal>
+      <ModalHeading>Add New Task</ModalHeading>
       <TaskForm initialValues={TASK_SCHEMA} onSubmit={handleCreate} />
     </Modal>
   )
@@ -85,6 +86,7 @@ function EditTaskModal() {
 
   return (
     <Modal>
+      <ModalHeading>Edit Task</ModalHeading>
       <TaskForm initialValues={state.ACTIVE_TASK} onSubmit={handleEdit} edit />
     </Modal>
   )
@@ -110,8 +112,11 @@ function ViewTaskModal() {
 
   return (
     <Modal>
-      {state.ACTIVE_TASK ? (
-        <TaskView task={state.ACTIVE_TASK} board={state.ACTIVE_BOARD.id} />
+      {state.ACTIVE_TASK && state.ACTIVE_BOARD ? (
+        <>
+          <ModalHeading>{state.ACTIVE_TASK.title}</ModalHeading>
+          <TaskDetails task={state.ACTIVE_TASK} board={state.ACTIVE_BOARD} dispatch={dispatch}/>
+        </>
       ) : (
         <p>Something went wrong.</p>
       )}

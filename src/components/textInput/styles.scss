@@ -4,18 +4,8 @@
 .input-group {
     display: flex;
     flex-direction: column;
-    
+
     label {
-        margin-block-end: 0.5rem;
-
-        [data-theme='light'] & {
-            color: v.$color-medium-grey;
-        }
-
-        [data-theme='dark'] & {
-            color: v.$color-white;
-        }
-
         &.visually-hidden {
             @include m.visually-hidden;
         }
@@ -23,6 +13,7 @@
 
     .input-wrapper {
         position: relative;
+
         input {
             @include m.input-standard;
             width: 100%;

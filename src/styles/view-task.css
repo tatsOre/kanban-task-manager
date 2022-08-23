@@ -1,19 +1,6 @@
 .view-task-desc {
-  margin-block-end: 1.5rem;
+  margin-block-start: 1rem;
   color: var(--color-medium-grey);
-}
-
-.view-task-form #dropdown-task-status-label {
-  margin-block-end: 1rem;
-}
-
-.subtasks-group {
-  border: none;
-  margin-block-end: 1.5rem;
-}
-
-.subtasks-group legend {
-  margin-block-end: 1rem;
 }
 
 /* Custom Checkbox */
@@ -57,11 +44,14 @@
   display: flex;
   align-items: center;
   letter-spacing: 0.25px;
-  margin-block-end: 0.5rem;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.subtasks-group label:not(:last-child) {
+  margin-block-end: 0.5rem;
 }
 
 .subtasks-group .label-checked {
@@ -70,18 +60,6 @@
 
 /* Theming
 ============================ */
-
-[data-theme='light'] .view-task #task-dialog-title {
-  color: var(--color-black);
-}
-
-[data-theme='light'] .subtasks-group legend {
-  color: var(--color-medium-grey);
-}
-
-[data-theme='dark'] .subtasks-group legend {
-  color: var(--color-white);
-}
 
 [data-theme='light'] .subtasks-group label {
   color: var(--color-black);
@@ -117,16 +95,8 @@
   color: var(--color-medium-grey);
 }
 
-[data-theme='light'] .subtitle-s {
-  color: var(--color-medium-grey);
-}
-
 .temp.task {
-  margin-left: auto;
-  margin-right: 2rem;
-  position: absolute;
-  top: 2.15rem;
-  right: 0;
+  margin-block-start: 0.25rem;
 }
 
 .temp.task a,
@@ -135,5 +105,8 @@
   font-size: 12px;
   font-weight: 400;
   display: inline-block;
+}
+
+.temp.task button {
   margin-left: 0.75rem;
 }

@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { Dialog } from '@reach/dialog'
 import { useAppData } from '../context/app-data'
+import { HeadingL } from '../components/heading'
 
 export const ModalHeading = ({ children, tag, ...props }) => (
-  <h2 id="dialog-label" className="dialog-heading" {...props}>
+  <HeadingL id="dialog-label" tag="h2" {...props}>
     {children}
-  </h2>
+  </HeadingL>
 )
 
 function Modal(props) {

@@ -16,15 +16,19 @@ code {
 }
 
 @mixin heading-xl {
-    font-weight: bold;
+    font-weight: 700;
     /* 24px */
     font-size: 1.5rem;
     /* 30px */
     line-height: 1.875rem;
+
+    @media (max-width: 767px) {
+        font-size: 1.125rem;
+    }
 }
 
 @mixin heading-l {
-    font-weight: bold;
+    font-weight: 700;
     /* 18px */
     font-size: 1.125rem;
     /* 23px */
@@ -32,7 +36,7 @@ code {
 }
 
 @mixin heading-m {
-    font-weight: bold;
+    font-weight: 700;
     /* 15px */
     font-size: 0.938rem;
     /* 19px */
@@ -40,7 +44,7 @@ code {
 }
 
 @mixin heading-s {
-    font-weight: bold;
+    font-weight: 700;
     /* 11px */
     font-size: 0.688rem;
     /* 15px */
@@ -50,7 +54,7 @@ code {
 }
 
 @mixin body-l {
-    font-weight: medium;
+    font-weight: 500;
     font-size: 0.813rem;
     /* 13px */
     line-height: 1.438rem;
@@ -58,7 +62,7 @@ code {
 }
 
 @mixin body-m {
-    font-weight: bold;
+    font-weight: 700;
     /* 12px */
     font-size: 0.75rem;
     /* 15px */

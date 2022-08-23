@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppData } from '../context/app-data'
-
 import SelectInput from './selectInput'
 
 export function getCompletedSubtasks(subtasks) {
@@ -35,20 +33,16 @@ function Checkbox({ subtask, onChange }) {
   )
 }
 
-function TaskView() {
-  const [state, dispatch] = useAppData()
-
+function TaskDetails({ board, task, dispatch }) {
   const navigate = useNavigate()
-
-  const { ACTIVE_BOARD: board, ACTIVE_TASK: task } = state
 
   const handleSubtaskChange = (value) => console.log(value)
 
   const handleStatusChange = (value) => console.log(value)
 
   const boardColumns =
-    state.ACTIVE_BOARD &&
-    state.ACTIVE_BOARD.columns.map((c) => ({
+    board.columns &&
+    board.columns.map((c) => ({
       value: c.name.toLowerCase(),
       label: c.name
     }))
@@ -56,7 +50,7 @@ function TaskView() {
   const dropdownProps = {
     id: 'dropdown-task-status',
     options: boardColumns,
-    selected: task?.status?.toLowerCase(),
+    selected: task.status?.toLowerCase(),
     onChange: handleStatusChange,
     inputLabel: 'Current Status'
   }
@@ -65,8 +59,6 @@ function TaskView() {
 
   return (
     <>
-      <h2>{task?.title}</h2>
-
       <div className="temp task">
         <Link
           to={`/boards/${board.id}/edit/${task.id}`}
@@ -83,12 +75,14 @@ function TaskView() {
         </button>
       </div>
 
-      <p className="view-task-desc body-l">{task?.description}</p>
-      
-      <form className="view-task-form">
-        {task?.subtasks?.length ? (
+      {task.description ? (
+        <p className="view-task-desc body-l">{task.description}</p>
+      ) : null}
+
+      <form className="view-task-form standard">
+        {task.subtasks?.length ? (
           <fieldset className="subtasks-group">
-            <legend className="subtitle-s">
+            <legend>
               Subtasks {completedSubtasks} of {task.subtasks?.length}
             </legend>
 
@@ -102,10 +96,12 @@ function TaskView() {
           </fieldset>
         ) : null}
 
-        <SelectInput {...dropdownProps} />
+        <div className="input-group">
+          <SelectInput {...dropdownProps} />
+        </div>
       </form>
     </>
   )
 }
 
-export default TaskView
+export default TaskDetails

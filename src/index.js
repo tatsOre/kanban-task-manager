@@ -5,6 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 import './styles/global.css'
+import './styles/global.scss'
 
 const rootElement = document.getElementById('root')
 render(

@@ -3,12 +3,26 @@ import { BOARDS_KEY } from '../utils/constants'
 
 const AppContext = createContext()
 
+const theme = window.localStorage.getItem('theme')
+if (!theme) window.localStorage.setItem('theme', 'light')
+
+// set boards data from json sample:
+let boards = []
+
+if (window.sessionStorage.getItem(BOARDS_KEY) === null) {
+  const data = require('../data/data.json')
+  window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(data.boards))
+}
+
+boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
+
 const initialState = {
   ACTIVE_BOARD: null,
   ACTIVE_TASK: null,
   DELETE_TASK: false,
   DELETE_BOARD: false,
-  USER_BOARDS: []
+  USER_BOARDS: boards.map((b) => ({ id: b.id, name: b.name })),
+  THEME: theme || 'light'
 }
 
 function useAppData() {
@@ -65,28 +79,7 @@ function reducer(state, { type, payload }) {
 }
 
 function AppDataProvider(props) {
-  const init = () => {
-    const theme = window.localStorage.getItem('theme')
-    if (!theme) window.localStorage.setItem('theme', 'light')
-
-    // set boards data from json sample:
-    let boards = []
-
-    if (window.sessionStorage.getItem(BOARDS_KEY) === null) {
-      const data = require('../data/data.json')
-      window.sessionStorage.setItem(BOARDS_KEY, JSON.stringify(data.boards))
-    } else {
-      boards = JSON.parse(window.sessionStorage.getItem(BOARDS_KEY))
-    }
-
-    return {
-      ...initialState,
-      USER_BOARDS: boards.map((b) => ({ id: b.id, name: b.name })),
-      THEME: theme || 'light'
-    }
-  }
-
-  const [state, dispatch] = useReducer(reducer, initialState, init)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return <AppContext.Provider value={[state, dispatch]} {...props} />
 }

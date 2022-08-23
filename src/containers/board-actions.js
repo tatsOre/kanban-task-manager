@@ -3,7 +3,7 @@ import { useAppData } from '../context/app-data'
 import useLocalStorage, { getUserBoards } from '../hooks/use-storage'
 import BoardForm from '../components/board-form'
 import DeleteAlertDialog from './delete-alert-dialog'
-import Modal from './dialog-modal'
+import Modal, { ModalHeading } from './dialog-modal'
 import { BOARD_SCHEMA } from '../utils/constants'
 
 function CreateBoardModal() {
@@ -23,6 +23,7 @@ function CreateBoardModal() {
 
   return (
     <Modal>
+      <ModalHeading>Add New Board</ModalHeading>
       <BoardForm initialValues={BOARD_SCHEMA} onSubmit={handleCreate} />
     </Modal>
   )
@@ -77,6 +78,7 @@ function EditBoardModal() {
 
   return (
     <Modal>
+      <ModalHeading>Edit Board</ModalHeading>
       <BoardForm
         initialValues={state.ACTIVE_BOARD}
         onSubmit={handleEdit}

@@ -1,6 +1,4 @@
 @import url('./dialog.css');
-@import url('./forms.css');
-@import url('./layout.scss');
 @import url('./nav-menu.css');
 @import url('./view-task.css');
 @import '@reach/dialog/styles.css';

@@ -36,9 +36,3 @@
         }
     }
 }
-
-@media (min-width: v.$breakpoint-large) {
-    .button.toggle-sidebar.hide {
-        min-width: 280px;
-    }
-}

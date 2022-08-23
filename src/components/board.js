@@ -3,7 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import { BOARDS_KEY } from '../utils/constants'
 
-import { getCompletedSubtasks } from './view-task'
+import { getCompletedSubtasks } from './task-details'
 import { DeleteBoard } from '../containers/board-actions'
 import { DeleteTask } from '../containers/task-actions'
 import { HeadingM, HeadingS, HeadingXL } from './heading'

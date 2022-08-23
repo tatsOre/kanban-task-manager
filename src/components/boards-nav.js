@@ -33,7 +33,8 @@ export const BoardsNavigation = (props) => {
         iconStart="board"
         className="new-board"
         to="/boards/new"
-        state={{ backgroundLocation: location }}>
+        state={{ backgroundLocation: location }}
+        style={{ marginBottom: '0.5rem'}}>
         + Create New Board
       </StandardTabLink>
     </>

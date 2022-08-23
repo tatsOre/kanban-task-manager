@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import { COLUMN_SCHEMA } from '../utils/constants'
-
 import { InputAppearances } from './shared/types/appearance'
 import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
 import TextInput from './textInput'
-import { HeadingL } from './heading'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues)
@@ -62,69 +60,60 @@ function BoardForm({ initialValues, edit, onSubmit }) {
   }
 
   return (
-    <>
-      <HeadingL id="dialog-label" tag="h2">
-        {edit ? 'Edit Board' : 'Add New Board'}
-      </HeadingL>
-      <form onSubmit={handleSubmit} className="task-form" noValidate>
-        <TextInput
-          appearance={errors.name && InputAppearances.Error}
-          className="input-group"
-          errors={errors.name}
-          id="board-name"
-          inputLabel={`${edit ? 'Board ' : ''}Name`}
-          name="name"
-          maxLength="40"
-          onChange={onChange}
-          placeholder="e.g. Web Design"
-          value={values.name}
-          required
-        />
+    <form onSubmit={handleSubmit} className="standard" noValidate>
+      <TextInput
+        appearance={errors.name && InputAppearances.Error}
+        className="input-group"
+        errors={errors.name}
+        id="board-name"
+        inputLabel={`${edit ? 'Board ' : ''}Name`}
+        name="name"
+        maxLength="40"
+        onChange={onChange}
+        placeholder="e.g. Web Design"
+        value={values.name}
+        required
+      />
 
-        <div>
-          <label id="columns-list" className="form-label">
-            {edit && 'Board'} Columns
-          </label>
+      <fieldset>
+        <legend>{edit && 'Board'} Columns</legend>
 
-          <ul aria-labelledby="columns-list" className="input-list">
-            {values.columns?.map(({ name }, index) => {
-              const hasError =
-                errors.columns &&
-                errors.columns[index] &&
-                !values.columns[index].name
+        {values.columns?.map(({ name }, index) => {
+          const hasError =
+            errors.columns &&
+            errors.columns[index] &&
+            !values.columns[index].name
 
-              return (
-                <li key={`column-${index}`}>
-                  <TextInput
-                    appearance={hasError && InputAppearances.Error}
-                    className="input-group"
-                    errors={hasError && errors.columns[index]}
-                    inputLabel="column name"
-                    showInputLabel={false}
-                    onChange={(e) => onChangeArrayItem(e, index)}
-                    value={name}
-                  />
+          return (
+            <div className="fieldset-item">
+              <TextInput
+                appearance={hasError && InputAppearances.Error}
+                className="input-group"
+                errors={hasError && errors.columns[index]}
+                inputLabel="column name"
+                showInputLabel={false}
+                onChange={(e) => onChangeArrayItem(e, index)}
+                value={name}
+              />
 
-                  <StandardButton
-                    className="close-button"
-                    onClick={() => removeArrayItem(index)}
-                    iconStart="close"
-                  />
-                </li>
-              )
-            })}
-          </ul>
+              <StandardButton
+                className="close-button"
+                onClick={() => removeArrayItem(index)}
+                iconStart="close"
+              />
+            </div>
+          )
+        })}
 
-          <SecondaryButton onClick={appendArrayItem}>
-            + Add New Column
-          </SecondaryButton>
-        </div>
+        <SecondaryButton onClick={appendArrayItem}>
+          + Add New Column
+        </SecondaryButton>
+      </fieldset>
 
-        <PrimaryButton type="submit">
-          {edit ? 'Save Changes' : 'Create New Board'}
-        </PrimaryButton>
-      </form>
-    </>
+      <PrimaryButton type="submit">
+        {edit ? 'Save Changes' : 'Create New Board'}
+      </PrimaryButton>
+    </form>
   )
 }
 
