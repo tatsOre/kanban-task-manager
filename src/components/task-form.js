@@ -20,8 +20,6 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       label: c.name
     }))
 
-    console.log(state.ACTIVE_BOARD)
-
   const dropdownProps = {
     id: 'dropdown-task-status',
     options: boardColumns,

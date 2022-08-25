@@ -3,21 +3,20 @@ import { useEffect } from 'react'
 import { AppDataProvider } from './context/app-data'
 import BoardManager from './containers/boards-manager'
 import Board, { BoardsHome } from './components/board'
-import Home from './components/home'
 import { CreateBoardModal, EditBoardModal } from './containers/board-actions'
 import {
   CreateTaskModal,
   EditTaskModal,
   ViewTaskModal
 } from './containers/task-actions'
-
+import Home from './components/home'
 
 export default function App() {
   const location = useLocation()
   let state = location.state
 
   useEffect(() => {
-    document.title = 'Kanban Task Manager'
+    document.title = 'Kanban Task Manager ⚡️'
   }, [])
 
   return (

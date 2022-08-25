@@ -1,0 +1,89 @@
+@use '../shared/variables' as v;
+@use '../shared/mixins' as m;
+@use '../shared/typography' as t;
+
+.checkbox-wrapper {
+    .visually-hidden {
+        @include m.visually-hidden;
+    }
+
+    [type="checkbox"]:checked~.checkmark:after {
+        position: absolute;
+        content: url('../../assets/icon-check.svg');
+        bottom: 0rem;
+        left: 0.1rem;
+    }
+
+    [type="checkbox"]:checked~.checkmark {
+        &.filled {
+            background-color: v.$color-main-purple;
+            border: 1px solid v.$color-main-purple;
+        }
+    }
+
+    span.checkmark {
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        min-width: 16px;
+        border-radius: 2px;
+        margin-inline-end: 1rem;
+        position: relative;
+        border: 1px solid rgba(130, 143, 163, 0.25);
+
+        &.filled {
+            background-color: v.$color-white;
+
+            [data-theme='dark'] & {
+                background-color: v.$color-dark-grey;
+            }
+        }
+    }
+
+    label {
+        border-radius: 4px;
+        padding: 0.75rem 0.85rem;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.25px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+
+        span {
+            @include t.body-m;
+        }
+
+        &.label-checked {
+            text-decoration: line-through;
+        }
+
+        &.filled {
+            color: v.$color-black;
+            background-color: v.$color-light-grey;
+
+            [data-theme='dark'] & {
+                color: v.$color-white;
+                background-color: v.$color-very-dark-grey;
+            }
+
+            &:hover {
+                background-color: v.$color-secondary-purple;
+
+                [data-theme='dark'] & {
+                    background-color: v.$color-secondary-purple;
+                }
+            }
+
+            &.label-checked {
+                color: v.$color-medium-grey;
+
+                [data-theme='dark'] & {
+                    color: v.$color-medium-grey;
+                }
+            }
+        }
+    }
+}

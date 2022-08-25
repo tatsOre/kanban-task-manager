@@ -1,11 +1,18 @@
 import { cx } from '../utils'
-import { IconCross, IconBoard, IconEyeOpen, IconEyeClosed } from './src'
+import {
+  IconCross,
+  IconBoard,
+  IconChevron,
+  IconEyeOpen,
+  IconEyeClosed
+} from './src'
 
 const IconShapes = {
   close: IconCross,
   board: IconBoard,
   'eye-open': IconEyeOpen,
-  'eye-crossed': IconEyeClosed
+  'eye-crossed': IconEyeClosed,
+  chevron: IconChevron
 }
 
 const Icon = ({ className, name, ...props }) => {

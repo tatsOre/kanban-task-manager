@@ -12,9 +12,10 @@ export const ModalHeading = ({ children, tag, ...props }) => (
 function Modal(props) {
   const navigate = useNavigate()
 
-  const [state] = useAppData()
+  const [state, dispatch] = useAppData()
 
   function onDismiss() {
+    dispatch({ type: 'OPEN_POP_MENU', payload: false })
     navigate(-1)
   }
 

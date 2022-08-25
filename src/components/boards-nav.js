@@ -1,12 +1,14 @@
-import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import ThemeToggle from './themeToggle'
 import { PrimaryTabLink, StandardTabLink } from './link/StyledLink'
+import { StandardButton } from './button'
+import useClickOutside from '../hooks/use-click-outside'
+import { useRef } from 'react'
 import { HeadingS } from './heading'
 
 export const BoardsNavigation = (props) => {
-  const [state] = useAppData()
+  const [state, dispatch] = useAppData()
 
   const location = useLocation()
 
@@ -21,7 +23,10 @@ export const BoardsNavigation = (props) => {
                 <PrimaryTabLink
                   iconStart="board"
                   showIsActive={true}
-                  to={`${props.completePath ? '/boards/' : ''}${board.id}`}>
+                  to={`${props.completePath ? '/boards/' : ''}${board.id}`}
+                  onClick={() =>
+                    dispatch({ type: 'OPEN_POP_MENU', payload: false })
+                  }>
                   {board.name}
                 </PrimaryTabLink>
               </li>
@@ -34,7 +39,8 @@ export const BoardsNavigation = (props) => {
         className="new-board"
         to="/boards/new"
         state={{ backgroundLocation: location }}
-        style={{ marginBottom: '0.5rem'}}>
+        style={{ marginBottom: '0.5rem' }}
+        onClick={() => dispatch({ type: 'OPEN_POP_MENU', payload: false })}>
         + Create New Board
       </StandardTabLink>
     </>
@@ -42,32 +48,45 @@ export const BoardsNavigation = (props) => {
 }
 
 function BoardsMobileNav() {
-  const [openMenu, setOpenMenu] = useState(false)
+  const [state, dispatch] = useAppData()
+  const me = useRef()
+
+  const closePopMenu = () => dispatch({ type: 'OPEN_POP_MENU', payload: false })
+
+  useClickOutside(me, closePopMenu)
 
   return (
-    <div className={`boards-menu mobile ${openMenu ? 'expanded' : 'hidden'}`}>
-      <button
-        aria-haspopup="true"
-        aria-expanded={openMenu}
-        onClick={() => setOpenMenu(!openMenu)}>
-        <span className="icon-chevron" aria-hidden="true">
-          M
-        </span>
-      </button>
+    <>
+      <div
+        ref={me}
+        className={`boards-menu mobile ${
+          state.OPEN_POP_MENU ? 'expanded' : 'hidden'
+        }`}>
+        <StandardButton
+          iconStart="chevron"
+          aria-haspopup="true"
+          aria-expanded={state.OPEN_POP_MENU}
+          style={{ paddingInline: '0.75rem' }}
+          onClick={() =>
+            dispatch({ type: 'OPEN_POP_MENU', payload: !state.OPEN_POP_MENU })
+          }
+        />
 
-      <div role="menu">
-        <a href='www.google.com' target="blank">Google</a>
-        <BoardsNavigation completePath />
-        <ThemeToggle />
+        <div role="menu">
+          <HeadingS tag="h2">ALL BOARDS ({state.USER_BOARDS.length})</HeadingS>
+          <BoardsNavigation completePath />
+          <ThemeToggle />
+        </div>
       </div>
-    </div>
+
+      {state.OPEN_POP_MENU && <div className="mobilenav-backdrop"></div>}
+    </>
   )
 }
 
 function BoardsAsideNav() {
   return (
     <>
-      
       <BoardsNavigation />
       <ThemeToggle />
     </>

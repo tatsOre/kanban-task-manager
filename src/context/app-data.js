@@ -21,6 +21,7 @@ const initialState = {
   ACTIVE_TASK: null,
   DELETE_TASK: false,
   DELETE_BOARD: false,
+  OPEN_POP_MENU: false,
   USER_BOARDS: boards.map((b) => ({ id: b.id, name: b.name })),
   THEME: theme || 'light'
 }
@@ -35,6 +36,11 @@ function useAppData() {
 
 function reducer(state, { type, payload }) {
   switch (type) {
+    case 'OPEN_POP_MENU':
+      return {
+        ...state,
+        OPEN_POP_MENU: payload
+      }
     case 'SET_ACTIVE_TASK':
       return {
         ...state,

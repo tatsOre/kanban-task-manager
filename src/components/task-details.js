@@ -1,42 +1,25 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import CheckboxInput from './checkbox'
 import SelectInput from './selectInput'
+import { InputAppearances } from './shared/types/appearance'
 
 export function getCompletedSubtasks(subtasks) {
   if (!Array.isArray(subtasks)) return 0
   return subtasks.filter((t) => t.isCompleted).length
 }
 
-function Checkbox({ subtask, onChange }) {
-  const [isChecked, setIsChecked] = useState(subtask?.isCompleted)
-
-  const handleChange = (e) => {
-    onChange(e.target.value)
-    setIsChecked(!isChecked)
-  }
-
-  if (!subtask) return null
-
-  return (
-    <label className={`body-m ${isChecked ? 'label-checked' : ''}`}>
-      <input
-        type="checkbox"
-        value={subtask.title}
-        onChange={handleChange}
-        checked={isChecked}
-      />
-      <span
-        className={`checkmark ${isChecked ? 'checkbox-active' : ''}`}
-        aria-hidden="true"></span>
-      {subtask.title}
-    </label>
-  )
-}
-
 function TaskDetails({ board, task, dispatch }) {
+  const [subtasks, setSubtasks] = useState([...task.subtasks])
+
   const navigate = useNavigate()
 
-  const handleSubtaskChange = (value) => console.log(value)
+  const handleSubtaskChange = (e) => {
+    const updatedSubtasks = subtasks.map((s) =>
+      s.title === e.target.value ? { ...s, isCompleted: !s.isCompleted } : s
+    )
+    setSubtasks(updatedSubtasks)
+  }
 
   const handleStatusChange = (value) => console.log(value)
 
@@ -55,7 +38,7 @@ function TaskDetails({ board, task, dispatch }) {
     inputLabel: 'Current Status'
   }
 
-  const completedSubtasks = getCompletedSubtasks(task.subtasks)
+  const completedSubtasks = getCompletedSubtasks(subtasks)
 
   return (
     <>
@@ -81,16 +64,20 @@ function TaskDetails({ board, task, dispatch }) {
 
       <form className="view-task-form standard">
         {task.subtasks?.length ? (
-          <fieldset className="subtasks-group">
-            <legend>
-              Subtasks {completedSubtasks} of {task.subtasks?.length}
+          <fieldset>
+            <legend style={{ paddingBlockEnd: '0.5rem' }}>
+              Subtasks {completedSubtasks} of {subtasks.length}
             </legend>
 
-            {task.subtasks.map((subtask) => (
-              <Checkbox
-                key={`subtask-${subtask?.title}`}
-                subtask={subtask}
+            {subtasks.map((subtask) => (
+              <CheckboxInput
+                key={`subtask-${subtask.title}`}
+                appearance={InputAppearances.Filled}
+                checked={subtask.isCompleted}
+                className="subtask-input"
                 onChange={handleSubtaskChange}
+                value={subtask.title}
+                inputLabel={subtask.title}
               />
             ))}
           </fieldset>

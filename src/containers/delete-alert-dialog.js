@@ -1,11 +1,9 @@
 import { useRef } from 'react'
-
 import {
   AlertDialog,
   AlertDialogLabel,
   AlertDialogDescription
 } from '@reach/alert-dialog'
-
 import { DangerButton, SecondaryButton } from '../components/button/index'
 
 const DeleteAlertDialog = ({ board, task, onClose, onDelete, theme }) => {

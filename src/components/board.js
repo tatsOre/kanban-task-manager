@@ -28,13 +28,12 @@ export const BoardsHome = () => {
   )
 }
 
-
 const BoardTask = ({ task, location }) => {
   const { boardId, title, subtasks, id } = task
   const completedSubtasks = getCompletedSubtasks(subtasks)
 
   return task ? (
-    <li className='task-linkcard'>
+    <li className="task-linkcard">
       <HeadingM tag="h4">{title}</HeadingM>
       <p className="body-m">
         {completedSubtasks} of {subtasks.length} subtasks
@@ -71,9 +70,11 @@ function Board() {
       <div className={`board__toolbar ${board ? '' : 'empty'}`}>
         {board && (
           <>
-            <HeadingXL className="board-name" tag="h2">
+            <HeadingXL className="board-name" tag="h2" style={{ display: 'inline' }}>
               {board.name}
             </HeadingXL>
+
+            <BoardsMobileNav />
 
             <nav className="temp">
               <Link
@@ -97,6 +98,13 @@ function Board() {
             </nav>
           </>
         )}
+      </div>
+
+      <div className="info-temp sm">
+        <p>
+          This project is under construction. Some features may not be working
+          correctly 😎.
+        </p>
       </div>
 
       <section className={`board__details ${hasColumns ? '' : 'empty'}`}>

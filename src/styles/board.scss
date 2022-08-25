@@ -34,6 +34,29 @@
   }
 }
 
+@media (max-width: calc(v.$breakpoint-tablet - 1px)) {
+  .board__toolbar {
+    display: flex;
+    flex-flow: row wrap;
+    align-items:baseline;
+    align-content: center;
+    
+    .temp {
+      margin: 0;
+      width: 100%;
+
+      a,
+      button {
+        height: auto;
+      }
+
+      a:first-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 .board__details {
   display: flex;
   gap: 1.25rem;
