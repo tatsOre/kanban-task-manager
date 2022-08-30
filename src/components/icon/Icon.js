@@ -1,14 +1,18 @@
 import { cx } from '../utils'
 import {
+  IconCheck,
   IconCross,
   IconBoard,
   IconChevron,
   IconEyeOpen,
-  IconEyeClosed
+  IconEyeClosed,
+  IconAddPlus
 } from './src'
 
-const IconShapes = {
-  close: IconCross,
+export const IconShapes = {
+  'add-plus': IconAddPlus,
+  check: IconCheck,
+  cross: IconCross,
   board: IconBoard,
   'eye-open': IconEyeOpen,
   'eye-crossed': IconEyeClosed,

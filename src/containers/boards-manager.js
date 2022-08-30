@@ -4,7 +4,7 @@ import { useAppData } from '../context/app-data'
 import { BoardsNavigation } from '../components/boards-nav'
 import { HeadingS } from '../components/heading'
 import Logo from '../components/logotype'
-import SidebarToggleButton from '../components/button/SidebarToggleButton'
+import { SidebarToggleButton } from '../components/button'
 import ThemeToggle from '../components/themeToggle'
 
 import '../styles/layout.scss'
@@ -32,9 +32,6 @@ function BoardsManager() {
         <div className="sidebar__container">
           <HeadingS tag="h2">ALL BOARDS ({state.USER_BOARDS.length})</HeadingS>
           <BoardsNavigation />
-          <div className='info-temp med'>
-            <p>This project is under construction. Some features may not be working correctly 😎.</p>
-          </div>
           <ThemeToggle style={{ marginTop: 'auto' }} />
         </div>
       </aside>

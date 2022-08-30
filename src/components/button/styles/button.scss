@@ -1,18 +1,21 @@
-@use '../shared/variables' as v;
+@use '../../shared/variables' as v;
 
 .button {
     border: none;
+    background-color: transparent;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-style: normal;
     font-weight: bold;
-    transition: background-color 0.5s;
 
     &:disabled {
         cursor: not-allowed;
         opacity: 0.8;
     }
 
-    &.primary {
+    &--primary {
         color: v.$color-white;
         background-color: v.$color-main-purple;
 
@@ -21,7 +24,7 @@
         }
     }
 
-    &.secondary {
+    &--secondary {
         color: v.$color-main-purple;
         background-color: v.$color-secondary-purple;
 
@@ -30,7 +33,7 @@
         }
     }
 
-    &.danger {
+    &--danger {
         color: v.$color-white;
         background-color: v.$color-red;
 
@@ -39,28 +42,45 @@
         }
     }
 
-    &.small {
+    &--standard {
+        color: v.$color-white;
+        background-color: v.$color-medium-grey;
+    }
+
+    &--small {
         /* 13px */
         font-size: 0.813rem;
         border-radius: 20px;
         padding: 0.75rem 1.15rem;
     }
 
-    &.large {
+    &--large {
         /* 15px */
         font-size: 0.938rem;
         border-radius: 24px;
-        padding: 1rem 1.15rem;
+        padding: 1rem 1.5rem;
+    }
+
+    span.icon-container {
+        display: flex;
+        align-items: center;
+
+        &.start {
+            margin-inline-end: 0.5rem;
+        }
+
+        &.end {
+            margin-inline-start: 0.5rem;
+        }
     }
 }
-
 
 /* Theming
   ============================ */
 
 [data-theme='dark'] {
     .button {
-        &.secondary {
+        &--secondary {
             background-color: v.$color-white;
         }
     }
@@ -70,10 +90,6 @@
   ============================ */
 
 .button {
-    &.close-button:hover:not([disabled]) svg {
-        fill: v.$color-red;
-    }
-
     &.plus-button {
         padding: 0.5rem 1.15rem;
         border-radius: 24px;

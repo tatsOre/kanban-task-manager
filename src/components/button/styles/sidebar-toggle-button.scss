@@ -1,24 +1,29 @@
-@use '../shared/variables' as v;
+@use '../../shared/variables' as v;
 
 .button {
-    &.toggle-sidebar {
+    &.sidebar-toggle {
         display: none;
     }
 }
 
 @media (min-width: v.$breakpoint-tablet) {
     .button {
-        &.toggle-sidebar {
+        &.sidebar-toggle {
             position: absolute;
             border-radius: 0px 100px 100px 0px;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             bottom: 32px;
 
             &.hide {
                 padding-inline-start: 2rem;
                 color: v.$color-medium-grey;
                 min-width: 240px;
+
+                svg path {
+                    fill: v.$color-medium-grey;
+                }
 
                 &:hover {
                     color: v.$color-main-purple;
@@ -27,10 +32,6 @@
                     svg path {
                         fill: v.$color-main-purple;
                     }
-                }
-
-                svg {
-                    margin-inline-end: 0.8rem;
                 }
             }
         }

@@ -99,7 +99,7 @@ function BoardForm({ initialValues, edit, onSubmit }) {
               <StandardButton
                 className="close-button"
                 onClick={() => removeArrayItem(index)}
-                iconStart="close"
+                iconStart="cross"
               />
             </div>
           )

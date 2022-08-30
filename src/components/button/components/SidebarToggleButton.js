@@ -1,9 +1,9 @@
 import {
   ButtonAppearances,
   Size as ButtonSizes
-} from '../shared/types/appearance'
-import { StandardButton } from './index'
-import './SidebarToggleButton.scss'
+} from '../../shared/types/appearance'
+import { StandardButton } from './Button'
+import '../styles/sidebar-toggle-button.scss'
 
 function SidebarToggleButton(props) {
   const { open, onClick } = props
@@ -11,7 +11,7 @@ function SidebarToggleButton(props) {
     <StandardButton
       appearance={!open && ButtonAppearances.Primary}
       children={open && 'Hide Sidebar'}
-      className={`toggle-sidebar ${open ? 'hide' : 'open'}`}
+      className={`sidebar-toggle ${open ? 'hide' : 'open'}`}
       iconStart={open ? 'eye-crossed' : 'eye-open'}
       onClick={onClick}
       size={ButtonSizes.Large}

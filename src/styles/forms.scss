@@ -1,7 +1,6 @@
 @use '../components/shared/variables' as v;
 @use '../components/shared/typography' as t;
 
-
 form.standard {
   margin-block-start: 1.5rem;
   display: flex;
@@ -26,6 +25,16 @@ form.standard {
       // Close Button:
       button {
         margin-left: 1rem;
+        padding: 0;
+        background-color: transparent;
+
+        svg {
+          fill: v.$color-medium-grey;
+        }
+
+        &:hover:not([disabled]) svg {
+          fill: v.$color-red;
+        }
       }
     }
   }

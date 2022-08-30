@@ -35,6 +35,14 @@
   margin-block-start: 1rem;
 }
 
+.boards-menu.mobile button {
+  background-color: transparent;
+}
+
+.boards-menu.mobile button svg path {
+  stroke: var(--color-main-purple);
+}
+
 .boards-menu.mobile button svg {
   transition: all 0.3s;
 }

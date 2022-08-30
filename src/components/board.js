@@ -70,7 +70,10 @@ function Board() {
       <div className={`board__toolbar ${board ? '' : 'empty'}`}>
         {board && (
           <>
-            <HeadingXL className="board-name" tag="h2" style={{ display: 'inline' }}>
+            <HeadingXL
+              className="board-name"
+              tag="h2"
+              style={{ display: 'inline' }}>
               {board.name}
             </HeadingXL>
 
@@ -98,13 +101,6 @@ function Board() {
             </nav>
           </>
         )}
-      </div>
-
-      <div className="info-temp sm">
-        <p>
-          This project is under construction. Some features may not be working
-          correctly 😎.
-        </p>
       </div>
 
       <section className={`board__details ${hasColumns ? '' : 'empty'}`}>
@@ -157,6 +153,13 @@ function Board() {
             <p>Ups, this board does not exist anymore!</p>
           </>
         )}
+
+        <div className="info-temp">
+          <p>
+            This project is under construction. Some features may not be working
+            correctly 😎.
+          </p>
+        </div>
       </section>
 
       {DELETE_BOARD && <DeleteBoard />}
