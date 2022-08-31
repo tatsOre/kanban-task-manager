@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import CheckboxInput from './checkbox'
 import SelectInput from './selectInput'
-import { InputAppearances } from './shared/types/appearance'
 
 export function getCompletedSubtasks(subtasks) {
   if (!Array.isArray(subtasks)) return 0
@@ -72,12 +71,12 @@ function TaskDetails({ board, task, dispatch }) {
             {subtasks.map((subtask) => (
               <CheckboxInput
                 key={`subtask-${subtask.title}`}
-                appearance={InputAppearances.Filled}
                 checked={subtask.isCompleted}
                 className="subtask-input"
                 onChange={handleSubtaskChange}
                 value={subtask.title}
                 inputLabel={subtask.title}
+                showCheckedLabel={true}
               />
             ))}
           </fieldset>

@@ -1,4 +1,5 @@
 import { IconShapes } from '../../icon/Icon'
+import { Size } from '../../shared/types/appearance'
 import ButtonBase, {
   DangerButton,
   PrimaryButton,
@@ -24,6 +25,10 @@ export default {
       }
     },
     iconStart: {
+      options: IconOptions,
+      control: { type: 'select' }
+    },
+    iconEnd: {
       options: IconOptions,
       control: { type: 'select' }
     }
@@ -73,12 +78,12 @@ IconOnly.args = {
 export const LargeButton = Template.bind({})
 LargeButton.args = {
   children: 'Large Button',
-  size: 'large'
+  size: Size.Large
 }
 
 export const LargeWithIconButton = Template.bind({})
 LargeWithIconButton.args = {
   children: 'Large Button',
   iconStart: 'eye-open',
-  size: 'large'
+  size: Size.Large
 }

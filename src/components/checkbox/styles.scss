@@ -7,42 +7,50 @@
         @include m.visually-hidden;
     }
 
-    [type="checkbox"]:checked~.checkmark:after {
-        position: absolute;
-        content: url('../../assets/icon-check.svg');
-        bottom: 0rem;
-        left: 0.1rem;
-    }
+    [type="checkbox"] {
+        &:checked~.checkbox-checkmark {
+            &--standard {
+                background-color: v.$color-main-purple;
+                border: 1px solid v.$color-main-purple;
+            }
 
-    [type="checkbox"]:checked~.checkmark {
-        &.filled {
-            background-color: v.$color-main-purple;
-            border: 1px solid v.$color-main-purple;
+            &--success {
+                background-color: v.$color-green;
+            }
+
+            &:after {
+                position: absolute;
+                content: url('../../assets/icon-check.svg');
+                bottom: 0rem;
+                left: 0.125rem;
+            }
         }
     }
 
-    span.checkmark {
+    .checkbox-checkmark {
         display: inline-block;
         height: 16px;
         width: 16px;
         min-width: 16px;
         border-radius: 2px;
-        margin-inline-end: 1rem;
         position: relative;
+        background-color: v.$color-white;
         border: 1px solid rgba(130, 143, 163, 0.25);
 
-        &.filled {
-            background-color: v.$color-white;
+        &--error {
+            border: 1px solid v.$color-red;
+        }
 
-            [data-theme='dark'] & {
-                background-color: v.$color-dark-grey;
-            }
+        &--success {
+            border: 1px solid v.$color-green;
+        }
+
+        [data-theme='dark'] & {
+            background-color: v.$color-very-dark-grey;
         }
     }
 
-    label {
-        border-radius: 4px;
-        padding: 0.75rem 0.85rem;
+    .checkbox-label {
         display: flex;
         align-items: center;
         letter-spacing: 0.25px;
@@ -52,16 +60,9 @@
         user-select: none;
         cursor: pointer;
 
-        span {
-            @include t.body-m;
-        }
-
-        &.label-checked {
-            text-decoration: line-through;
-        }
-
-        &.filled {
-            color: v.$color-black;
+        &--filled {
+            border-radius: 4px;
+            padding: 0.75rem 0.85rem;
             background-color: v.$color-light-grey;
 
             [data-theme='dark'] & {
@@ -76,14 +77,42 @@
                     background-color: v.$color-secondary-purple;
                 }
             }
+        }
 
-            &.label-checked {
+        &--text {
+            @include t.body-m;
+            margin-inline-start: 1rem;
+        }
+
+        &--checked {
+            color: v.$color-medium-grey;
+            text-decoration: line-through;
+
+            [data-theme='dark'] & {
                 color: v.$color-medium-grey;
-
-                [data-theme='dark'] & {
-                    color: v.$color-medium-grey;
-                }
             }
         }
+
+        &--disabled {
+            pointer-events: none;
+
+            .checkbox-label--text {
+               opacity: 0.5;
+            }
+        }
+    }
+
+    small {
+        font-size: 0.7rem;
+        color: v.$color-medium-grey;
+        font-weight: normal;
+    }
+
+    strong {
+        display: block;
+        margin-block-start: 0.3rem;
+        font-size: 0.7rem;
+        color: v.$color-red;
+        font-weight: normal;
     }
 }

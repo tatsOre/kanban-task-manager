@@ -9,7 +9,6 @@ export const ButtonAppearances = {
 export const InputAppearances = {
   Error: 'error',
   Standard: 'standard',
-  Filled: 'filled',
   Success: 'success'
 }
 
