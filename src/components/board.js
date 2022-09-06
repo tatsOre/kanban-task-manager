@@ -8,7 +8,7 @@ import { DeleteBoard } from '../containers/board-actions'
 import { DeleteTask } from '../containers/task-actions'
 import { HeadingM, HeadingS, HeadingXL } from './heading'
 import { StandardButtonLink } from './link/StyledLink'
-import { BoardsMobileNav, BoardsNavigation } from './boards-nav'
+import { BoardsMobileNav } from './boards-nav'
 import '../styles/board.scss'
 
 export const BoardsHome = () => {
@@ -153,13 +153,6 @@ function Board() {
             <p>Ups, this board does not exist anymore!</p>
           </>
         )}
-
-        <div className="info-temp">
-          <p>
-            This project is under construction. Some features may not be working
-            correctly 😎.
-          </p>
-        </div>
       </section>
 
       {DELETE_BOARD && <DeleteBoard />}

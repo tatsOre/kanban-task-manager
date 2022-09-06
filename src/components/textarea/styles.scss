@@ -6,6 +6,8 @@
     flex-direction: column;
 
     label {
+        @include m.input-label;
+
         &.visually-hidden {
             @include m.visually-hidden;
         }

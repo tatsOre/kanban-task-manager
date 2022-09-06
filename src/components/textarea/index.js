@@ -1,19 +1,12 @@
+import PropTypes from 'prop-types'
 import { InputAppearances } from '../shared/types/appearance'
 import { cx } from '../utils'
 import renderLabel from '../utils/label'
 import './styles.scss'
 
 /**
- * @param     props:
- *            appearance      String    This defaults to InputAppearance.Standard. Suports InputAppearance.Error
- *            inputLabel      String    Label element text
- *            showInputLabel  Boolean   Defaults to 'true'. Set to 'false' to visibly hide the inputs's label
- *            errors          String    Sets the contents for validation errors
- *            hintContent     String    Extra indication or suggestion about the input
- *
- *                            This component accepts all the HTML Textarea attributes
- *
- * @returns                   React Component
+ * This component accepts all the HTML Textarea attributes
+ * @returns   React Component
  */
 
 function Textarea(props) {
@@ -58,6 +51,40 @@ function Textarea(props) {
       {hintContent ? <small>{props.hintContent}</small> : null}
     </div>
   )
+}
+Textarea.propTypes = {
+  /**
+   * Sets the style of the component. Defaults to `standard`, but supports `error` and `success`.
+   */
+  appearance: PropTypes.string,
+  /**
+   * Custom `class` for the input wrapper
+   */
+  className: PropTypes.string,
+  /**
+   * Sets the contents for validation errors and will be displayed below the input element.
+   */
+  errors: PropTypes.string,
+  /**
+   * The text that appears next to the input. Should always be set even when hidden for accessibility support.
+   */
+  inputLabel: PropTypes.string.isRequired,
+  /**
+   * Defaults to true, but set to `false` to visibly hide the content passed to `inputLabel`.
+   */
+  showInputLabel: PropTypes.bool,
+  /**
+   * Extra indication or suggestion about the input
+   */
+  hintContent: PropTypes.string,
+  /**
+   * Optional change handler
+   */
+  onChange: PropTypes.func,
+  /**
+   * The input value
+   */
+  value: PropTypes.string
 }
 
 Textarea.defaultProps = {

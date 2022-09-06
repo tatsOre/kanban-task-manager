@@ -38,6 +38,12 @@ function BoardsManager() {
 
       <SidebarToggleButton open={openSidebar} onClick={handleToggleSidebar} />
       <Outlet />
+      <div className="info-temp">
+        <p>
+          This project is under construction. Some features may not be working
+          correctly 😎.
+        </p>
+      </div>
     </div>
   )
 }

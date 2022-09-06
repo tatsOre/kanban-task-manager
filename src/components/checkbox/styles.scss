@@ -3,6 +3,8 @@
 @use '../shared/typography' as t;
 
 .checkbox-wrapper {
+    width: 100%;
+
     .visually-hidden {
         @include m.visually-hidden;
     }
@@ -21,8 +23,20 @@
             &:after {
                 position: absolute;
                 content: url('../../assets/icon-check.svg');
-                bottom: 0rem;
-                left: 0.125rem;
+                bottom: -0.05rem;
+                left: 0.15rem;
+            }
+        }
+
+        &:focus~.checkbox-checkmark {
+
+            // OnFocus visual effect:
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 2px;
+                outline: 2px solid v.$color-dark-grey;
             }
         }
     }
@@ -53,7 +67,7 @@
     .checkbox-label {
         display: flex;
         align-items: center;
-        letter-spacing: 0.25px;
+
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -81,6 +95,7 @@
 
         &--text {
             @include t.body-m;
+            letter-spacing: 0.25px;
             margin-inline-start: 1rem;
         }
 
@@ -97,22 +112,18 @@
             pointer-events: none;
 
             .checkbox-label--text {
-               opacity: 0.5;
+                opacity: 0.5;
             }
         }
     }
 
     small {
-        font-size: 0.7rem;
-        color: v.$color-medium-grey;
-        font-weight: normal;
+        @include m.input-hint;
     }
 
     strong {
+        @include m.input-error;
         display: block;
-        margin-block-start: 0.3rem;
-        font-size: 0.7rem;
-        color: v.$color-red;
-        font-weight: normal;
+        margin-block-start: 0.5rem;
     }
 }

@@ -4,6 +4,11 @@ import { ButtonAppearances } from '../../shared/types/appearance'
 import Icon from '../../icon/Icon'
 import '../styles/button.scss'
 
+/**
+ * This component accepts all the HTML Button attributes
+ * @returns   React Component
+ */
+
 function ButtonBase(props) {
   const {
     appearance,

@@ -59,13 +59,11 @@
 
 .board__details {
   display: flex;
-  position: relative; // temporary
   gap: 1.25rem;
-  padding-inline-start: 1.5rem;
-  padding: 0.5rem 1.5rem 1.5rem; // temporary
+  padding: 1.5rem;
   background-color: v.$color-light-grey;
   $scrollbar-foreground: v.$color-medium-grey;
-  $scrollbar-background: v.$color-secondary-purple;
+  $scrollbar-background: v.$color-lines-light;
   /* Foreground, Background */
   scrollbar-color: $scrollbar-foreground $scrollbar-background;
 
@@ -83,7 +81,6 @@
   &::-webkit-scrollbar-thumb {
     /* Foreground */
     background: $scrollbar-foreground;
-    border-radius: 10px;
   }
 
   &::-webkit-scrollbar-track {
@@ -109,7 +106,6 @@
   }
 
   .board-column {
-    padding-top: 3.5rem; // todo: delete when temp msg is removed
     flex: 0 0 280px;
 
     h3 {
@@ -142,7 +138,6 @@
   }
 
   .new-column {
-    padding-top: 3.5rem; // todo: delete when temp msg is removed
     flex: 0 0 280px;
     margin-block-start: 2.35rem;
     display: flex;

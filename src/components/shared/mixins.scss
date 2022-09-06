@@ -1,4 +1,5 @@
 @use './variables' as v;
+@use './typography.scss' as t;
 
 $radius: 4px;
 
@@ -29,9 +30,20 @@ $radius: 4px;
     }
 }
 
+@mixin input-label {
+    @include t.body-m;
+    color: v.$color-medium-grey;
+    display: block;
+    margin-block-end: 0.5rem;
+
+    [data-theme='dark'] & {
+      color: v.$color-white;
+    }
+}
+
 @mixin input-hint {
     color: v.$color-medium-grey;
-    font-size: 10px;
+    font-size: 0.7rem;
     letter-spacing: 0.15px;
     margin-block-start: 0.5rem;
 }

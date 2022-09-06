@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import { cx } from '../utils'
 import useClickOutside from '../../hooks/use-click-outside'
 import './styles.scss'
+import renderLabel from '../utils/label'
 
 const useElementIds = ({ id = 'select' }) => {
   return {
@@ -27,7 +29,7 @@ const useElementIds = ({ id = 'select' }) => {
 
 const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
   const initialSelectedItemIndex = items.findIndex(
-    (el) => el.value == initialSelected
+    (el) => el.value === initialSelected
   )
 
   const [selectedIndex, setSelectedIndex] = useState(initialSelectedItemIndex)
@@ -125,22 +127,18 @@ const useElementsProps = ({ id, items, initialSelected, onSelect }) => {
   }
 }
 
-/**
- *
- * @param id           String     Unique identifier used for the form input component and its children
- * @param inputLabel   String     Sets the contents of the input label.
- * @param disabled     Boolean    If the button is enabled
- * @param onChange     Function   Method triggered when an item is selected
- * @param options      Array      Array of objects that represents the Select Input options.
- *                                Schema: [{ label: String, value: String }]
- * @param selected     String     Selected initial value
- * @returns            React Component
- */
-
-// TODO: - pass prop in case of errors, - use Button Component
-
 function SelectInput(props) {
-  const { id, inputLabel, disabled, onChange, options, selected } = props
+  const {
+    id,
+    className,
+    inputLabel,
+    disabled,
+    onChange,
+    options,
+    required,
+    selected,
+    showInputLabel
+  } = props
 
   const {
     getButtonProps,
@@ -157,24 +155,37 @@ function SelectInput(props) {
     onSelect: onChange
   })
 
+  const buttonTextContent =
+    (options[selectedIndex] && options[selectedIndex].label) || 'Select...'
+
+  const containerClassName = cx([className, 'select-input'])
+
+  const labelClassName = cx([
+    'select-label',
+    !showInputLabel && 'visually-hidden',
+    disabled && 'select-label--disabled'
+  ])
+
   return (
-    <div
-      {...getContainerProps()}
-      className={cx([isOpen && 'open', 'select-input'])}>
-      <label {...getLabelProps()} className={cx([disabled && 'disabled'])}>
+    <div {...getContainerProps()} className={containerClassName}>
+      <label {...getLabelProps()} className={labelClassName}>
         {inputLabel}
+        {required ? <span>*</span> : null}
       </label>
-      <button {...getButtonProps({ disabled })}>
-        {(options[selectedIndex] && options[selectedIndex].label) ||
-          'Select...'}
+
+      <button {...getButtonProps({ disabled })} className="select-button">
+        {buttonTextContent}
       </button>
 
-      <ul {...getMenuProps()}>
+      <ul {...getMenuProps()} className="select-list">
         {isOpen &&
           options.map((opt, index) => (
             <li
-              key={`dropdown-option-${opt.value}`}
-              className={cx([selectedIndex === index && 'selected'])}
+              key={`list-item-${opt.value}`}
+              className={cx([
+                'list-item',
+                selectedIndex === index && 'list-item--selected'
+              ])}
               {...getItemProps({ value: opt.value, index })}>
               {opt.value}
             </li>
@@ -184,12 +195,53 @@ function SelectInput(props) {
   )
 }
 
+// TODO: - pass prop in case of errors (apperance), hint content, - use Button Component
+
+SelectInput.propTypes = {
+  /**
+   * Unique identifier used for the form input component and its children
+   */
+  id: PropTypes.string,
+  /**
+   * Sets the contents of the label related to the input
+   */
+  inputLabel: PropTypes.string,
+  /**
+   * Defaults to true, but set to `false` to visibly hide the content passed to `inputLabel`.
+   */
+  showInputLabel: PropTypes.bool,
+  /**
+   * Whether or not the input is enabled
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Optional change handler
+   */
+  onChange: PropTypes.func,
+  /**
+   * Array of objects that represents the Select Input options
+   */
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  ),
+  /**
+   * Sets the initial value
+   */
+  selected: PropTypes.string,
+  /**
+   * Whether or not the input is required
+   */
+  required: PropTypes.bool
+}
+
 SelectInput.defaultProps = {
   inputLabel: '',
-  disabled: false,
+  showInputLabel: true,
   onChange: () => {},
-  options: [],
-  selected: ''
+  options: []
 }
 
 export default SelectInput

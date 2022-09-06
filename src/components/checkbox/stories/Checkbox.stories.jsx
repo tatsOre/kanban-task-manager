@@ -39,3 +39,8 @@ export const StandardWithHintContent = Template.bind({})
 StandardWithHintContent.args = {
     hintContent: 'This is a help text which may provide helpful tips, special instructions or advice.'
 }
+
+export const CheckboxDisabled = Template.bind({})
+CheckboxDisabled.args = {
+    disabled: SVGComponentTransferFunctionElement
+}

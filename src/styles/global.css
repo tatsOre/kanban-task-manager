@@ -1,6 +1,5 @@
 @import url('./dialog.css');
 @import url('./nav-menu.css');
-@import url('./view-task.css');
 @import '@reach/dialog/styles.css';
 @import '@reach/menu-button/styles.css';
 
@@ -108,14 +107,11 @@ li {
 
 .info-temp {
   position: absolute;
-}
-
-.info-temp {
-  display: none;
-}
-
-.info-temp {
-  display: block;
+  background-color: var(--color-light-grey);
+  padding: 0.5rem;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 5px;
 }
 
 .info-temp p {

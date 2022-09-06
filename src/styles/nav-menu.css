@@ -80,12 +80,12 @@
 }
 
 .dashboard__sidebar .boards-tabs {
-  padding-inline-end: 1.25rem;
+  padding-inline-end: 1rem;
   overflow-y: scroll;
 }
 
 .boards-tabs {
-  --scrollbar-foreground: var(--color-main-purple-hover);
+  --scrollbar-foreground: var(--color-medium-grey);
   --scrollbar-background: var(--color-secondary-purple);
   /* Foreground, Background */
   scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
@@ -99,8 +99,6 @@
 .boards-tabs::-webkit-scrollbar-thumb {
   /* Foreground */
   background: var(--scrollbar-foreground);
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
 }
 
 .boards-tabs::-webkit-scrollbar-track:vertical:hover {

@@ -3,10 +3,12 @@ import { InputAppearances } from '../shared/types/appearance'
 import { cx } from '../utils'
 import './styles.scss'
 
+/**
+ * This component accepts all the HTML Textarea attributes
+ * @returns   React Component
+ */
+
 function CheckboxInput(props) {
-  const containerProps = {
-    className: cx([props.className, 'checkbox-wrapper'])
-  }
   const appearance = props.disabled ? 'disabled' : props.appearance
 
   const getCheckboxProps = () => {
@@ -24,7 +26,7 @@ function CheckboxInput(props) {
   }
 
   return (
-    <div {...containerProps}>
+    <div className={cx([props.className, 'checkbox-wrapper'])}>
       <label
         className={cx([
           'checkbox-label',
@@ -38,6 +40,7 @@ function CheckboxInput(props) {
           type="checkbox"
           {...getCheckboxProps()}
         />
+
         <span
           className={cx([
             'checkbox-checkmark',
@@ -45,6 +48,7 @@ function CheckboxInput(props) {
             props.checked && 'checkbox-checkmark--checked'
           ])}
           aria-hidden="true"></span>
+
         <span
           className={cx([
             'checkbox-label--text',

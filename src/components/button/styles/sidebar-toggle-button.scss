@@ -10,11 +10,13 @@
     .button {
         &.sidebar-toggle {
             position: absolute;
+            z-index: 5;
             border-radius: 0px 100px 100px 0px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             bottom: 32px;
+            height: 48px;
 
             &.hide {
                 padding-inline-start: 2rem;
