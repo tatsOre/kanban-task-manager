@@ -1,6 +1,52 @@
-# Getting Started with Create React App
+# Welcome to Kanban task management web app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hello! I am working on this app to put my front-end skills on fire!
+I went for the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB) since I wanted to put extra attention to the web development process, architecture, and set up instead of graphic design and product ideas.
+
+Throughout this project, I have been thinking and pretending to be a one-woman company and created a schedule of planning, implementation, review, introspection, and refactoring.
+
+### Built with 💙 and:
+
+- Semantic HTML5 markup
+- CSS custom properties
+- SASS
+- React
+- React Router
+- UI development, testing, and documentation with Storybook
+
+### Users should be able to:
+
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Create, read, update, and delete boards and tasks
+- Receive form validations when trying to create/edit boards and tasks
+- Mark subtasks as complete and move tasks between columns
+- Hide/show the board sidebar
+- Toggle the theme between light/dark modes
+
+### Expected Behaviour
+
+- Boards
+  - [x] Clicking different boards in the sidebar will change to the selected board.
+  - [x] Clicking "Create New Board" in the sidebar opens the "Add New Board" modal.
+  - [x] Clicking in the dropdown menu "Edit Board" opens up the "Edit Board" modal where details can be changed.
+  - [x] Columns are added and removed for the Add/Edit Board modals.
+  - [x] Deleting a board deletes all columns and tasks and requires confirmation.
+- Columns
+  - [x] A board needs at least one column before tasks can be added. If no columns exist, the "Add New Task" button in the header is disabled.
+  - [x] Clicking "Add New Column" opens the "Edit Board" modal where columns are added.
+- Tasks
+  - [x] Adding a new task adds it to the bottom of the relevant column.
+  - [ ] Updating a task's status will move the task to the relevant column.
+  - [ ] Deleting a task with all subtasks
+
+### Continued development
+
+- Transform every UI piece into common reusable UI components whenever possible
+- Unit and integration testing with Jest and React Testing Library
+- Allow users to drag and drop tasks to change their status and re-order them in a column
+- Keep track of any changes with a backend service (`localStorage` and `sessionStorage` are being used in the meantime)
+- Build features and tests for keyboard and screen reader to be fully accessible
 
 ## Available Scripts
 
@@ -13,6 +59,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+### `npm run storybook`
+
+Start the component explorer on port 6006
 
 ### `npm test`
 
@@ -38,12 +88,6 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
 
 ### Code Splitting
 
