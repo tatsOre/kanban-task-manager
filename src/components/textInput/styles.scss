@@ -1,7 +1,7 @@
 @use '../shared/variables' as v;
 @use '../shared/mixins' as m;
 
-.input-group {
+.text-input--wrapper {
     display: flex;
     flex-direction: column;
 
@@ -31,7 +31,6 @@
             top: 0.8rem;
             right: 1rem;
         }
-
     }
 
     small {

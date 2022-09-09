@@ -5,7 +5,6 @@ export default {
   component: Textarea,
   args: {
     inputLabel: 'Description',
-    className: 'textarea-group',
     placeholder:
       "e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.",
     rows: '6'

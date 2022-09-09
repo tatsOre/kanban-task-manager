@@ -14,10 +14,11 @@ function ThemeToggle(props) {
   return (
     <div className="theme-toggle" {...props}>
       <ToggleInput
-        checked={state.THEME === 'light'}
+        checked={state.THEME === 'dark'}
+        id="toggle-theme"
+        inputLabel="Theme Toggle"
         onChange={toggleTheme}
         onClick={toggleTheme}
-        inputLabel="Theme Toggle"
         showInputLabel={false}
         value={state.THEME}
       />

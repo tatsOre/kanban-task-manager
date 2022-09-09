@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import ThemeToggle from './themeToggle'
-import { PrimaryTabLink, StandardTabLink } from './link/StyledLink'
-import { StandardButton } from './button'
+import { StandardButton } from '../components/button'
+import { HeadingS } from '../components/heading'
+import { PrimaryTabLink, StandardTabLink } from '../components/link/StyledLink'
+import ThemeToggle from '../components/themeToggle'
 import useClickOutside from '../hooks/use-click-outside'
 import { useRef } from 'react'
-import { HeadingS } from './heading'
 
 export const BoardsNavigation = (props) => {
   const [state, dispatch] = useAppData()

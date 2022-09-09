@@ -2,14 +2,14 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AppDataProvider } from './context/app-data'
 import BoardManager from './containers/boards-manager'
-import Board, { BoardsHome } from './components/board'
+import Board, { BoardsHome } from './containers/board'
 import { CreateBoardModal, EditBoardModal } from './containers/board-actions'
 import {
   CreateTaskModal,
   EditTaskModal,
   ViewTaskModal
 } from './containers/task-actions'
-import Home from './components/home'
+import Home from './containers/home'
 
 export default function App() {
   const location = useLocation()

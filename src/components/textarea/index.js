@@ -9,9 +9,9 @@ import './styles.scss'
  * @returns   React Component
  */
 
-function Textarea(props) {
-  const containerProps = {}
+// todo add styles for errors and disabled
 
+function Textarea(props) {
   const {
     appearance,
     className,
@@ -26,12 +26,8 @@ function Textarea(props) {
 
   const inputClassName = props.disabled ? 'disabled' : appearance
 
-  if (props.className) {
-    containerProps.className = props.className
-  }
-
   return (
-    <div {...containerProps}>
+    <div className={cx([className, 'textarea-wrapper'])}>
       {renderLabel({
         appearance: inputClassName,
         hidden: !showInputLabel,
@@ -52,6 +48,7 @@ function Textarea(props) {
     </div>
   )
 }
+
 Textarea.propTypes = {
   /**
    * Sets the style of the component. Defaults to `standard`, but supports `error` and `success`.
