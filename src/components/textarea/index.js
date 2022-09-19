@@ -9,8 +9,6 @@ import './styles.scss'
  * @returns   React Component
  */
 
-// todo add styles for errors and disabled
-
 function Textarea(props) {
   const {
     appearance,
@@ -20,16 +18,13 @@ function Textarea(props) {
     inputLabel,
     hintContent,
     showInputLabel,
-    value,
     ...other
   } = props
-
-  const inputClassName = props.disabled ? 'disabled' : appearance
 
   return (
     <div className={cx([className, 'textarea-wrapper'])}>
       {renderLabel({
-        appearance: inputClassName,
+        appearance: props.disabled ? '--disabled' : appearance,
         hidden: !showInputLabel,
         id,
         label: inputLabel,
@@ -38,9 +33,8 @@ function Textarea(props) {
 
       <textarea
         aria-invalid={appearance === 'error'}
-        className={cx([inputClassName])}
+        className={cx([props.disabled ? '--disabled' : appearance])}
         id={id}
-        value={value}
         {...other}></textarea>
 
       {errors ? <strong>{props.errors}</strong> : null}

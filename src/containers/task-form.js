@@ -111,7 +111,6 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       />
 
       <Textarea
-        appearance={errors.description ? InputAppearances.Error : undefined}
         id="task-description"
         inputLabel="Description"
         name="description"

@@ -112,7 +112,7 @@
             pointer-events: none;
 
             .checkbox-label--text {
-                opacity: 0.5;
+                @include m.input-disabled;
             }
         }
     }

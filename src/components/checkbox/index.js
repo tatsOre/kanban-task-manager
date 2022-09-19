@@ -38,6 +38,7 @@ function CheckboxInput(props) {
         <input
           className="visually-hidden"
           type="checkbox"
+          aria-invalid={appearance === 'error'}
           {...getCheckboxProps()}
         />
 

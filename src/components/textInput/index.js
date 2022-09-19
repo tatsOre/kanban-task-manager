@@ -10,7 +10,7 @@ import './styles.scss'
  */
 
 function TextInput(props) {
-  const appearance = props.disabled ? 'disabled' : props.appearance
+  const appearance = props.disabled ? '--disabled' : props.appearance
 
   function getInputElementProps() {
     const {
@@ -27,15 +27,12 @@ function TextInput(props) {
   }
 
   function getInputElement({ appearance, isValid }) {
-    const { value, ...otherProps } = getInputElementProps()
-    const inputClassName = cx([appearance])
     return (
       <div className="input-wrapper">
         <input
-          className={inputClassName}
+          className={cx([appearance])}
           aria-invalid={isValid}
-          value={value}
-          {...otherProps}
+          {...getInputElementProps()}
         />
         {props.errors ? <strong>{props.errors}</strong> : null}
       </div>
