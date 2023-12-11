@@ -10,8 +10,6 @@ import './styles.scss'
  */
 
 function Textarea(props) {
-  const containerProps = {}
-
   const {
     appearance,
     className,
@@ -20,20 +18,13 @@ function Textarea(props) {
     inputLabel,
     hintContent,
     showInputLabel,
-    value,
     ...other
   } = props
 
-  const inputClassName = props.disabled ? 'disabled' : appearance
-
-  if (props.className) {
-    containerProps.className = props.className
-  }
-
   return (
-    <div {...containerProps}>
+    <div className={cx([className, 'textarea-wrapper'])}>
       {renderLabel({
-        appearance: inputClassName,
+        appearance: props.disabled ? '--disabled' : appearance,
         hidden: !showInputLabel,
         id,
         label: inputLabel,
@@ -42,9 +33,8 @@ function Textarea(props) {
 
       <textarea
         aria-invalid={appearance === 'error'}
-        className={cx([inputClassName])}
+        className={cx([props.disabled ? '--disabled' : appearance])}
         id={id}
-        value={value}
         {...other}></textarea>
 
       {errors ? <strong>{props.errors}</strong> : null}
@@ -52,6 +42,7 @@ function Textarea(props) {
     </div>
   )
 }
+
 Textarea.propTypes = {
   /**
    * Sets the style of the component. Defaults to `standard`, but supports `error` and `success`.

@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
-import { BoardsNavigation } from '../components/boards-nav'
+import { BoardsNavigation } from './boards-nav'
 import { HeadingS } from '../components/heading'
 import Logo from '../components/logotype'
 import { SidebarToggleButton } from '../components/button'
 import ThemeToggle from '../components/themeToggle'
-
 import '../styles/layout.scss'
 
 function BoardsManager() {

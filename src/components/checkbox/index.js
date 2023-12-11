@@ -38,6 +38,7 @@ function CheckboxInput(props) {
         <input
           className="visually-hidden"
           type="checkbox"
+          aria-invalid={appearance === 'error'}
           {...getCheckboxProps()}
         />
 
@@ -87,7 +88,7 @@ CheckboxInput.propTypes = {
   /**
    * The text that appears next to the input. Should always be set even when hidden for accessibility support.
    */
-  inputLabel: PropTypes.string.isRequired,
+  inputLabel: PropTypes.any.isRequired,
   /**
    * Sets styling to the label text when the input is checked. Customize according to context.
    */

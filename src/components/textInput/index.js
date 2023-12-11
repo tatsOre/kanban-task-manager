@@ -1,29 +1,16 @@
+import PropTypes from 'prop-types'
 import { InputAppearances } from '../shared/types/appearance'
 import { cx } from '../utils'
 import renderLabel from '../utils/label'
 import './styles.scss'
 
 /**
- * @param     props:
- *            appearance      String    This defaults to InputAppearance.Standard. Suports InputAppearance.Error
- *            inputLabel      String    Label element text
- *            showInputLabel  Boolean   Defaults to 'true'. Set to 'false' to visibly hide the inputs's label
- *            errors          String    Sets the contents for validation errors
- *            hintContent     String    Extra indication or suggestion about the input
- *            type            String     HTML attribute:
- *                                       "email" | "password" | "number" | "search" | "tel" | "text" | "url"
- *                            This component accepts all the HTML Input attributes
- *
- * @returns                   React Component
+ * This component accepts all the HTML Textarea attributes
+ * @returns   React Component
  */
 
 function TextInput(props) {
-  const containerProps = {}
-  const appearance = props.disabled ? 'disabled' : props.appearance
-
-  if (props.className) {
-    containerProps.className = props.className
-  }
+  const appearance = props.disabled ? '--disabled' : props.appearance
 
   function getInputElementProps() {
     const {
@@ -40,15 +27,12 @@ function TextInput(props) {
   }
 
   function getInputElement({ appearance, isValid }) {
-    const { value, ...otherProps } = getInputElementProps()
-    const inputClassName = cx([appearance])
     return (
-      <div className='input-wrapper'>
+      <div className="input-wrapper">
         <input
-          className={inputClassName}
+          className={cx([appearance])}
           aria-invalid={isValid}
-          value={value}
-          {...otherProps}
+          {...getInputElementProps()}
         />
         {props.errors ? <strong>{props.errors}</strong> : null}
       </div>
@@ -56,7 +40,7 @@ function TextInput(props) {
   }
 
   return (
-    <div {...containerProps}>
+    <div className={cx([props.className, 'text-input--wrapper'])}>
       {renderLabel({
         appearance,
         hidden: !props.showInputLabel,
@@ -72,6 +56,53 @@ function TextInput(props) {
       {props.hintContent ? <small>{props.hintContent}</small> : null}
     </div>
   )
+}
+
+TextInput.propTypes = {
+  /**
+   * Sets the style of the component. Defaults to `standard`, but supports `error` and `success`.
+   */
+  appearance: PropTypes.string,
+  /**
+   * Custom `class` for the input wrapper
+   */
+  className: PropTypes.string,
+  /**
+   * Sets the contents for validation errors and will be displayed below the input element.
+   */
+  errors: PropTypes.string,
+  /**
+   * The text that appears next to the input. Should always be set even when hidden for accessibility support.
+   */
+  inputLabel: PropTypes.string.isRequired,
+  /**
+   * Defaults to true, but set to `false` to visibly hide the content passed to `inputLabel`.
+   */
+  showInputLabel: PropTypes.bool,
+  /**
+   * Extra indication or suggestion about the input
+   */
+  hintContent: PropTypes.string,
+  /**
+   * Optional change handler
+   */
+  onChange: PropTypes.func,
+  /**
+   * Describes the different types for the HTML `input` element.
+   */
+  type: PropTypes.oneOf([
+    'email',
+    'password',
+    'number',
+    'search',
+    'tel',
+    'text',
+    'url'
+  ]),
+  /**
+   * The input value
+   */
+  value: PropTypes.string
 }
 
 TextInput.defaultProps = {

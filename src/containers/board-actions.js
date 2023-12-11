@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useAppData } from '../context/app-data'
 import useLocalStorage, { getUserBoards } from '../hooks/use-storage'
-import BoardForm from '../components/board-form'
+import BoardForm from '../containers/board-form'
 import DeleteAlertDialog from './delete-alert-dialog'
 import Modal, { ModalHeading } from './dialog-modal'
 import { BOARD_SCHEMA } from '../utils/constants'

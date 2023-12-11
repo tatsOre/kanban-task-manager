@@ -1,68 +1,76 @@
 @use '../shared/variables' as v;
 @use '../shared/mixins' as m;
+@use '../shared/typography' as t;
 
-.toggle-container {
+.toggle-wrapper {
     display: flex;
-
-    &.col-align {
-        flex-direction: column;
-
-        .toggle-label {
-            margin-inline-start: 0rem;
-            margin-block-start: 0.25rem;
-        }
-    }
+    flex-flow: row wrap;
+    align-items: center;
 
     .visually-hidden {
         @include m.visually-hidden;
     }
 
-    .toggle-label {
-        margin-inline-start: 0.5rem;
-        color: v.$color-medium-grey;
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
-}
-
-.toggle-box {
-    width: 2.5rem;
-    height: 1.25rem;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
 
     .toggle-input {
-        @include m.visually-hidden;
+        display: block;
+        width: 40px;
+        height: 20px;
+        min-width: 40px;
+        margin: 0;
+        border-radius: 34px;
+        position: relative;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-tap-highlight-color: transparent;
 
-        &:not(:checked)~.toggle-slider::before {
+        &.standard {
+            background-color: v.$color-main-purple;
+
+            &:hover {
+                background-color: v.$color-main-purple-hover;
+            }
+        }
+
+        &.disabled {
+            background-color: v.$color-medium-grey;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            background-color: v.$color-white;
+            -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        &:checked::before {
             -webkit-transform: translateX(19px);
             -ms-transform: translateX(19px);
             transform: translateX(19px);
         }
     }
 
-    .toggle-slider {
-        position: absolute;
-        inset: 0;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-        border-radius: 34px;
-        background-color: v.$color-main-purple;
+    .toggle-label {
+        @include t.body-m;
+        margin-inline-start: 0.5rem;
+        color: v.$color-medium-grey;
+        font-weight: normal;
+    }
 
-        &:hover {
-            background-color: v.$color-main-purple-hover;
-        }
-
-        &::before {
-            position: absolute;
-            content: '';
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            bottom: 3px;
-            left: 4px;
-            background-color: v.$color-white;
-            -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    small {
+        @include m.input-hint;
+        flex-basis: 100%;
     }
 }

@@ -1,7 +1,7 @@
 @use '../shared/variables' as v;
 @use '../shared/mixins' as m;
 
-.textarea-group {
+.textarea-wrapper {
     display: flex;
     flex-direction: column;
 

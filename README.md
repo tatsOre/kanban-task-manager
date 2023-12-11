@@ -1,4 +1,4 @@
-# Welcome to Kanban task management web app
+# Kanban task management web app
 
 Hello! I am working on this app to put my front-end skills on fire!
 I went for the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB) since I wanted to put extra attention to the web development process, architecture, and set up instead of graphic design and product ideas.
