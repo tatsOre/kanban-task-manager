@@ -40,8 +40,7 @@ function BoardsManager() {
       <Outlet />
       <div className="info-temp">
         <p>
-          This project is under construction. Some features may not be working
-          correctly 😎.
+        This project is currently under construction as I work towards developing it into a full-stack application 😎.
         </p>
       </div>
     </div>
