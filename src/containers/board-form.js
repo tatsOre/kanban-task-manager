@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import uuid from 'react-uuid'
+import { PrimaryButton, SecondaryButton, StandardButton } from '../components/button/index'
+import TextInput from '../components/textInput'
 import { COLUMN_SCHEMA } from '../utils/constants'
-import { InputAppearances } from './shared/types/appearance'
-import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
-import TextInput from './textInput'
+import { InputAppearances } from '../components/shared/types/appearance'
 
 function BoardForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState(initialValues)

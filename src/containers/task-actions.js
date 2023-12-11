@@ -4,8 +4,8 @@ import { useAppData } from '../context/app-data'
 import useLocalStorage, { getUserBoards } from '../hooks/use-storage'
 import DeleteAlertDialog from './delete-alert-dialog'
 import Modal, { ModalHeading } from './dialog-modal'
-import TaskForm from '../components/task-form'
-import TaskDetails from '../components/task-details'
+import TaskForm from './task-form'
+import TaskDetails from './task-details'
 import { TASK_SCHEMA } from '../utils/constants'
 
 function CreateTaskModal() {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import CheckboxInput from './checkbox'
-import SelectInput from './selectInput'
+import CheckboxInput from '../components/checkbox'
+import SelectInput from '../components/selectInput'
 
 export function getCompletedSubtasks(subtasks) {
   if (!Array.isArray(subtasks)) return 0

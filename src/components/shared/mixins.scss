@@ -3,14 +3,19 @@
 
 $radius: 4px;
 
+@mixin input-disabled {
+    opacity: 0.5;
+}
+
 @mixin input-standard {
     border-radius: $radius;
     padding-block: 0.75rem;
     padding-inline: 0.9rem;
     border: 1px solid v.$color-lines-medium;
     background-color: transparent;
+    width: 100%;
 
-    &:hover {
+    &:not(:disabled):hover {
         border: 1px solid v.$color-main-purple;
         cursor: pointer;
     }
@@ -37,7 +42,11 @@ $radius: 4px;
     margin-block-end: 0.5rem;
 
     [data-theme='dark'] & {
-      color: v.$color-white;
+        color: v.$color-white;
+    }
+
+    &.--disabled {
+        @include input-disabled;
     }
 }
 

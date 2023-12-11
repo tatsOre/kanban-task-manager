@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useAppData } from '../context/app-data'
-import { InputAppearances } from './shared/types/appearance'
-import { PrimaryButton, SecondaryButton, StandardButton } from './button/index'
-import SelectInput from './selectInput'
-import Textarea from './textarea'
-import TextInput from './textInput'
+import { InputAppearances } from '../components/shared/types/appearance'
+import { PrimaryButton, SecondaryButton, StandardButton } from '../components/button/index'
+import SelectInput from '../components/selectInput'
+import Textarea from '../components/textarea'
+import TextInput from '../components/textInput'
 
 function TaskForm({ initialValues, edit, onSubmit }) {
   const [values, setValues] = useState({ ...initialValues })
@@ -111,8 +111,6 @@ function TaskForm({ initialValues, edit, onSubmit }) {
       />
 
       <Textarea
-        appearance={errors.description ? InputAppearances.Error : undefined}
-        className="textarea-group"
         id="task-description"
         inputLabel="Description"
         name="description"
